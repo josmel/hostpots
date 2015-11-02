@@ -1,0 +1,19 @@
+@extends('admin._layouts.layout_remenber')
+
+@section('content')
+
+#wrapper.container-page
+    h2 Change your Password
+    | {!! Form::model($data, ['files'=>'true','method'=>'post', 'data-parsley-validate'=>'data-parsley-validate', 'url'=>'/remenber']) !!}
+    .form-upload
+        | {!! Form::hidden('token',  $data->tokenremenber) !!}
+        .form-group
+            | {!! Form::password('password', ['placeholder'=>'Password', 'name'=>'password', 'class' => 'form-control floating-label', 'id'=>'password'])!!}
+        .form-group
+            | {!! Form::password('repassword', ['placeholder'=>'Confirm Password', 'name'=>'repassword', 'class' => 'form-control floating-label', 'data-parsley-equalto'=>'#password'])!!}
+        .form-group
+            button.btn.btn-primary(type="submit") Enviar
+        | {!! Form::close() !!}
+@stop
+
+

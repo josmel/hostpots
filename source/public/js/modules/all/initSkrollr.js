@@ -1,0 +1,1 @@
+(function(){require(["libSkrollr"],function(i){var n,t;t=$(window).width(),t>550&&(n=i.init()),$(window).on("resize",function(){t=$(window).width(),n=t>550?i.init():i.init().destroy()})})}).call(this);

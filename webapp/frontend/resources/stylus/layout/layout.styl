@@ -1,0 +1,176 @@
+body
+	margin 0px
+	padding 0px
+	font-size 11px
+	font-family $RoundedBook
+aside
+	width 220px	
+	height 95vh
+	position fixed
+	em(13px)
+	a
+		color #899da1
+	i
+		font-size 24px
+		border-radius 50% 50%
+		background #cdd7e6
+		padding 5px 0px
+		margin-right 5px
+	.bg_icon
+		width 38px
+		height 38px
+		background #cdd7e6
+		position relative
+		float left
+		border-radius 38px
+		top -10px
+		left -5px
+	.i-servicio
+		padding 6px 6px 8px 6px
+	.i-person
+		padding 6px 7px 8px 6px
+	.i-activos
+		padding 4px 3px 6px 8px
+		font-size 28px
+	.i-completados
+		padding 6px 2px 8px 2px
+	.i-analytics
+		padding 6px 2px 8px 0px
+	.i-soporte
+		padding 6px 4px 8px 3px
+	.nav		
+		ul
+			li
+				padding 22px 0px 22px 20px
+				border-bottom 1px solid #d3dbe6
+				&:hover
+					background #48c0f7
+					color white
+					a
+						color white
+					i
+						background #48c0f7
+			.activo
+				background #48c0f7
+				color white
+				a
+					color white
+				i
+					background #48c0f7						
+			li:first-child
+				padding 7px 22px
+				text-indent -999px			
+.operacion_pasos
+	text-align center	
+	margin-top 50px
+	margin-bottom 30px				
+.btn
+	background #48c0f7
+	em(18px)
+	font-family $dinPro
+	padding 13px 25px
+	border-radius 5px 5px
+.btn-verde
+	background #22b573	
+.btn_regresar
+	background #b3b3b3
+	margin-right 10px	
+.disabled
+	cursor not-allowed
+	opacity 0.65
+	filter unquote("alpha(opacity=65)")
+	box-shadow none
+.none
+	display none !important
+.fondo_celeste
+	td
+		background $celeste
+.fondo_azul
+	td
+		background $azul
+.fondo_verde
+	td
+		background $verde2
+.fondo_verde_claro
+	td
+		background $verde1
+.fondo_gris
+	td
+		background $gris
+.content_analytic
+	text-align center
+	color #999999
+	em(13px)
+	position relative
+	top 200px
+.box_helper 
+	background-color rgba(72, 192, 247, 0.78)
+	color white
+	padding 10px 10px
+	width 90%
+	position relative
+	margin-top 10px
+	span
+		position absolute
+		right 6px
+		top 2px
+		color white !important
+		cursor pointer				
+.google-map:not( .is-loaded )
+{
+	background-color: #ddd !important;
+	-webkit-animation: fade-in-out 1s linear infinite;
+	animation: fade-in-out 1s linear infinite;
+}
+@-webkit-keyframes fade-in-out
+{
+	from	{ opacity: 1; }
+	50%		{ opacity: 0; }
+	to		{ opacity: 1; }
+}
+@keyframes fade-in-out
+{
+	from	{ opacity: 1; }
+	50%		{ opacity: 0; }
+	to		{ opacity: 1; }
+}
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+  animation-duration: 2s;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInLeft {
+  animation-name: slideInLeft;
+}
+@keyframes slideInRight {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInRight {
+  animation-name: slideInRight;
+}

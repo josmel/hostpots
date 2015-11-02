@@ -1,0 +1,36 @@
+aside.l-nav
+	nav.nav
+		ul
+			li
+				i.icon.icon-perfil_off.i-person
+				span {{Auth::customer()->user()->name_customer}}		
+			li(class!="{{ Request::is('admclient/solicitar') ? 'activo' : '' }}")
+				a(href!="{{ URL::asset('admclient/solicitar') }}")
+					.bg_icon
+						i.icon.icon-solicitar_servicio_off.i-servicio
+					span Solicitar servicio
+			li(class!="{{ Request::is('admclient/activos') ? 'activo' : '' }}")
+				a(href!="{{ action('Client\\RequestController@getActivos') }}")
+					.bg_icon
+						i.icon.icon-servicios_activos_off.i-activos
+					span Servicios activos
+			li(class!="{{ Request::is('admclient/completados') ? 'activo' : '' }}")
+				a(href!="{{ action('Client\\RequestController@getCompletados') }}")
+					.bg_icon
+						i.icon.icon-servicios_completados_off.i-completados
+					span Servicios completados
+			li(class!="{{ Request::is('admclient/perfil') ? 'activo' : '' }}")
+				a(href!="{{ URL::asset('admclient/perfil') }}")
+					.bg_icon
+						i.icon.icon-perfil_off.i-person
+					span Perfil
+			li(class!="{{ Request::is('admclient/analytics') ? 'activo' : '' }}")
+				a(href!="{{ URL::asset('admclient/analytics') }}")
+					.bg_icon
+						i.icon.icon-analytics_off.i-analytics
+					span Analytics
+			li(class!="{{ Request::is('admclient/soporte') ? 'activo' : '' }}")
+				a(href!="{{ URL::asset('admclient/soporte') }}")
+					.bg_icon
+						i.icon.icon-soporte_off.i-soporte
+					span Soporte

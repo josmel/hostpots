@@ -1,0 +1,46 @@
+//- contact
+include ../../mixins/mixins.jade
++extends('home._layouts.layout')
++section('content')
+	#section-1__contact
+		#map
+		section
+			form(data-parsley-validate)
+				fieldset Contáctanos
+				.contact-details
+					ul
+						li
+							span
+								i.icon.icon-email
+							| hola@cligo.pe
+						li
+							span
+								i.icon.icon-pin
+							| Ca. Monte Carmelo 310 of. 101, Surco, Lima – Perú
+						li
+							span
+								i.icon.icon-phone
+							| 981 695 515 / 945 838 725
+					//- p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quae, inventore, laudantium tempore voluptatem laborum modi perferendis accusamus ipsa asperiores dicta et deleniti explicabo architecto sint repellat voluptates neque eos.
+				.form-control
+					.form-input.form-input--group
+						input(type="text", placeholder="(*) Nombres y apellidos", data-parsley-maxlength="30")
+						div
+							input(type="text", placeholder="(*) Email de contacto", data-parsley-type="email", required)
+						input(type="text", placeholder="Teléfono de contacto", data-parsley-type="number")
+				.form-control
+					.form-input
+						textarea(placeholder="(*) ¿Cuál es tu consulta?", data-parsley-maxlength="200", required)
+				.form-control
+					label (*) campo obligatorio	
+				.form-control.text-center
+					input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")
+	
+			
++section('alpha')
+	script.
+		window.alpha = {
+			module : 'cligo',
+			controller : 'contact',
+			action: 'index'
+		}

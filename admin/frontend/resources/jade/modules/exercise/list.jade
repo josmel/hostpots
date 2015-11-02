@@ -1,0 +1,52 @@
+@extends('admin._layouts.layout')
+@section('content')
+#wrapper.container-page
+    h2 Exercises
+    a(href="/admpanel/exercise", class="btn btn-success") New
+    section
+        table(id="categoryTable", class="tables table-striped", data-url="/admpanel/exercise-data",data-nofilter="9" ,data-col="name,description,tbasic,tintermediate,tadvanced,image,video,videofemale,action")
+            thead
+                tr(class="info")
+                    td Name
+                    td Description
+                    td Time Basic
+                    td Time Intermediate
+                    td Time Advanced
+                    td Image
+                    td Video Male
+                    td Video Female
+                    td(class="action")
+    //- form(action="#")
+    //- 	paper-input(label="Some label" pattern="[0-9]*" error="Input required")
+    //- 	paper-input-container(pattern="[0-9]*" error="Input required" auto-validate)
+    //- 		label Some label
+    //- 		input(is="iron-input")
+    //- 	paper-button(type="submit") Enviar
+    //- a(href="javascript:;" class="btn btn-sup btn-material-pink btn-raised") Buton
+script(type="text/template", id="tplEdit", data-initial='/dummies/edituser.json')
+    .modal-ctn
+        form(action="#", data-parsley-validate, data-url='/dummies/edit.json', data-method="POST")#editForm
+            input(type="hidden" value!="<%= id %>" name="id")
+            header
+                h1 Edit Record
+            .modal-ctn--form
+                .form-group
+                    //- label(for="name") Nombre
+                    input(placeholder="Nombre", name="name", value!="<%= name %>", data-parsley-required="true").form-control.floating-label
+                .modal-ctn--actions
+                    button.btn.btn-primary(type="submit") Send
+script(type="text/template", id="tplDelete")
+    .modal-ctn
+        form(action="#", data-parsley-validate, data-url='delete-exercise', data-method="POST")#deleteForm
+            input(type="hidden" value!="<%= id %>" name="id")
+            header
+                h1 Confirmation
+            .modal-ctn--form
+                .form-group
+                    h4 <%= msg %>
+                .modal-ctn--actions
+                    button.btn.btn-primary(type="submit") Delete
+                    a(href="javascript:;").btn.btn-danger.btn-danger--modal Cancel
+@stop
+
+

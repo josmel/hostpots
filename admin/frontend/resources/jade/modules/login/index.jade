@@ -1,0 +1,40 @@
+ @extends('admin._layouts.layout_login')
+@section('content')
+#wrapper.container-page
+	.container-fluid
+		.row
+			.col-md-5.col-md-offset-2
+				.panel.panel-default
+					.panel-heading Login
+					.panel-body
+						@if (count($errors) > 0)
+						.alert.alert-danger
+							strong Whoops!
+								|Hubo algunos problemas con su entrada. 
+								br 
+								br
+							ul
+								|@foreach ($errors->all() as $error)
+								li {{ $error }}
+								|@endforeach
+						@endif
+
+						form(class="form-horizontal",role="form",method="POST",action="{{ url('/admpanel/auth/login') }}")
+							input(type="hidden",name="_token",value="{{ csrf_token() }}")
+							.form-group
+								label.col-md-4.control-label E-Mail Address
+								.col-md-6
+									input(type="email",class="form-control",name="email",value="{{ old('email') }}")
+
+							.form-group
+								label.col-md-4.control-label Password
+								.col-md-6
+									input(type="password",class="form-control",name="password")
+
+							.form-group
+								.col-md-6.col-md-offset-4
+
+							.form-group
+								.col-md-6.col-md-offset-4
+									button(type="submit",class="btn btn-primary") Login
+@endsection

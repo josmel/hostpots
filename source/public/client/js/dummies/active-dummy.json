@@ -1,0 +1,71 @@
+{
+	"state": "1",
+	"msg":"ok",
+	"data":[
+		{
+			"id":"1",
+			"codigo":"21323",
+			"tipo":"INM-H",
+			"destino":"Calle Mozart 234, San Borja",
+			"contacto":"Carlos Eduardo Angulo",
+			"estadoDesc":"Enviado",
+			"timeStamp":"14:00",
+			"date":"10/12/12",
+			"reciboUrl":"/admclient/detalle-activos",
+			"tarifa":"S/. 12.00",
+			"estado":"1"
+		},
+		{
+			"id":"2",
+			"codigo":"21323",
+			"tipo":"INM-H",
+			"destino":"Calle Mozart 234, San Borja",
+			"contacto":"Carlos Eduardo Angulo",
+			"estadoDesc":"Enviado",
+			"timeStamp":"14:00",
+			"date":"10/12/12",
+			"reciboUrl":"/admclient/detalle-activos",
+			"tarifa":"S/. 12.00",
+			"estado":"1"
+		},
+		{
+			"id":"3",
+			"codigo":"21323",
+			"tipo":"INM-H111",
+			"destino":"Calle Mozart 234, San Borja",
+			"contacto":"Carlos Eduardo Angulo",
+			"estadoDesc":"Enviado",
+			"timeStamp":"14:00",
+			"date":"10/12/12",
+			"reciboUrl":"/admclient/detalle-activos",
+			"tarifa":"S/. 12.00",
+			"estado":"2"
+		},
+		{
+			"id":"4",
+			"codigo":"21323",
+			"tipo":"INM-H",
+			"destino":"Calle Mozart 234, San Borja",
+			"contacto":"Carlos Eduardo Angulo",
+			"estadoDesc":"Enviado",
+			"timeStamp":"14:00",
+			"date":"10/12/12",
+			"reciboUrl":"/admclient/detalle-activos",
+			"tarifa":"S/. 12.00",
+			"estado":"2"
+		},
+		{
+			"id":"5",
+			"codigo":"21323",
+			"tipo":"INM-H",
+			"destino":"Calle Mozart 234, San Borja",
+			"contacto":"Carlos Eduardo Angulo",
+			"estadoDesc":"Enviado",
+			"timeStamp":"14:00",
+			"date":"10/12/12",
+			"reciboUrl":"/admclient/detalle-activos",
+			"tarifa":"S/. 12.00",
+			"estado":"3"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+
+<aside class="l-nav">
+  <nav class="nav">
+    <ul>
+      <li><i class="icon icon-perfil_off i-person"></i><span>{{Auth::customer()->user()->name_customer}}		</span></li>
+      <li class="{{ Request::is('admclient/solicitar') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/solicitar') }}"><i class="icon icon-solicitar_servicio_off i-servicio"></i><span>Solicitar servicio</span></a></li>
+      <li class="{{ Request::is('admclient/activos') ? 'activo' : '' }}"><a href="{{ action('Client\RequestController@getActivos') }}"><i class="icon icon-servicios_activos_off i-activos"></i><span>Servicios activos</span></a></li>
+      <li class="{{ Request::is('admclient/completados') ? 'activo' : '' }}"><a href="{{ action('Client\RequestController@getCompletados') }}"><i class="icon icon-servicios_completados_off"></i><span>Servicios completados</span></a></li>
+      <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}"><i class="icon icon-perfil_off i-person"></i><span>Perfil</span></a></li>
+      <li class="{{ Request::is('admclient/analytics') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/analytics') }}"><i class="icon icon-analytics_off"></i><span>Analytics</span></a></li>
+      <li class="{{ Request::is('admclient/soporte') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/soporte') }}"><i class="icon icon-soporte_off"></i><span>Soporte</span></a></li>
+    </ul>
+  </nav>
+</aside>

@@ -1,0 +1,31 @@
+include ../config/page.jade
+include ../mixins/mixins.jade
+doctype html
++htmlIe()
+html(lang="#{page.lang}")
+    include _head.jade
+    link(href="#{page.static}js/libs/bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" type="text/css")
+    link(href="#{page.static}js/libs/bootstrap-material-design/dist/css/material-fullpalette.min.css" media="all" rel="stylesheet" type="text/css")
+    link(href="#{page.static}js/libs/bootstrap-material-design/dist/css/material.min.css" media="all" rel="stylesheet" type="text/css")
+    link(href="#{page.static}js/libs/bootstrap-material-design/dist/css/ripples.min.css" media="all" rel="stylesheet" type="text/css")
+    link(href="#{page.static}js/libs/bootstrap-material-design/dist/css/roboto.min.css" media="all" rel="stylesheet" type="text/css")
+    link(href='#{page.static}css/all.css', media='all', rel='stylesheet', type='text/css')
+    script(src="#{page.static}js/libs/jquery/dist/jquery.js")
+    body
+        include _header.jade
+        //- -- -- -- -- -- -- -- -- -- -- fin del header -- -- -- -- --  -- -- -- -- --
+        .container-wrapper.row
+            @yield('content')
+        include _footer_scripts.jade
+        block javascript
+            //- script(src="../js/libs/datatables/media/js/jquery.dataTables.js")
+            script(data-main="#{page.static}js/main" src="#{page.static}js/libs/requirejs/require.js")
+            include _footer_scripts
+
+    //- -- -- -- -- -- -- -- -- -- -- inicio del footer -- -- -- -- -- -- -- -- -- --
+        //- include _footer.jade
+
+        block javascript
+            //- script(src="../js/libs/datatables/media/js/jquery.dataTables.js")
+            script(data-main="#{page.static}js/main" src="#{page.static}js/libs/requirejs/require.js")
+            include _footer_scripts

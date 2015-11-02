@@ -1,0 +1,21 @@
+include ../config/page.jade
+include ../mixins/mixins.jade
+doctype html
++htmlIe()
+html(lang="#{page.lang}")
+	include _head.jade
+		block css
+	body.l-site
+		
+
+		//- -- -- -- -- -- -- -- -- -- -- fin del header -- -- -- -- --  -- -- -- -- --
+		
+		include _sidebar.jade
+		.l-page
+			include _header.jade
+			block content
+
+		//- -- -- -- -- -- -- -- -- -- -- inicio del footer -- -- -- -- -- -- -- -- -- --
+		//- include _footer.jade
+		//- include _footer_scripts.jade
+		block javascript

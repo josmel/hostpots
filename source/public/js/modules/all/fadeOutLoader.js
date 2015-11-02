@@ -1,0 +1,1 @@
+(function(){define(["modules/all/domReady"],function(o){var d,e,a,n;console.log("fade1..."),n={body:"body, html",loader:"#loader"},e={},d=function(){e.body=$(n.body),e.loader=$(n.loader)},d(),a={fadeLoader:function(){e.loader.children("div").animate({top:"150%"},800,function(){e.loader.fadeOut()})}},o(function(){return a.fadeLoader()})})}).call(this);

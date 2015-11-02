@@ -1,0 +1,207 @@
+@require '../../utilities/config.styl'
+@require '../../utilities/_mixins/*'
+
+@media screen and (max-width: $wrapperWidth)
+	.user
+		display none
+	.credito
+		position absolute
+		width 100%
+		z-index -1	
+
+@media screen and (max-width: $iPad)
+	.pasos
+		ul
+			padding-left 10px
+	.container
+		padding-left 15px
+	#paso2,#paso3
+		.container
+			.map
+				width 46%
+	.container_perfl
+		.personas_perfil
+			.table-responsive-vertical > .table > tbody > tr
+				margin-bottom 0
+			.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th
+				background-color white
+				color #828b8e
+				a
+					color #828b8e
+			.agregar_persona
+				position relative
+				width 100%
+				label
+					width 25%
+					margin-bottom 10px
+				label:first-child
+					width 30%
+				label:first-child
+					width 30%
+	.detalle_wrapper
+		padding-left 20px
+		.detalle_texto
+			width 48%
+		.detalle_mapa
+			width 47%			
+@media screen and (max-width: 603px)
+	.pasos
+		ul
+			li
+				margin-right 10px
+	#paso1
+		.container
+			.opcion1,.opcion2
+				input
+					margin-left 20px
+				.txt_servicio
+					padding-right 10px
+			.opcion2
+				.txt_servicio
+					margin-left 48px
+	.filtros
+		ul
+			padding-top 10px
+			padding-bottom 5px
+			li
+				width 45%
+				margin-bottom 20px
+				select
+					width 100%
+				button
+					width 100%
+					position relative
+					left -4px				
+			li:first-child
+				width 100%																		
+	.detalle_wrapper
+		.detalle_texto,.detalle_mapa
+			width 95%
+@media screen and (max-width: $iPhone)
+	.nombre_paso
+		display block
+	.txt_pasos,.off
+		display none
+	.pasos
+		ul
+			text-align center
+	.btn
+		em(14px)
+	.operacion_pasos
+		margin-top 30px
+		margin-bottom 40px
+	#paso1
+		.container
+			padding-top 30px
+			padding-bottom 35px
+			.opcion1,.opcion2
+				width 100%
+				border-right none
+				input
+					margin-left 52px
+	#paso2 ,#paso3
+		.container
+			padding-top 40px
+			form
+				width 95%
+				margin-bottom 20px
+				margin-right 0px
+				.form-input
+					width 49%
+					margin-bottom 5px
+				.form-email
+					width 100%	
+			.map
+				width 95%
+				margin-bottom 10px
+	#paso4
+		.container
+			.columna1,.columna2
+				width 95%
+				margin-bottom 15px
+	#paso5
+		.container
+			ul
+				li
+					label
+						width 100%
+	#paso6
+		.container
+			p
+				em(16px)
+	.filtros
+		ul
+			padding-left 20px
+			li:first-child
+				width 90%
+			li
+				margin-right 10px
+	.table-responsive-vertical
+		.table
+			tbody
+				tr
+					td
+						div
+							margin-left 30%							
+	.detalle_wrapper
+		.detalle_texto
+			ul
+				li:first-child
+					text-align center
+					label
+						text-align center
+				li
+					label
+						width 100%
+						text-align left															
+	.container_perfl
+		padding-left 15px
+		.texto_perfil ,.map_perfil
+			width 95%
+			margin-right 0
+			ul
+				.input_form
+					width 100%
+					button
+						margin-top 0px
+						margin-left 0px
+		.map_perfil
+			margin-bottom 20px	
+			padding-bottom 20px
+		.personas_perfil	
+			.agregar_persona
+				padding 15px 0px
+				width 94%
+				label,.label_correo
+					width 100%
+				label:first-child
+					width 100%
+			.table-responsive-vertical
+				.table
+					tbody
+						tr
+							td
+								div
+									padding-top 5px
+							td:last-child
+								div
+									text-align right
+									em(15px)
+									padding-top 0px											
+	.credito
+		width 27%
+		position absolute
+		right 47px
+		top -9px					
+											
+/*	
+@media screen and (max-width: $wrapperMaxWidth)
+
+@media (min-width: $iPad) and (max-width: $wrapperMaxWidth)
+
+@media (min-width: $iPhone) and (max-width: $iPad)
+							
+@media screen and (max-width: $iPhone)	
+	
+@media (min-width: $ipad) and (max-width: $desktop)
+*/

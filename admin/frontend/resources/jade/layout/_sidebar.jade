@@ -1,0 +1,18 @@
+include ../config/page.jade
+include ../mixins/mixins.jade
+|@if(!Auth::admin()->guest())
+ul.container-sidebar
+    li(class!="@if($controller=='Home') {{'container-sidebar__option--active'}} @endif")
+        a(href="{{ action('Admin\\HomeController@routineList') }}") Routine
+    li(class!="@if($controller=='Exercise') {{'container-sidebar__option--active'}} @endif")
+        a(href="{{ action('Admin\\ExerciseController@exerciseList') }}") Exercise
+    li(class!="@if($controller=='User') {{'container-sidebar__option--active'}} @endif")
+        a(href="{{ action('Admin\\UserController@userList') }}") User
+    li(class!="@if($controller=='Greeting') {{'container-sidebar__option--active'}} @endif")
+        a(href="{{ action('Admin\\GreetingController@greetingList') }}") Greeting
+    li(class!="@if($controller=='Profile') {{'container-sidebar__option--active'}} @endif")
+        a(href="{{ action('Admin\\ProfileController@getIndex') }}") Profile
+    li
+        a(href="{{ url('admpanel/auth/logout') }}") Logout
+|@endif
+|@yield('content')

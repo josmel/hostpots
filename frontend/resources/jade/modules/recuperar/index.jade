@@ -1,0 +1,25 @@
+include ../../config/page.jade
+include ../../mixins/mixins.jade
++extends('home._layouts.iframe')
++section('css')
+	link(href='#{page.static}css/all.css', media='all', rel='stylesheet', type='text/css')
++section('content')
+	.text-center.main_recuperar
+		form(data-parsley-validate, data-mcs-theme="dark").form-ctn-joinus.mCustomScrollbar.form-recuperar
+			h2 Recuperar contraseña
+			.form-control
+				.form-input
+					input(type="text", placeholder="Email", data-parsley-type="email", required)
+			.form-control
+					input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")
+			//.form-control
+			//		a(href="/login") Regresar		
+	+section('alpha')
+		script.
+			window.alpha = {
+				module : 'cligo',
+				controller : 'index',
+				action: 'registrate'
+			}
+	script(src="#{page.static}js/vendor/jquery/dist/jquery.min.js", type="text/javascript")
+	script(data-main="#{page.static}js/main", src="#{page.static}js/vendor/requirejs/require.js")

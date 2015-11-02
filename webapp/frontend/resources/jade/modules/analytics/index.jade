@@ -1,0 +1,26 @@
+extends ../../layout/layout.jade
+//- index
+block css
+	link(href='#{page.app}/css/all.css', media='all', rel='stylesheet', type='text/css')
+block content
+	#wrapper
+		br
+		br
+		br
+		br
+		.content_analytic
+			img(src!="{{asset('client/img/cargando.png')}}", alt="")
+			p 
+				| Muy pronto le 
+				br
+				| brindaremos este servicio	
+
+block javascript
+	script.
+		window.alpha = {
+			module : 'index',
+			controller : 'index',
+			action: 'index'
+		};
+	script(src="#{page.app}/js/libs/jquery/dist/jquery.min.js", type="text/javascript")
+	script(data-main="#{page.app}/js/main" src="#{page.app}/js/libs/requirejs/require.js")

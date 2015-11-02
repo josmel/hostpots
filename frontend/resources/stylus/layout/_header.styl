@@ -1,0 +1,139 @@
+
+.hide-responsive
+		display none !important
+header
+	width 100%
+	padding 15px 0
+	z-index 100
+	background-color white
+	border-bottom 0px solid $gray-f2
+	box-shadow 0 0 1px #d1d1d1
+	position fixed
+	left 0
+	top 0
+	height 84px
+	section
+		max-width none
+		padding 0 1.8% 0 2%
+	h1
+		position absolute
+		top -5px
+		left 2%
+		font-family $futuraBook
+		em(20px)
+		> a
+			display block
+			margin-top -1px
+			img
+				height 65px
+	nav
+		position absolute
+		top -15px
+		right 260px
+		font-size 14px
+		> ul
+			height 84px
+			> li
+				display inline-block
+				vertical-align top
+				text-align center
+				margin 0 0 0 -4px
+				height 84px
+				transition(all .3s linear 0s)
+				&:hover
+					background #23cefd
+					a
+						color #fff
+				&.active
+					background #E8E8E8
+					.flecha-up 
+						opacity 0
+					a
+						color #fff
+						font-weight 900
+				> a
+					display block
+					em(12px)
+					padding 0 15px
+					height 84px
+					line-height 82px
+					transition(all .3s linear 0s)
+				> span
+					border-left 1px solid #999
+					height 100%
+					width 1px
+					display block
+	.buttons
+		text-align right
+		> a
+			display inline-block
+			padding 8px 24px
+			border-radius 5px
+			border 1px solid $gray-99
+			em(14px)
+			margin 10px 0 0 10px
+			transition(all .3s linear 0s)
+			&:hover
+				color white
+				background $skyblue
+				border 1px solid $skyblue
+.flecha-up 
+	width 0px
+	opacity 0
+	height 0px
+	border-left 5px solid transparent /* izquierda flecha */
+	border-right 5px solid transparent /* derecha flecha */
+	border-bottom 7px solid $blue /* base flecha y color*/
+	font-size 0px
+	line-height 0px
+	position relative
+	left 45%
+	top -11px
+.modal-login
+	background-image: url('../img/background-skyblue.jpg');
+	background-size: cover;
+	background-position: top center;
+	background-repeat: repeat-x;
+	form
+		overflow: auto;
+		width: 468px;
+		height: 353px !important;
+		margin: 0 auto;
+	.form_registrate
+		height: 753px !important;
+	.form-comunidad
+		height: 850px !important;
+	.alert
+		color white
+		em(15px)
+#nav_linea
+	position fixed
+	right 20px
+	top 40%
+	z-index 99
+	font-size 15px
+	li
+		margin-bottom 10px
+		position relative
+		a
+			padding 0px 8px
+			background rgba(19, 19, 19, 0.65)
+			border-radius 50% 50%
+		p
+			display none
+			color white
+			position absolute
+			left -118px
+			top 0px
+			font-size 13px
+			text-align right
+			width 110px
+		&:hover
+			p
+				display block	
+.active_nav
+	a
+		background-color #23cefd !important
+.change_color
+	p
+		color rgba(0, 0, 0, 0.57)	!important				

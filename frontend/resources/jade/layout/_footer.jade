@@ -1,0 +1,21 @@
+include ../config/page.jade
+include ../mixins/mixins.jade
+
+footer
+	section
+		a(href="{{ URL::asset('/') }}", title="Cligo").row
+			img(src="#{page.static}img/cligo-footer.png", atl="Cligo")
+		nav
+			ul
+				li
+					a(href!="{{ URL::asset('nosotros') }}") Nosotros
+				li
+					a(href!="{{ URL::asset('trabaja') }}") Trabaja con nosotros
+				li
+					a(href!="{{ URL::asset('terminos') }}") Términos y Condiciones
+				li
+					a(href!="{{ URL::asset('comunidad') }}").footer_unete Únete a la comunidad de repartidores
+				li
+					a(href!="{{ URL::asset('preguntas-frecuentes') }}") Preguntas frecuentes
+				li
+					a(href!="{{ URL::asset('contactanos') }}") Contáctanos

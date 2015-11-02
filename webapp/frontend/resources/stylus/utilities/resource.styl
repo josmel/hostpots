@@ -1,0 +1,58 @@
+@font-face
+	fontFace('DINPro-Bold')
+@font-face
+	fontFace('GothamRounded-Book')
+@font-face
+	fontFace('GothamRounded-BookItalic')
+@font-face
+	fontFace('GothamRounded-Light')
+@font-face
+	fontFace('GothamRounded-LightItalic')	
+@font-face
+	fontFace('GothamRounded-Medium')	
+@font-face
+	fontFace('GothamRounded-MediumItalic')
+@font-face {
+	font-family: "icons";
+	src: url('fonts/icons/icons.eot');
+	src: url('fonts/icons/icons.eot?#iefix') format('eot'),
+		url('fonts/icons/icons.woff') format('woff'),
+		url('fonts/icons/icons.ttf') format('truetype'),
+		url('fonts/icons/icons.svg#icons') format('svg');
+}	
+
+.row
+	*zoom 1
+	&:before,&:after
+		display table
+		content ""
+		line-height 0
+	&:after
+		clear both
+.loader-lock
+	width auto
+	body
+		overflow hidden !important
+.loader
+	background url($imgPath +"opacity.png")
+	height 100%
+	left 0
+	position absolute
+	top 0
+	width 100%
+	z-index 990
+	span
+		background url($imgPath +"loader.gif")
+		height 32px
+		left 50%
+		margin -16px 0 0 -16px
+		position absolute
+		top 50%
+		width 32px
+.ublock
+	background url($imgPath +"opacity.png")
+	height 100%
+	left 0
+	position absolute
+	top 0
+	width 100%		

@@ -1,0 +1,16 @@
+admin/frontend/automatization/node_modules/
+frontend/automatization/node_modules/
+webapp/frontend/automatization/node_modules/
+frontend/automatization/.sass-cache/
+source/vendor/
+/source/vendor/
+source/node_modules/
+
+.*.env
+!/source/.local.env
+.idea
+nbproject/
+/source/storage/framework/compiled.php
+
+/source/.env
+

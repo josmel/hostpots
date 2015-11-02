@@ -1,0 +1,14 @@
+{
+	"state": "1",
+	"msg":"ok",
+	"data":[
+		{
+			"id":"1",
+			"nombre":"Carlos Eduardo Angulo",
+			"celular":"989712992",
+			"telefono":"4265784",
+			"correo":"carlose@gmail.com",
+			"estado":"1"
+		}
+	]
+}

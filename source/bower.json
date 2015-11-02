@@ -1,0 +1,20 @@
+{
+  "name": "SOAT",
+  "version": "1.0.0",
+  "main": "readme.me",
+  "author": "@paulrrdiaz",
+  "license": "MIT",
+  "devDependencies": {
+    "jquery": "~1.11.3",
+    "html5shiv": "~3.7.2",
+    "selectivizr": "~1.0.2",
+    "fancybox": "~2.1.5",
+    "parsleyjs": "~2.0.7",
+    "requirejs": "~2.1.17",
+    "bootstrap": "~3.3.4",
+    "DataTables": "~1.10"
+  },
+  "dependencies": {
+    "bootstrap-fileinput": "~4.2.0"
+  }
+}

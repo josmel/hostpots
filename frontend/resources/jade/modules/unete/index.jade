@@ -1,0 +1,81 @@
+include ../../config/page.jade
+include ../../config/page.jade
+include ../../mixins/mixins.jade
++extends('home._layouts.iframe')
+	script(src='https://www.google.com/recaptcha/api.js')
++section('css')
+	link(href='#{page.static}css/all.css', media='all', rel='stylesheet', type='text/css')
++section('content')
+	.text-center.join_unete.main_unete
+
+		h2.responsive_titulo ¡Únete a la comunidad de repartidores!
+		|{!! Form::open(array('data-mcs-theme'=>'dark','class'=>'form-ctn-joinus mCustomScrollbar form_unete', 'role'=>'form','data-parsley-validate')) !!}
+		.form-control
+			.form-input.form-input--group
+				div.border-top 
+					{!! Form::text('name',old('name'),array('placeholder'=>'(*) Nombres y apellidos ','required')) !!}
+				//-div
+					//-{!! Form::text('lastname',old('lasname'),array('placeholder'=>'(*) Apellidos ','required')) !!}
+				div
+					{!! Form::text('phone',old('phone'),array('placeholder'=>'(*) Celular ','required')) !!}
+				div
+					{!! Form::text('email',old('email'),array('placeholder'=>'(*) Email ','required')) !!}
+		.form-control
+			.form-input.form-input--group
+				div.border-top
+					{!! Form::text('dni',old('dni'),array('placeholder'=>'(*) DNI ','required')) !!}
+				// -div
+					input(type="text", placeholder="(*) Dirección", data-parsley-maxlength="30", required)
+		//-.form-control
+			.form-select
+				select(required)
+					option(value="1") Lima
+					option(value="2") Callao
+		.form-control
+			//-h4 ¿Qué tipo de móvil tienes?
+			h4 ¿Qué tipo de vehículo tienes?
+			.form-select
+				select(name="vehicletype",required)
+					option(value="1") Bicicleta
+					option(value="2") Carro
+					option(value="3") Moto
+			//-.form-input
+				input(type="text", placeholder="(*) Disponibilidad de horarios", data-parsley-type="number", required)
+		//-.form-control
+			h4 ¿Qué tipo de vehículo tienes?
+			.form-radio
+				input(type="radio", name="moto", value="1", checked)
+				span Bicicleta
+				input(type="radio", name="moto", value="2")
+				span Carro
+				input(type="radio", name="moto", value="3")
+				span Moto
+		.form-control		
+			.form-checkbox
+				p.campo_obli (*) campo obligatorio	
+		br		
+		.form-control.check
+			.form-checkbox
+				input(type="checkbox", name="age", required, id="age")
+				label(for="age") Soy mayor de edad (+ 18 años)
+		input(type="hidden",name="_token",value!="{{ csrf_token() }}")
+		.form-control
+			.form-input.form-input--group.centrado
+				.g-recaptcha(data-sitekey="{{ env('RE_CAP_SITE') }}")
+		.form-control.check
+			.form-checkbox
+				input(type="checkbox", name="terms", required, id="terms")
+				label(for="terms") He leído los 
+					a(href="/terminos" target="_blank") términos y condiciones
+		.form-control
+				input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")
++section('alpha')
+	script.
+		window.alpha = {
+			module : 'cligo',
+			controller : 'comunity',
+			action: 'unete'
+		}
+script(src="#{page.static}js/vendor/jquery/dist/jquery.min.js", type="text/javascript")
+script(data-main="#{page.static}js/main", src="#{page.static}js/vendor/requirejs/require.js")
+script(src='https://www.google.com/recaptcha/api.js')

@@ -1,0 +1,51 @@
+include ../../config/page.jade
+include ../../mixins/mixins.jade
++extends('home._layouts.iframe')
++section('css')
+	link(href='#{page.static}css/all.css', media='all', rel='stylesheet', type='text/css')
++section('content')
+	.text-center.main_login
+		|@if(session()->has('messageSuccess'))
+		ul(role="alert").alert.alert-success.alert-dismissible
+			button(type="button",class="close",data-dismiss="alert",aria-label="Close")
+				span(aria-hidden="true") &times;
+			li {{session('messageSuccess')}}
+		|@endif
+		|@if (count($errors) > 0)
+		.alert.alert-danger
+			|Sus credenciales son incorrectas.
+			br
+			ul
+				|@foreach ($errors->all() as $error)
+				li{{ $error }}
+				|@endforeach
+			br			
+		|@endif
+
+		form(data-parsley-validate, data-mcs-theme="dark", method="post",action!="{{ url('/login') }}").form-ctn-joinus.mCustomScrollbar#form_login
+			input(type="hidden",name="_token",value!="{{ csrf_token() }}")
+			h2 Login
+			.form-control
+				.form-input
+					input(type="text", name="email",value="{{ old('email') }}", placeholder="Email", data-parsley-type="email", required)
+					span.block_required (*)
+				br
+				br
+				.form-input		
+					input(type="password", name="password", placeholder="Contraseña", data-parsley-maxlength="11", required)
+					span.block_required (*)
+			.form-control
+					input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")
+			p ¿Olvidaste tu contraseña? 
+				a.login_popup(data-fancybox-type="iframe", href!="{{ URL::asset('recuperar') }}") Click aquí			
+			p.cancel-login
+				a(href="/") Cancelar
+	+section('alpha')
+		script.
+			window.alpha = {
+				module : 'cligo',
+				controller : 'index',
+				action: 'registrate'
+			}
+	script(src="#{page.static}js/vendor/jquery/dist/jquery.min.js", type="text/javascript")
+	script(data-main="#{page.static}js/main", src="#{page.static}js/vendor/requirejs/require.js")

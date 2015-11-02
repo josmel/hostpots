@@ -1,0 +1,21 @@
+{
+  "name": "reflexionesreligiosas",
+  "version": "0.0.1",
+  "description": "Dependencies List for SOAT's admin",
+  "main": "gulpfile.js",
+  "author": "@paulrrdiaz",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-css-url-versioner": "^1.0.6",
+    "gulp-imagemin": "^2.1.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-stylus": "^2.0.1",
+    "gulp-uglify": "^1.1.0",
+    "gulp.spritesmith": "^2.4.0",
+    "laravel-elixir": "^1.0.3",
+    "laravel-elixir-jade": "^0.1.8",
+    "node-notifier": "^4.0.3",
+    "run-sequence": "^1.1.0"
+  }
+}

@@ -1,0 +1,39 @@
+//- comunity
+include ../../mixins/mixins.jade
++extends('home._layouts.layout')
++section('content')
+	#section-1__comunity.fullHeightCtn
+		.first-parallax.parallax-image(data-anchor-target='#section-2__comunity', data-bottom-top='transform: translate3d(0px, -20%, 0px);', data-top-bottom='transform: translate3d(0px, 50%, 0px);')
+		section
+			h2 Únete a la comunidad Cligo
+			h3 Incrementa tus ingresos con horarios flexibles
+			a.btn.btn--skyblue.btn--big.popup_unete(data-fancybox-type="iframe",href!="{{ URL::asset('unete') }}") ÚNETE HOY
+	#section-2__comunity
+		section
+			.items-comunity
+				ul
+					li
+						figure.float-left
+							img(src!="{{ asset('img/item-comunity-1.png') }}")
+						blockquote.float-right
+							h3 Trabaja cuando quieras
+							p ¡Trabaja con total libertad! Tú escoges el horario y los pedidos que quieras aceptar 
+					li
+						figure.float-right
+							img(src!="{{ asset('img/item-comunity-3.png') }}")							
+						blockquote.float-left
+							h3 Genera ingresos extras
+							p Gana la mayor parte de la tarifa del delivery y recibe tus ingresos semanalmente
+					li
+						figure.float-left
+							img(src!="{{ asset('img/item-comunity-2.png') }}")
+						blockquote.float-right
+							h3 ¿Cuáles son los requisitos?
+							p ¡Cualquier persona entusiasta con ganas de trabajar puede ser parte de la comunidad! Debes tener un vehículo propio (moto, carro o bici), tener un smartphone, tener +18 años y pasar por nuestra verificación de datos
++section('alpha')
+	script.
+		window.alpha = {
+			module : 'cligo',
+			controller : 'comunity',
+			action: 'index'
+		}

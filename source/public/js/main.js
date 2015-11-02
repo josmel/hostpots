@@ -1,0 +1,1 @@
+(function(){var o;o=window.alpha,window.flagIsLoad=!1,window.onload=function(){return window.flagIsLoad=!0},"undefined"==typeof o&&(o={}),function(){var n,a,l;l=o.module,a=o.controller,n=o.action,console.log("%c ==> module: "+l+" - controller: "+a+" - action: "+n,"background: #222; color: #bada55")}(),require(["schema"])}).call(this);

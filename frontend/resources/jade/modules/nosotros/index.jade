@@ -1,0 +1,60 @@
+//- steps
+include ../../mixins/mixins.jade
++extends('home._layouts.layout')
++section('content')
+	#section-1__us.section.fullHeightCtn
+		.first-parallax.parallax-image(data-anchor-target='#section-3__us', data-bottom-top='transform: translate3d(0px, -20%, 0px);', data-top-bottom='transform: translate3d(0px, 50%, 0px);')
+		section
+			h2 ¿Qué es Cligo?
+			h3 
+				| Estamos revolucionando la forma de hacer delivery...
+				br
+				| Volviéndolo accesible a todos los pequeños negocios de Perú y Latino América...
+				br
+				| Generando un impacto positivo en la sociedad.
+
+				
+	#section-3__us.fullHeightCtn
+		
+		section
+			h2 Contáctanos
+			form(data-parsley-validate)
+				.form-control
+					.form-input
+						input(type="text", placeholder="(*) Nombres y apellidos", required)
+				.form-control
+					.form-input.form-input--group
+						input(type="text", placeholder="Nombre de la empresa", data-parsley-maxlength="30")
+						div
+							input(type="text", placeholder="(*)Email de contacto", data-parsley-type="email", required)
+						input(type="text", placeholder="Teléfono de contacto", data-parsley-type="number")
+				.form-control
+					.form-input
+						div
+							textarea(placeholder="(*) ¿Cuál es tu consulta?", data-parsley-maxlength="200", required)
+				.form-control
+					label.campo (*) campo obligatorio
+				.form-control
+					input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")
+	
+			.contact-details
+				ul
+					li
+						span
+							i.icon.icon-email
+						p hola@cligo.pe
+					li.doble-line
+						span
+							i.icon.icon-pin
+						p Ca. Monte Carmelo 310 of. 101, Surco, Lima – Perú
+					li
+						span
+							i.icon.icon-phone
+						p 981 695 515 / 945 838 725
++section('alpha')
+	script.
+		window.alpha = {
+			module : 'cligo',
+			controller : 'us',
+			action: 'index'
+		}

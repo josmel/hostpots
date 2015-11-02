@@ -1,0 +1,1 @@
+(function(){require(["libMalihu"],function(){$(".mCustomScrollbar").mCustomScrollbar({autoHideScrollbar:!0,scrollInertia:0,mouseWheel:!0})})}).call(this);

@@ -1,0 +1,195 @@
+include ../../mixins/mixins.jade
++extends('home._layouts.layout')
++section('content')
+	ul#nav_linea
+		li#nav_1.active_nav
+			a(href="#" ,data-section ="#section0")
+			p Home
+		li#nav_2
+			a(href="#", data-section="#section1")
+			p ¿Qué ofrecemos?
+		li#nav_6
+			a(href="#" data-section="#section2")
+			p Conócenos		
+		li#nav_3
+			a(href="#" data-section="#section3")
+			p ¿Cómo funciona?
+		li#nav_4
+			a(href="#" data-section="#section4")
+			p Testimonios
+		li#nav_5
+			a(href="#"  data-section="#section5")
+			p Regístrate				
+	#skrollr-body
+	#section0.section.fullHeightCtn
+		#foo.first-parallax.parallax-image(data-anchor-target='#section0', data-bottom-top='transform: translate3d(0px, -50%, 0px);', data-top-bottom='transform: translate3d(0px, 50%, 0px);')
+		section
+			//img(src="img/logo_section.png", alt="")
+			h2 Llegar a la puerta de tus clientes nunca fue tan fácil
+			h3 Ofrece delivery hoy y haz crecer tu negocio 
+			a.btn.btn-skyblue.btn--big.popup(data-fancybox-type="iframe",href!="{{ URL::asset('registrate') }}") ÚNETE
+		a.scroll_section1(href="#")
+			img(src!="{{asset('img/arrow_dow.png')}}", alt="")
+	#section1.section.fullHeightCtn
+		section
+			h2 ¿ Qué ofrecemos ?
+			.como-funciona
+				ul.row
+					li
+						strong Haz crecer tu negocio
+						figure
+							img(src!="{{ asset('img/ofrecemos1.svg') }}")
+						.ctn-text							
+							p 
+								strong Incrementa tus ventas 
+								| y llega a tus clientes ofreciendo delivery
+							strong .
+							p 
+								| Envía tus productos 
+								strong en cualquier momento
+							strong .
+							p 
+								| Olvídate de servicios costosos, Cligo es 
+								strong accesible para todos
+						br
+						br
+					li
+						strong Más clientes felices
+						figure
+							img(src!="{{ asset('img/ofrecemos2.svg') }}")
+						.ctn-text							
+							p 
+								| Envía tus productos de manera 
+								strong inmediata y segura, siempre
+							strong .
+							p 
+								| Ofrece una experiencia de 
+								strong delivery increíble
+							strong .
+							p
+								strong Clientes satisfechos  
+								| que serán recurrentes
+						br
+						br
+					li
+						strong Mayor productividad
+						figure
+							img(src!="{{ asset('img/ofrecemos3.svg') }}")
+						.ctn-text							
+							p  
+								strong Enfócate en tu negocio 
+								| que nosotros nos encargamos de llegar a tus clientes
+							strong .
+							p  
+								| Haz  
+								strong seguimiento en tiempo real 
+								| de todos tu envíos
+							strong .
+							p  
+								strong Ahorra tiempo
+								|, solicita tus servicios con una plataforma fácil de usar		
+	#section2.section.fullHeightCtn
+		.first-parallax.parallax-image(data-anchor-target='#section2,#section3', data-bottom-top='top:-280px;', data-top-bottom='top:0px;')
+		section
+			h2 Simple. Inmediato. Seguro.
+	#section3.section.fullHeightCtn
+		section
+			h2 ¿ Cómo funciona ?
+			.como-funciona
+				ul
+					li
+						p
+							strong 1. Solicita				
+						figure							
+							img(src!="{{ asset('img/como-funciona-1.png') }}")
+						.ctn-text
+							br
+							p 
+								strong Fácil
+								br
+								| Accede a nuestra comunidad de repartidores con un solo clic.
+								|  Solicita un servicio a través de nuestra plataforma de manera fácil e inmediata. 	
+								| No más llamadas
+							p
+								strong .
+							p 
+								strong Inmediato
+								br 
+								| El repartidor calificado más cercano estará listo para atender tu pedido
+					li
+						p
+							strong 2. Monitorea					
+						figure							
+							img(src!="{{ asset('img/como-funciona-2.png') }}")
+						.ctn-text
+							br
+							p 
+								strong Simple
+								br
+								| Supervisa tus envíos en tiempo real con GPS en todo momento, mientras que nosotros nos encargamos del resto
+							p
+								strong .
+							p 
+								strong Confiable
+								br
+								| Valida la información del repartidor.
+								br
+								| Todos nuestros repartidores pasan por un proceso estricto de selección
+					li
+						p
+							strong 3. Entrega			
+						figure							
+							img(src!="{{ asset('img/como-funciona-3.png') }}")
+						.ctn-text
+							br
+							p 
+								strong Envíos seguros
+								br
+								| Recibe una notificación cuando tus productos lleguen a las manos de tus clientes
+							p
+								strong .
+							p
+								strong Cobramos por ti
+								br 
+								| Ofrécele a tus clientes el servicio de pago contra entrega
+	#section4.section.fullHeightCtn
+		.first-parallax.parallax-image(data-anchor-target='#section4, #section5', data-bottom-top='top:-270px;', data-top-bottom='top:0px;')
+		.first-parallax.parallax-image(data-anchor-target='#section4, #section5', data-bottom-top='top:-270px;', data-top-bottom='top:0px;')
+		.first-parallax.parallax-image(data-anchor-target='#section4, #section5', data-bottom-top='top:-450px;', data-top-bottom='top:0px;')
+		.first-parallax.parallax-image(data-anchor-target='#section4, #section5', data-bottom-top='top:-450px;', data-top-bottom='top:0px;')
+		section
+			.slider
+				ul
+					li
+						img(src!="{{ asset('img/cm01.png')}}", alt="")
+						h3.mtop10 Cligo transporta nuestros platos con el mismo cariño que nosotros los preparamos. Una vez que nuestros pedidos están en las manos de Cligo, no nos tenemos que preocupar.	
+					li
+						img(src!="{{ asset('img/cm01.png')}}", alt="")
+						h3.mtop90 Cligo me está ayudando a hacer crecer mi negocio. No pierdo tiempo y me puedo enfocar en el día a día. Conocen las necesidades de los pequeños negocios y mis clientes están muy satisfechos.
+					li
+						img(src!="{{ asset('img/cm01.png')}}", alt="")
+						h3.mtop85 La plataforma es muy fácil de usar y nos está ayudando a crecer nuestras ventas por delivery a pasos agigantados.
+					li
+						img(src!="{{ asset('img/cm01.png')}}", alt="")
+						h3.mtop22 Cligo se encarga de enviar todos mis documentos de manera rápida y confidencial. Ahora puedo dedicarle más horas a mi negocio.
+				#pager
+					a(href='javascript:;', data-slide-index="0")
+					a(href='javascript:;', data-slide-index="1")
+					a(href='javascript:;', data-slide-index="2")
+					a(href='javascript:;', data-slide-index="3")
+	#section5.section.fullHeightCtn
+		section
+			img.ancho_90(src!="{{ asset('img/imac.png') }}")
+			blockquote
+				h2 ¿Qué esperas? ¡Únete a Cligo hoy!
+				a.btn--big.popup(data-fancybox-type="iframe",href!="{{ URL::asset('registrate') }}") Regístrate
+		a(href="#").arrow_top
+			img(src!="{{ asset('img/arrow_up.png')}}", alt="")
+				
++section('alpha')
+	script.
+		window.alpha = {
+			module : 'cligo',
+			controller : 'index',
+			action: 'index'
+		}

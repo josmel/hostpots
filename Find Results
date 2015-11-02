@@ -1,0 +1,45 @@
+Searching 24 files for "términos y condiciones"
+
+/Users/joseluis/Documents/proyectos/cligo/frontend/resources/jade/layout/_footer.jade:
+   13  					a(href!="{{ URL::asset('trabaja') }}") Trabaja con nosotros
+   14  				li
+   15: 					a(href!="{{ URL::asset('terminos') }}") Términos y Condiciones
+   16  				li
+   17  					a(href!="{{ URL::asset('comunidad') }}").footer_unete Únete a la comunidad de repartidores
+
+/Users/joseluis/Documents/proyectos/cligo/frontend/resources/jade/modules/faq/index.jade:
+   65  							| ¡Con Cligo puedes enviar lo que quieras! Envía tus productos, paquetes y documentos de manera simple, inmediata y segura. 
+   66  							|  Revisa los 
+   67: 							a(href!="{{ URL::asset('terminos') }}") términos y condiciones 
+   68  							| para ver los artículos prohibidos (drogas ilegales, armas de fuego, etc.)
+   69  					div
+
+/Users/joseluis/Documents/proyectos/cligo/frontend/resources/jade/modules/registrate/index.jade:
+   43  				input(type="checkbox", name="terms", id="terms")
+   44  				label(for="terms") He leído los 
+   45: 					a(href="/terminos") términos y condiciones						
+   46  		input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")		
+   47  		|{!! Form::close() !!}
+
+/Users/joseluis/Documents/proyectos/cligo/frontend/resources/jade/modules/terminos/index.jade:
+    6  		section
+    7  			img(src!="{{ asset('img/terms.png') }}")
+    8: 			h2 Términos y condiciones
+    9  			//h3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis eos debitis veniam a, nobis minima neque facilis, et magni dignissimos eaque mollitia officia accusantium possimus dolorem excepturi consequuntur nulla provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis eos debitis veniam a, nobis minima neque facilis.
+   10  	#section-2__terms
+
+/Users/joseluis/Documents/proyectos/cligo/frontend/resources/jade/modules/trabaja/index.jade:
+   50  				//- 	.form-checkbox
+   51  				//- 		input(type="checkbox", name="terms", required)
+   52: 				//- 		| He leído los términos y condiciones
+   53  				.form-control
+   54  					p (*) campo obligatorio				
+
+/Users/joseluis/Documents/proyectos/cligo/frontend/resources/jade/modules/unete/index.jade:
+   57  			.form-checkbox
+   58  				input(type="checkbox", name="terms", required, id="terms")
+   59: 				label(for="terms") He leído los términos y condiciones				
+   60  		.form-control
+   61  				input.btn.btn--skyblue.btn--big(type="submit", value="Enviar")		
+
+6 matches across 6 files
