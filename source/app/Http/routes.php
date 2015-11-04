@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admpanel'], function () {
             'auth' => 'AuthController',
 //            'password' => 'Auth\PasswordController',
             'profile'=>'ProfileController',
+          
          'customer'=>'CustomerController',
         'delivery'=>'DeliveryController',
         'driver'=>'DriverController',
@@ -51,6 +52,7 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient' ], function () {
             'perfil' => 'ProfileController',
             'solicitar' => 'RequestController',
             'client' => 'ClientController',
+           'campanias'=>'CampaniasController'
     ]);
 });
 

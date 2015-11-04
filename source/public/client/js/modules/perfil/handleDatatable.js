@@ -45,19 +45,17 @@
         return;
       },
       edit: function(e) {
-        var cellphone, edit, email, id, name, phone;
+        var cellphone, edit,id, name, phone;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");
         name = edit.children().eq(0).text().trim();
         cellphone = edit.children().eq(1).text().trim();
         phone = edit.children().eq(2).text().trim();
-        email = edit.children().eq(3).text().trim();
         $('#formContact input[name=id]').val(id);
         $('#formContact input[name=name]').val(name);
         $('#formContact input[name=phone]').val(phone);
         $('#formContact input[name=cellphone]').val(cellphone);
-        return $('#formContact input[name=email]').val(email);
       },
       "delete": function(e) {
         var name, url;

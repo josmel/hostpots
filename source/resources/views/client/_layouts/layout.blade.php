@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="language" content="es">
-        <title>Cligo</title>
+        <title>HostPots</title>
         <meta name="title" content="Cligo">
         <meta name="description" content="Cligo">
         <meta name="author" content="@paulrrdiaz, @jeanpaul1304, @jonico22">
@@ -15,12 +15,12 @@
         <meta name="robots" content="index, follow">
         <meta name="keywords" content="Keywords">
         <meta property="og:description" content="Cligo">
-        <meta property="og:image" content="{{ URL::asset('/') }}/img/logo.png">
+        <!--<meta property="og:image" content="{{ URL::asset('/') }}/img/logo.png">-->
         <meta property="og:site_name" content="empty">
         <meta property="og:title" content="Cligo">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ URL::asset('/') }}">
-        <link href="{{ URL::asset('/') }}/img/logo.png" rel="icon"><!--[if lte IE 9]>
+        <!--<link href="{{ URL::asset('/') }}/img/logo.png" rel="icon">[if lte IE 9]>
         <link href="{{ asset('client/') }}/css/modules/all/ie.css" media="all" rel="stylesheet" type="text/css">
         <script src="{{ asset('client/') }}/js/dist/libs/selectivizr/selectivizr.js"></script>
         <script src="{{ asset('client/') }}/js/dist/libs/html5shiv/dist/html5shiv.js"></script><![endif]-->
@@ -35,16 +35,17 @@
                             <div class="bg_icon"><i class="icon icon-solicitar_servicio_off i-servicio"></i></div><span>Solicitar servicio</span></a></li>
                     <li class="{{ Request::is('admclient/activos') ? 'activo' : '' }}"><a href="{{ action('Client\RequestController@getActivos') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Servicios activos</span></a></li>
-                    <li class="{{ Request::is('admclient/completados') ? 'activo' : '' }}"><a href="{{ action('Client\RequestController@getCompletados') }}">
-                            <div class="bg_icon"><i class="icon icon-servicios_completados_off i-completados"></i></div><span>Servicios completados</span></a></li>
-                    <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
+                   <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
                             <div class="bg_icon"><i class="icon icon-perfil_off i-person"></i></div><span>Perfil</span></a></li>
                     <li class="{{ Request::is('admclient/client') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/client') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Clientes</span></a></li>
+
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Equipos</span></a></li>
                     <li class="{{ Request::is('admclient/analytics') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/analytics') }}">
-                            <div class="bg_icon"><i class="icon icon-analytics_off i-analytics"></i></div><span>Analytics</span></a></li>
-                    <li class="{{ Request::is('admclient/soporte') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/soporte') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Soporte</span></a></li>
+
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Campañas</span></a></li>
+                    <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
+
+                         <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Soporte</span></a></li>
 
                 </ul>
             </nav>
@@ -54,10 +55,10 @@
                 <div class="menu">
                     <div class="menu-hamburger"></div>
                 </div>
-                <h1><a href="{{ URL::asset('admclient') }}"><img src="{{ asset('client/img/cligo.png') }}" alt=""></a></h1>
-                <div class="credito"><a href="#"><i class="icon icon-dolar"></i></a>
+                <h1><a href="{{ URL::asset('admclient') }}"><img width="35%" src="http://scitechscholar.com/wp-content/uploads/2015/04/wifi-hotspot.jpg" alt=""></a></h1>
+<!--                <div class="credito"><a href="#"><i class="icon icon-dolar"></i></a>
                     <p><span>CRÉDITO DISPONIBLE</span><br><strong>S./ {{Auth::customer()->user()->credit}}</strong></p>
-                </div>
+                </div>-->
                 <div class="logout"><a href="{{url('logout')}}"><span class="user">{{Auth::customer()->user()->name_customer}} -  &nbsp;&nbsp;</span><span class="off">DESLOGUEARSE</span><img src="{{ asset('client/img/salir.png') }}" alt=""></a></div>
             </header>
             @yield('content')

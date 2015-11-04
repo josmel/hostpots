@@ -48,7 +48,7 @@
         var cellphone, edit, email, id, name, phone;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
-        id = edit.attr("data-id");
+        id = edit.attr("data-id");  
         name = edit.children().eq(0).text().trim();
         cellphone = edit.children().eq(1).text().trim();
         phone = edit.children().eq(2).text().trim();

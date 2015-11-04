@@ -15,7 +15,7 @@
         <div class="texto_perfil">{!! Form::model($table,array('id'=>'form_perfil','data-parsley-validate')) !!}
             <ul>
                 <li>
-                    {!! Form::label(null,'Perfil de la empresa') !!}
+                    {!! Form::label(null,'Perfil') !!}
                     {!! Form::hidden('latitude') !!}
                     {!! Form::hidden('longitude') !!}<br><br>
                 </li>
@@ -28,47 +28,11 @@
                 </li>
                 <li><span>Dirección (Ej. Calle Mozart 456, San Borja)</span><br>{!! Form::text('address',old('address'),array('required','id'=>'dir_perfil')) !!}</li>
                 <li><span>Referencia</span><br>{!! Form::text('referencia',old('referencia'),array('required')) !!}</li>
-                <li class="input_form"><span>Tarjeta de crédito</span><br>{!! Form::text('creditcard',old('creditcard'),array('disabled'=>'disabled','class'=>'disabled')) !!}</li>
                 <li class="input_form">{!! Form::button('Actualizar',array('type'=>'submit')) !!}</li>
             </ul>{!! Form::close() !!}	
         </div>
         <div class="map_perfil"><span>Marcar la dirección exacta en el mapa</span><br><br>
             <div id="map_perfil" data-lat="{{$table->latitude}}" data-lng="{{$table->longitude}}" class="google-map"></div>
-        </div>
-        <div class="personas_perfil">
-            <div class="table-responsive-vertical">
-                <table data-url="{{ action('Client\ProfileController@getList') }}" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Celular</th>
-                            <th>Teléfono</th>
-                            <th>Correo</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="agregar_persona">
-                <form data-parsley-validate method="post" action="{{ url('/admclient/perfil/contact') }}" id="formContact">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
-                    <label>
-                        <input type="text" name="name" placeholder="Nombre y apellido" required>
-                    </label>
-                    <label>
-                        <input type="text" name="cellphone" placeholder="Celular" required data-parsley-type="digits">
-                    </label>
-                    <label>
-                        <input type="text" name="phone" placeholder="Teléfono" required data-parsley-type="digits">
-                    </label>
-                    <label class="label_correo">
-                        <input type="text" name="email" placeholder="Email" data-parsley-type="email" required>
-                    </label>
-                    <button type="submit">+ Agregar</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
