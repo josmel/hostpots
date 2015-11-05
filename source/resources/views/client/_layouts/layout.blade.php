@@ -35,17 +35,14 @@
                             <div class="bg_icon"><i class="icon icon-solicitar_servicio_off i-servicio"></i></div><span>Solicitar servicio</span></a></li>
                     <li class="{{ Request::is('admclient/activos') ? 'activo' : '' }}"><a href="{{ action('Client\RequestController@getActivos') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Servicios activos</span></a></li>
-                   <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
+                    <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
                             <div class="bg_icon"><i class="icon icon-perfil_off i-person"></i></div><span>Perfil</span></a></li>
                     <li class="{{ Request::is('admclient/client') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/client') }}">
-
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Equipos</span></a></li>
-                    <li class="{{ Request::is('admclient/analytics') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/analytics') }}">
-
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Campañas</span></a></li>
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
-
-                         <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Soporte</span></a></li>
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Campañas</span></a></li>
+                    <li class="{{ Request::is('admclient/analytics') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/analytics') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Soporte</span></a></li>
 
                 </ul>
             </nav>
@@ -55,7 +52,7 @@
                 <div class="menu">
                     <div class="menu-hamburger"></div>
                 </div>
-                <h1><a href="{{ URL::asset('admclient') }}"><img width="35%" src="http://scitechscholar.com/wp-content/uploads/2015/04/wifi-hotspot.jpg" alt=""></a></h1>
+                <h1><a href="{{ URL::asset('admclient') }}"><img width="40%" src="http://scitechscholar.com/wp-content/uploads/2015/04/wifi-hotspot.jpg" alt=""></a></h1>
 <!--                <div class="credito"><a href="#"><i class="icon icon-dolar"></i></a>
                     <p><span>CRÉDITO DISPONIBLE</span><br><strong>S./ {{Auth::customer()->user()->credit}}</strong></p>
                 </div>-->

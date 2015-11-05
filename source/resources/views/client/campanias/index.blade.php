@@ -12,11 +12,20 @@
         </ul><br>
     </div>@endif
     <div class="container_perfl">
-        
+        <div class="agregar_persona">
+            <a href="/admclient/campanias/form" >
+            <button style="background: #48c0f7 none repeat scroll 0 0;
+                    border: medium none;
+                    color: #fff;
+                    cursor: pointer;
+                    padding: 10px;"type="submit">+ Agregar Campaña</button></a><br><br>
+        </div>
         <div class="personas_perfil">
+
+
             <div class="table-responsive-vertical">
-               
-                <table data-url="{{ action('Client\ProfileController@getList') }}" class="table table-hover">
+
+                <table data-url="{{ action('Client\CampaniasController@getList') }}" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Mac</th>
@@ -29,22 +38,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="agregar_persona">
-                <form data-parsley-validate method="post" action="{{ url('/admclient/perfil/contact') }}" id="formContact">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
-                    <label>
-                        <input type="text" name="name" placeholder="Mac" required>
-                    </label>
-                    <label>
-                        <input type="text" name="cellphone" placeholder="Ip" required data-parsley-type="digits">
-                    </label>
-                    <label>
-                        <input type="text" name="phone" placeholder="Identificador" required data-parsley-type="digits">
-                    </label>
-                    <button type="submit">+ Agregar</button>
-                </form>
-            </div>
+
         </div>
     </div>
 </div>

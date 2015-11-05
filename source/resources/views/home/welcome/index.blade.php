@@ -19,10 +19,10 @@
         <h2>Login</h2>
         <div class="form-control">
             <div class="form-input">
-                <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" data-parsley-type="email" required="required"/><span class="block_required">(*)</span>
+                <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" data-parsley-type="email" required="required"/>
             </div><br/><br/>
             <div class="form-input">		
-                <input type="password" name="password" placeholder="Contraseña" data-parsley-maxlength="11" required="required"/><span class="block_required">(*)</span>
+                <input type="password" name="password" placeholder="Contraseña" data-parsley-maxlength="11" required="required"/>
             </div>
         </div>
         @if (count($errors) > 0)

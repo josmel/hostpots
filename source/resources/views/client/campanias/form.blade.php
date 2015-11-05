@@ -1,27 +1,29 @@
-
-@extends('admin._layouts.layout')
+@extends('client._layouts.layout')
 @section('content')
-<div id="wrapper" class="container-page">@if(isset($table->id))
-    <h2>Editar estado Delivery</h2>@else
-    @endif
-    {!! Form::model($table, ['files'=>'true','method'=>'post', 'data-parsley-validate'=>'data-parsley-validate']) !!}
-    <div class="form-upload">
-        {!! Form::hidden('id',  $table->id ) !!}
-        <div class="form-group">
-            <label for="">Descripción de Etado</label>
+
+<div id="wrapper"><br><br><br><br>
+    <div class="content_soporte">
+        @if(isset($table->id))
+        <h2>Editar Campaña</h2>@else
+        @endif
+        {!! Form::model($table, ['files'=>'true','method'=>'post', 'class'=>'formSoporte row','data-parsley-validate'=>'data-parsley-validate']) !!}
+        <div class="columna1">
+            <div class="form_control">
+                <label>(*) Nombres</label>
+                {!! Form::hidden('id',  $table->id ) !!}
+                {!! Form::text('name', null , ['placeholder'=>'Nombre','required' => 'required'])!!}
+            </div>
         </div>
-        <div class="form-group">{!! Form::select('delivery_state_id', $typeDeliveryState, $table->delivery_state_id, ['class'=>'form-control', 'data-parsley-required'=>'data-parsley-required', 'name' =>'delivery_state_id']) !!}</div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+        <div class="columna2">
+            <div class="form_control">
+                <label>(*) Descripción</label>
+                {!! Form::textarea('description', null , ['class' => 'form-control floating-label','placeholder'=>'','id'=>'wysihtml5-textarea'])!!}
+            </div>
         </div>
+        <button type="submit">ENVIAR</button>
         {!! Form::close() !!}
-        @if($errors->any())
-        <ul class="alert alert-danger">@foreach($errors->all() as $error)
-            <li>{{$error}}</li>@endforeach
-        </ul>@endif
+        <br><br><br>
     </div>
 </div>
 
-<script type="template/text" id="terms">
-    <p>Lorem ipsum dolorem mortem</p>
-</script>@stop
+@stop

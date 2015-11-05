@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\Home\FormLoginRequest;
 use Illuminate\Http\Request;
+use Validator;
 use Auth;
 use DB;
 
@@ -44,62 +46,17 @@ use AuthenticatesAndRegistersUsers;
         return redirect('/');
     }
 
-    public function postLogin(Request $request) {
-        $this->validate($request, [
-            'email' => 'required|email', 'password' => 'required',
-        ]);
+    public function postLogin(FormLoginRequest $request) {
         $credentials = $request->only('email', 'password');
         if ($this->auth->attempt($credentials, $request->has('remember'))) {
             return redirect()->intended($this->redirectPath());
+        } else {
+            return redirect(action('Home\WelcomeController@index'))
+                            ->withInput($request->only('email', 'remember'))
+                            ->withErrors([
+                                'email' => $this->getFailedLoginMessage(),
+            ]);
         }
-        return redirect($this->loginPath())
-                        ->withInput($request->only('email', 'remember'))
-                        ->withErrors([
-                            'email' => $this->getFailedLoginMessage(),
-        ]);
-    }
-
-    public function postLogin2(Request $request) {
-        $this->validate($request, [
-            'email' => 'required|email', 'password' => 'required',
-        ]);
-        $credentials = $request->only('email', 'password');
-
-        $Customers = DB::table('customers')->where('email', $credentials['email'])->first();
-        if ($Customers != null) {
-            if ($Customers->flagactive == 0) {
-                return array(
-                    'state' => 0,
-                    'msg' => 'no login',
-                    'data' => array(
-                        'redirect' => '',
-                    ),
-                    'data_error' => array(
-                        'email' => 'Usuario Inactivo',
-                    ),
-                );
-            }
-        }
-        if ($this->auth->attempt($credentials, $request->has('remember'))) {
-            return array(
-                'state' => 1,
-                'msg' => 'ok',
-                'data' => array(
-                    'redirect' => $this->redirectPath()
-                ),
-                'data_error' => array(),
-            );
-        }
-        return array(
-            'state' => 0,
-            'msg' => 'no login',
-            'data' => array(
-                'redirect' => $this->loginPath(),
-            ),
-            'data_error' => array(
-                'email' => $this->getFailedLoginMessage(),
-            ),
-        );
     }
 
     public function getLogout() {
