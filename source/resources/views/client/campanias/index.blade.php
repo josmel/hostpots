@@ -21,10 +21,7 @@
                     padding: 10px;"type="submit">+ Agregar Campaña</button></a><br><br>
         </div>
         <div class="personas_perfil">
-
-
             <div class="table-responsive-vertical">
-
                 <table data-url="{{ action('Client\CampaniasController@getList') }}" class="table table-hover">
                     <thead>
                         <tr>

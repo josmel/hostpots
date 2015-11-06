@@ -32,7 +32,7 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('client.welcome.index');
+		return viewc('client.welcome.index');
 	}
 //	public function activos()
 //	{
