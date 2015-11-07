@@ -26,6 +26,7 @@
         <script src="{{ asset('client/') }}/js/dist/libs/html5shiv/dist/html5shiv.js"></script><![endif]-->
         <link href="{{ asset('client/') }}/css/all.css" media="all" rel="stylesheet" type="text/css">
     </head>
+    <link href="{{Request::root()}}/client/css/trumbowyg.min.css" media="all" rel="stylesheet" type="text/css">
     <body class="l-site">
         <aside class="l-nav">
             <nav class="nav">
@@ -33,17 +34,12 @@
                     <li><i class="icon icon-perfil_off i-person"></i><span>{{Auth::customer()->user()->name_customer}}		</span></li>
                     <li class="{{ Request::is('admclient/solicitar') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/solicitar') }}">
                             <div class="bg_icon"><i class="icon icon-solicitar_servicio_off i-servicio"></i></div><span>Solicitar servicio</span></a></li>
-                    <li class="{{ Request::is('admclient/activos') ? 'activo' : '' }}"><a href="{{ action('Client\RequestController@getActivos') }}">
-                            <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Servicios activos</span></a></li>
                     <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
                             <div class="bg_icon"><i class="icon icon-perfil_off i-person"></i></div><span>Perfil</span></a></li>
                     <li class="{{ Request::is('admclient/client') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/client') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Equipos</span></a></li>
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Campañas</span></a></li>
-                    <li class="{{ Request::is('admclient/analytics') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/analytics') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Soporte</span></a></li>
-
+                            <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Campañas</span></a></li>
                 </ul>
             </nav>
         </aside>

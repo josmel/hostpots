@@ -16,7 +16,7 @@
       'datetimepicker': 'libs/datetimepicker/build/js/bootstrap-datetimepicker.min',
       'bootstrap': 'libs/bootstrap/dist/js/bootstrap.min',
       'tooltip': 'libs/tooltip/jquery.tooltipster.min',
-       'promo' : 'modules/campanias/index',
+          'textarea': 'libs/textarea/trumbowyg.min'
     }
   });
 
@@ -85,10 +85,10 @@
          'Campanias': {
           actions: {
             getIndex: function() {
-              return require(['modules/campanias/index', 'modules/campanias/handleDatatable']);
+              return require(['modules/campanias/handleDatatable']);
             },
             getForm: function() {
-              return require(['promo']);
+              return require(['modules/campanias/index']);
             }
           },
           allActions: function() {}
