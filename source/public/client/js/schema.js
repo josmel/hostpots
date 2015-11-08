@@ -74,10 +74,16 @@
           },
           allActions: function() {}
         },
-         'Client': {
+         'Equipment': {
           actions: {
             getIndex: function() {
-              return require(['modules/client/index', 'modules/client/handleDatatable']);
+              return require([ 'modules/equipment/handleDatatable']);
+            },
+             getDetalleCampania: function() {
+              return require([ 'modules/equipment/handleDatatable']);
+            },
+             getForm: function() {
+              return require(['modules/equipment/index','moment', 'bootstrap', 'datetimepicker']);
             }
           },
           allActions: function() {}

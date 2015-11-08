@@ -12,6 +12,7 @@ use Auth;
 use Hash;
 use App\Http\Requests\Client\FormCampaniaRequest;
 use App\Models\Campania;
+use DB;
 
 class CampaniasController extends Controller {
 
@@ -47,6 +48,7 @@ class CampaniasController extends Controller {
                 $obj = Campania::find($request->id);
                 $obj->update($data);
             } else {
+                $data['customer_id']=Auth::customer()->user()->id;
                 $obj = Campania::create($data);
             }
             return redirect('admclient/' . self::NAMEC)->with('messageSuccess', 'Caracteristicas Guardado');
@@ -54,44 +56,12 @@ class CampaniasController extends Controller {
         return redirect('admclient')->with('messageError', 'Error al guardar la region');
     }
 
-    public function postIndex(FormCustomerRequest $request) {
-        if (!empty($request)) {
-            $data = $request->except('credit');
-//            $data['flagactive'] = $request->get('flagactive', 1);
-            $id = Auth::customer()->user()->id;
-            unset($data['password']);
-            $password = $request->get('password', null);
-            if (!empty($password)) {
-                $data['password'] = Hash::make($request->get('password'));
-            }
-            if ($id) {
-                $obj = Customer::find($id);
-                $obj->update($data);
-            }
-            return redirect('admclient/' . self::NAMEC)->with('messageSuccess', 'Perfil Guardado');
-        }
-        return redirect('admclient')->with('messageError', 'Error al guardar el perfil');
-    }
-
-    public function postContact(FormContactRequest $request) {
-        if (!empty($request)) {
-            $data = $request->all();
-            $data['customer_id'] = Auth::customer()->user()->id;
-            $data['flagactive'] = $request->get('flagactive', 1);
-            if ($request->id) {
-                $obj = Contact::find($request->id);
-                $obj->update($data);
-            } else {
-                $obj = Contact::create($data);
-            }
-            return array('msg' => 'ok', 'state' => 1, 'data' => null);
-        }
-        return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
-    }
-
     public function getList() {
-        $table = Contact::select(['id', 'name', 'phone', 'cellphone', 'email'])
-                ->whereCustomerId(Auth::customer()->user()->id);
+        $table = Campania::select(['id', 'name', 'description',
+                    DB::raw("(if(flagactive='1','Activo',(if(flagactive='0','Inactivo','-')))) as flagactive")])
+               ->whereCustomerId(Auth::customer()->user()->id);
+        ;
+
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
@@ -104,7 +74,7 @@ class CampaniasController extends Controller {
     public function getDelete($id) {
         $table = null;
         if (!empty($id)) {
-            $table = Contact::whereId($id)->whereCustomerId(Auth::customer()->user()->id);
+            $table = Campania::whereId($id)->whereCustomerId(Auth::customer()->user()->id);
             $table->delete();
         }
         return response()->json(array('msg' => 'ok', 'state' => 1, 'data' => null));

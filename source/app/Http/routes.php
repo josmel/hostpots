@@ -11,32 +11,7 @@
 |
 */
 
-Route::group(['namespace' => 'Wservice', 'prefix' => 'wservice'], function () {
-    Route::resource('user', 'UserController');
-    Route::post('driver/login', 'LoginDriverController@index');
-    Route::get('delivery/{year}/{month}/{day}/{status_id?}/{complet?}/{customer_id?}', 'ServiceController@listServices');
-    Route::get('delivery/price/{lat_1}/{lon_1}/{lat_2}/{lon_2}/{zone}/{calculate}', 'ServiceController@deliveryPrice');
-    Route::get('delivery/detail/{idDelivery}','StateDeliveryController@getDetail');
-    Route::get('state-delivery/list','StateDeliveryController@getList');
-    Route::get('state-delivery/list-delivery-driver/{idDriver}','StateDeliveryController@getListDeliveryDriver');
-    Route::post('state-delivery','StateDeliveryController@transitionStateDelivery');
-    Route::post('state-driver','StateDriverController@changeStateDriver');
-    Route::get('state-driver/{idDriver}','StateDriverController@getDetail');
-     Route::get('state-delivery/testing','StateDeliveryController@getTesting');
-});
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admpanel'], function () {
-    Route::get('/',['uses'=>'HomeController@index','as'=>'homeadmin']);
-    Route::controllers([
-            'auth' => 'AuthController',
-//            'password' => 'Auth\PasswordController',
-            'profile'=>'ProfileController',
-          
-         'customer'=>'CustomerController',
-        'delivery'=>'DeliveryController',
-        'driver'=>'DriverController',
-    ]);
-});
 
 Route::group(['namespace' => 'Client', 'prefix' => 'admclient' ], function () {
     Route::get('/',['uses'=>'WelcomeController@index','as'=>'Welcomeclient']);
@@ -51,7 +26,7 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient' ], function () {
     Route::controllers([
             'perfil' => 'ProfileController',
             'solicitar' => 'RequestController',
-            'client' => 'ClientController',
+            'equipment' => 'EquipmentController',
            'campanias'=>'CampaniasController'
     ]);
 });

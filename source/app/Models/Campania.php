@@ -7,7 +7,7 @@ class Campania extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['name','description', 'flagactive'];
+    protected $fillable = ['name','description', 'flagactive','customer_id'];
     protected $table = 'campania';
 
 }
