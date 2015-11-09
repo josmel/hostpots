@@ -8,9 +8,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="language" content="es">
         <title>HostPots</title>
+        <meta name="title" content="HostPots">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="index, follow">
         <meta name="keywords" content="Keywords">
+        <meta name="author" content="josmelnyh89@gmail.com">
         <!--<meta property="og:image" content="{{ URL::asset('/') }}/img/logo.png">-->
         <meta property="og:site_name" content="empty">
         <meta property="og:type" content="website">
