@@ -42,7 +42,7 @@ use AuthenticatesAndRegistersUsers;
     }
 
     public function getLogin() {
-        //return view('home.login.index');
+         
         return redirect('/');
     }
 
