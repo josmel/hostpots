@@ -32,10 +32,7 @@ class RegisterController extends Controller {
         $this->middleware('guest');
     }
 
-    /**
-     * Show the application welcome screen to the user.
-     * @return Response
-     */
+    
     public function getIndex() {
         return view('home.registrate.index');
     }
