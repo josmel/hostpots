@@ -12,8 +12,7 @@
                 "zizaco/entrust": "dev-laravel-5",
                 "sboo/multiauth" : "4.0.*",
                 "mattbrown/laracurl": "2.0.0",
-                "doctrine/couchdb": "@dev",
-                "google/recaptcha": "~1.1"
+                "doctrine/couchdb": "@dev"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
