@@ -34,7 +34,6 @@ class RegisterController extends Controller {
 
     /**
      * Show the application welcome screen to the user.
-     *
      * @return Response
      */
     public function getIndex() {
