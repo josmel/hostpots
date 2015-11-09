@@ -31,12 +31,12 @@
             <nav class="nav">
                 <ul>
                     <li><i class="icon icon-perfil_off i-person"></i><span>{{Auth::customer()->user()->name_customer}}		</span></li>
-                   <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
+                    <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
                             <div class="bg_icon"><i class="icon icon-perfil_off i-person"></i></div><span>Perfil</span></a></li>
-                    <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
+                    <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
                 </ul>
             </nav>
         </aside>
