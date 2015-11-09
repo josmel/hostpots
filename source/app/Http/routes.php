@@ -33,21 +33,10 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient' ], function () {
 
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'WelcomeController@index');
-    Route::get('comunidad', 'WelcomeController@comunidad');
-    Route::get('contactanos', 'WelcomeController@contactanos');
-    Route::get('preguntas-frecuentes', 'WelcomeController@faq');
-    Route::get('nosotros', 'WelcomeController@nosotros');
-    Route::get('recuperar', 'WelcomeController@recuperar');
-    Route::get('terminos', 'WelcomeController@terminos');
-    Route::get('trabaja', 'WelcomeController@trabaja');
-//    Route::get('unete', 'WelcomeController@unete');
-//    Route::get('d0c', 'WelcomeController@api');
     Route::get('d0c', ['middleware' => 'auth.basic.once', function() {
         return view('home.doc.api');
     }]);
     Route::controllers([
-            'registrate' => 'RegisterController',
-            'unete' => 'RegisterDriverController',
             '/' => 'AuthController',
     ]);
 });
