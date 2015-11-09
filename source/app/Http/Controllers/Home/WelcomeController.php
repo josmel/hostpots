@@ -40,10 +40,6 @@ class WelcomeController extends Controller {
 		return view('home.login.index');
 	}
 
-	public function registrate()
-	{
-		return view('home.registrate.index');
-	}
-	
+
 
 }
