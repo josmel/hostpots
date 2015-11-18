@@ -66,6 +66,14 @@
           },
           allActions: function() {}
         },
+        'User': {
+          actions: {
+            getIndex: function() {
+              return require(['modules/user/index', 'modules/user/handleDatatable']);
+            }
+          },
+          allActions: function() {}
+        },
         'Profile': {
           actions: {
             getIndex: function() {

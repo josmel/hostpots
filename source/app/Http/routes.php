@@ -27,7 +27,8 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient' ], function () {
             'perfil' => 'ProfileController',
             'solicitar' => 'RequestController',
             'equipment' => 'EquipmentController',
-           'campanias'=>'CampaniasController'
+           'campanias'=>'CampaniasController',
+        'user'=>'UserController'
     ]);
 });
 

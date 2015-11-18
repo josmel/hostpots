@@ -37,6 +37,10 @@
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
                     <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
+                    <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Usuarios</span></a></li>
+                
+                
                 </ul>
             </nav>
         </aside>

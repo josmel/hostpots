@@ -33,19 +33,20 @@ class EquipmentController extends Controller {
         return redirect('login')->with('messageError', 'Inicie sesion');
     }
 
-    public function getForm($equipment_id, $id = null) {
+    public function getForm($id) {
+        $idProceso = explode('-', $id);
+        $equipment_id = $idProceso[0];
         $typeCampania = Campania::where('flagactive', '=', '1')
                         ->whereCustomerId(Auth::customer()->user()->id)->lists('name', 'id');
         $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
         $table = new EquipmentCampania();
-       
-        if (!empty($id)) {
-             $table = EquipmentCampania::find($id);
-            $Setting = Setting::whereEquipmentCampaniaId($id)->lists('day_id');
+        if (isset($idProceso[1])) {
+            $table = EquipmentCampania::find($idProceso[1]);
+            $Setting = Setting::whereEquipmentCampaniaId($idProceso[1])->lists('day_id');
             $table->day_id = $Setting;
         }
         $day = Day::all();
-        return viewc('client.' . self::NAMEC . '.form', compact('table', 'day', 'equipment_id'), ['typeCampania' => $typeCampania]);
+        return viewc('client.' . self::NAMEC . '.form', compact('equipment_id', ['table', 'day']), ['typeCampania' => $typeCampania]);
     }
 
     public function postForm(FormSettingRequest $request) {

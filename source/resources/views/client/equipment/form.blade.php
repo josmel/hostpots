@@ -28,10 +28,12 @@
                     <div class="content_date"><br>
                         <legend>Reserva</legend><br>
                         <label> <span>Desde</span><i class="icon icon-calendar"></i>
-                            <input type="text" name="datestart" id="datetimepicker1">
+                            {!!Form::text('datestart',$table->datestart, array('id' => 'datetimepicker1')) !!}
+                            <!--<input type="text" name="datestart" id="datetimepicker1">-->
                         </label>
                         <label> <span>Hasta</span><i class="icon icon-calendar"></i>
-                            <input type="text" name="datefinal" id="datetimepicker2">
+                            {!!Form::text('datefinal',$table->datefinal, array('id' => 'datetimepicker2')) !!}
+                            <!--<input type="text" name="datefinal" id="datetimepicker2">-->
                         </label>
                     </div>
                     <br><br>
@@ -46,7 +48,7 @@
                             @foreach($day as $item)
                             <div class="form-check">
                                 <label>{{ $item->name }}</label>
-                                {!! Form::checkbox('day_id[]',$item->id, true, ['class'=>'check_day'] )!!}
+                                {!! Form::checkbox('day_id[]',$item->id, $table->dassy_id, ['class'=>'check_day'] )!!}
                             </div>
                             @endforeach
                         </div>

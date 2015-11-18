@@ -12,47 +12,46 @@
         </ul><br>
     </div>@endif
     <div class="container_perfl">
-         <div class="agregar_persona">
-            <a href="/admclient/equipment/form/{{$equipment_id}}" >
+        <div class="agregar_persona">
+            <a href="/admclient/user/form" >
                 <button style="background: #48c0f7 none repeat scroll 0 0;
                         border: medium none;
                         color: #fff;
                         cursor: pointer;
-                        padding: 10px;"type="submit">+ Configurar Campaña</button></a><br><br>
+                        padding: 10px;"type="submit">+ Agregar Usuario</button></a><br><br>
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
-               
-                <table data-url="/admclient/equipment/list-detalle-campania?equipment_id={{$equipment_id}}" class="table table-hover">
+                <table data-url="/admclient/user/list" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Campaña</th>
-                            <th>Equipo</th>
+                            <th>Nombre</th>
+                             <th>Email</th>
                             <th>Acción </th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
-    <td data-title="Mac">
+                <td data-title="ID">
     <div><%= id %></div>
     </td>
-
-    <td data-title="Campaña">
-    <div><%= nameCampania %></div>
+    
+    <td data-title="Nombre">
+    <div><%= name_customer %></div>
     </td>
-        <td data-title="Equipo">
-    <div><%= nameEquipment %></div>
+    <td data-title="Email">
+    <div><%= email %></div>
     </td>
     <td data-title="">
-    <div><a href="/admclient/equipment/form/{{ $equipment_id}}-<%= id %>" title="Editar Configuración" class=""><i class="icon icon-lapiz"></i></a>
-    <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\EquipmentController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
+    <div><a href="/admclient/user/form/<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
     </td>
     </tr>
 </script>
