@@ -34,37 +34,5 @@ class WelcomeController extends Controller {
 	{
 		return viewc('client.welcome.index');
 	}
-//	public function activos()
-//	{
-//		return view('client.activos.index');
-//	}
-	public function tarifa()
-	{
-		return array('state'=> 1, 'msg' => 'ok', 'data'=> array('price'=>  \rand(11, 999)));
-	}
-//	public function detalleActivos()
-//	{
-//		return view('client.activos.detalle');
-//	}
-//	public function completados()
-//	{
-//		return view('client.completados.index');
-//	}
-//	public function detalleCompletados()
-//	{
-//		return view('client.completados.detalle');
-//	}
-//	public function perfil()
-//	{
-//		return view('client.perfil.index');
-//	}
-	public function analytics()
-	{
-		return view('client.analytics.index');
-	}
-	public function soporte()
-	{
-		return view('client.soporte.index');
-	}
 
 }

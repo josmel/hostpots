@@ -1,48 +1,40 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Application Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an application.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
 
 
-Route::group(['namespace' => 'Client', 'prefix' => 'admclient' ], function () {
-    Route::get('/',['uses'=>'WelcomeController@index','as'=>'Welcomeclient']);
-   // Route::get('activos','WelcomeController@activos');
-//    Route::get('detalle-activos','WelcomeController@detalleActivos');
-    Route::post('tarifa','WelcomeController@tarifa');
-//    Route::get('completados','WelcomeController@completados');
-//    Route::get('detalle-completados','WelcomeController@detalleCompletados');
-    Route::get('analytics','WelcomeController@analytics');
-    Route::get('soporte','WelcomeController@soporte');
-    Route::get('solicitar/detalle-completados/{id}','RequestController@getDetalleActivos');
+Route::group(['namespace' => 'Client', 'prefix' => 'admclient'], function () {
+    Route::get('/', ['uses' => 'WelcomeController@index', 'as' => 'Welcomeclient']);
     Route::controllers([
-            'perfil' => 'ProfileController',
-            'solicitar' => 'RequestController',
-            'equipment' => 'EquipmentController',
-           'campanias'=>'CampaniasController',
-        'user'=>'UserController'
+        'perfil' => 'ProfileController',
+        'profile-admin' => 'ProfileAdminController',
+        'equipment' => 'EquipmentController',
+        'campanias' => 'CampaniasController',
+        'user' => 'UserController'
     ]);
 });
 
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'WelcomeController@index');
     Route::get('d0c', ['middleware' => 'auth.basic.once', function() {
-        return view('home.doc.api');
-    }]);
+            return view('home.doc.api');
+        }]);
     Route::controllers([
-            '/' => 'AuthController',
+        '/' => 'AuthController',
     ]);
 });
 
-Route::get('/roles', function(){
+Route::get('/roles', function() {
 //    $admin = new App\Models\Role();
 //    $admin->name         = 'admin';
 //    $admin->display_name = 'User Administrator'; // optional
@@ -78,13 +70,13 @@ Route::get('/roles', function(){
 //    $admin = App\Models\Role::where('name', '=', 'admin')->first();
 //    $admin->attachPermissions(array($createPost, $editUser));
 //    $client->attachPermission($createPost);
-    
+
     var_dump($user->hasRole('admin'));   // false
     var_dump($user->hasRole('client'));   // true
     var_dump($user->can('edit-user'));   // false
     var_dump($user->can('create-post')); // true
-    var_dump($user->hasRole(['client', 'admin'],true));       // true
+    var_dump($user->hasRole(['client', 'admin'], true));       // true
     var_dump($user->can(['create-post', 'edit-user'])); // true
-    
+
     echo 'done';
 });

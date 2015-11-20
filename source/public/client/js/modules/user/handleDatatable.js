@@ -27,10 +27,10 @@
         url = $(this).attr("action");
         if ($('#formContact input[name=id]').val() === "") {
           men_titulo_nuevo = "Registro Correcto";
-          men_description_nuevo = 'Se agrego al contacto.';
+          men_description_nuevo = 'Se agrego el Equipo.';
         } else {
           men_titulo_nuevo = "Registro Actualizado";
-          men_description_nuevo = 'Se actualizo al contacto.';
+          men_description_nuevo = 'Se actualizo el equipo.';
         }
         $.post(url, datos, function(data) {
           if (data.state === 1) {
@@ -45,19 +45,17 @@
         return;
       },
       edit: function(e) {
-        var cellphone, edit, email, id, name, phone;
+        var cellphone, edit, id, name, phone;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");  
         name = edit.children().eq(0).text().trim();
         cellphone = edit.children().eq(1).text().trim();
         phone = edit.children().eq(2).text().trim();
-        email = edit.children().eq(3).text().trim();
         $('#formContact input[name=id]').val(id);
         $('#formContact input[name=name]').val(name);
         $('#formContact input[name=phone]').val(phone);
         $('#formContact input[name=cellphone]').val(cellphone);
-        return $('#formContact input[name=email]').val(email);
       },
       "delete": function(e) {
         var name, url;
@@ -78,7 +76,7 @@
           if (isConfirm) {
             $.get(url, function(data) {
               if (data.state === 1) {
-                swal('Eliminado', 'Se elimino el contacto.', 'success');
+                swal('Eliminado', 'Se elimino el equipo.', 'success');
                 return functions.showInitialTable();
               } else {
                 return swal('Error', 'Hubo un error , intentelo de nuevo', 'error');

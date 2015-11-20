@@ -13,7 +13,7 @@
     </div>@endif
     <div class="container_perfl">
         <div class="agregar_persona">
-            <a href="/admclient/user/form" >
+            <a href="/admclient/user/insert" >
                 <button style="background: #48c0f7 none repeat scroll 0 0;
                         border: medium none;
                         color: #fff;

@@ -99,7 +99,6 @@ class EquipmentController extends Controller {
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-//            dd($data);exit;
             $data['customer_id'] = Auth::customer()->user()->id;
             $data['flagactive'] = $request->get('flagactive', 1);
             if ($request->id) {

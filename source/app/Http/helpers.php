@@ -1,6 +1,5 @@
 <?php
 
-
 //namespace App\Http\Helper {
 if (!function_exists('viewc')) {
 
@@ -12,7 +11,7 @@ if (!function_exists('viewc')) {
      * @param  array   $mergeData
      * @return \Illuminate\View\View
      */
-    function viewc($view = null, $data = array(), $mergeData = array()) { 
+    function viewc($view = null, $data = array(), $mergeData = array()) {
         $router = Route::getCurrentRoute()->getActionName();
         $module = substr($router, strripos($router, 'Controllers\\') + 12, (strrpos($router, '\\') - (strripos($router, 'Controllers\\') + 12)));
         $controller = substr($router, strripos($router, '\\') + 1, (strpos($router, 'Controller@')) - (strripos($router, '\\') + 1));
@@ -35,26 +34,28 @@ if (!function_exists('viewc')) {
 
 
 if (!function_exists('viewcMenu')) {
+
     /**
      * Get the evaluated view contents for the given view.
      *
      */
     function viewcMenu() {
-        $user = Auth::admin()->user();
-        if($user){
-        $controladoresTwo = array(
-            array('name' => 'Home', 'controller' => 'Admin\HomeController@index'),
-            array('name' => 'Administradores', 'controller' => 'Admin\AdminController@getIndex'),
-            array('name' => 'Colaboradores', 'controller' => 'Admin\UserController@getIndex'),
-            array('name' => 'Regiones', 'controller' => 'Admin\RegionController@getIndex'),
-            array('name' => 'Promociones','controller' => 'Admin\PromotionController@getIndex'),
-            array('name' => 'Perfil', 'controller' => 'Admin\ProfileController@getIndex'),
-            array('name' => 'Tips', 'controller' => 'Admin\TipsController@getIndex'));
-        foreach ($controladoresTwo as $key => $value) {
-            if ($user->can($value['controller'])) {
+        $user = Auth::customer()->user();
+        if ($user) {
+            if ($user->type == 1) {
+                $controladoresTwo = array(   
+                    array('name' => 'Pelfil ADmin', 'controller' => 'admclient\ProfileAdminController@getIndex'),
+                    array('name' => 'Clientes', 'controller' => 'admclient\UserController@getIndex'));
+            } else {
+                $controladoresTwo = array(
+                    array('name' => 'Mi Perfil', 'controller' => 'admclient/perfil'),
+                    array('name' => 'Mis Campañas', 'controller' => 'admclient/campanias'),
+                    array('name' => 'MIs Equipos', 'controller' => 'admclient/equipment'));
+            }
+            foreach ($controladoresTwo as $key => $value) {
                 $valor[] = array('name' => $value['name'], 'controller' => $value['controller']);
             }
-        }}
+        }
         return $valor;
     }
 

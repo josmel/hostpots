@@ -27,21 +27,31 @@
         <link href="{{ asset('client/') }}/css/all.css" media="all" rel="stylesheet" type="text/css">
     </head>
     <body class="l-site">
+        @if(Auth::customer()->user())
+        <?php
+        $camel = viewcMenu();
+        ?>
+        @endif
         <aside class="l-nav">
             <nav class="nav">
                 <ul>
                     <li><i class="icon icon-perfil_off i-person"></i><span>{{Auth::customer()->user()->name_customer}}		</span></li>
-                    <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
+                    @if(Auth::customer()->user()->type=='2')
+                     <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
                             <div class="bg_icon"><i class="icon icon-perfil_off i-person"></i></div><span>Perfil</span></a></li>
-                    <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
-                            <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
+                   
                     <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
+
+                    <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
+                            <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
+                    @endif
+                    @if(Auth::customer()->user()->type=='1')
+                    <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Perfil Admin</span></a></li>
                     <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Usuarios</span></a></li>
-                
-                
-                </ul>
+                </ul>@endif
             </nav>
         </aside>
         <div class="l-page">

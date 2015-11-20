@@ -11,7 +11,7 @@ class Customer extends BaseModel implements AuthenticatableContract, CanResetPas
     use Authenticatable, CanResetPassword, EntrustUserTrait;
 
     protected $fillable = ['company_id','ruc','phone','name_customer', 'lastname', 
-        'flagactive', 'password', 'email','credit','address','latitude','longitude','referencia'];
+        'flagactive', 'password', 'email','address','latitude','longitude','referencia','type'];
     protected $hidden = ['password'];
     
     public function getRememberToken()

@@ -70,6 +70,12 @@
           actions: {
             getIndex: function() {
               return require(['modules/user/index', 'modules/user/handleDatatable']);
+            },
+             getForm: function() {
+              return require(['modules/user/index', 'modules/user/handleDatatable']);
+            },
+            getInsert: function() {
+              return require(['modules/user/index', 'modules/user/handleDatatable']);
             }
           },
           allActions: function() {}
