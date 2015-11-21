@@ -50,9 +50,7 @@ use AuthenticatesAndRegistersUsers;
     public function postLogin(FormLoginRequest $request) {
         $credentials = $request->only('email', 'password');
         if ($this->auth->attempt($credentials, $request->has('remember'))) {
-             if(Auth::customer()->user()->type=='2'){
-              return redirect()->intended($this->redirectPathTwo());    
-             }
+            
             return redirect()->intended($this->redirectPath());
         } else {
             return redirect(action('Home\WelcomeController@index'))
