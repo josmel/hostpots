@@ -37,14 +37,14 @@ class LoginUserController extends Controller {
      * @return Response
      */
     public function loginUser(Request $request) { 
-         if (!empty($request)) {
-             return viewc('home.login-user.login');
-         }else{
-              $data = $request->all();
-              dd($data);
-         }
+             $data = $request->all();
+             if(!empty($data['mac'])){
+               dd($data);  
+             }
+              return viewc('home.login-user.login'); 
         
     }
+    
 
     public function postIndex(Request $request) { 
         if (!empty($request)) {
