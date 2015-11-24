@@ -36,7 +36,7 @@ class LoginUserController extends Controller {
      *
      * @return Response
      */
-    public function loginUser() { 
+    public function loginUser(Request $request) { 
          if (!empty($request)) {
              return viewc('home.login-user.login');
          }else{
