@@ -23,9 +23,10 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient'], function () {
         'user' => 'UserController'
     ]);
 });
-
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'WelcomeController@index');
+     Route::get('login-user', 'LoginUserController@loginUser');
     Route::get('d0c', ['middleware' => 'auth.basic.once', function() {
             return view('home.doc.api');
         }]);

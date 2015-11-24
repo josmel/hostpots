@@ -39,6 +39,11 @@ class WelcomeController extends Controller {
 	{
 		return view('home.login.index');
 	}
+        public function loginUser()
+	{   echo 'dd';exit;
+		return viewc('home.login.index');
+	}
+
 
 
 
