@@ -38,41 +38,15 @@ class LoginUserController extends Controller {
      */
     public function loginUser(Request $request) { 
              $data = $request->all();
-//             if(!empty($data['mac'])){
+             if(!empty($data['mac'])){
                dd($data);  
-//             }
-//              return viewc('home.login-user.login'); 
+             }
+              
+              return viewc('home.login-user.login'); 
         
     }
     
 
-    public function postIndex(Request $request) { 
-        if (!empty($request)) {
-            $data = $request->all();
-            if ($this->captchaCheck() == false) {
-                return $this->returnEstructura(0, 'Error Captcha Equivocado', array(
-                            'captcha' => 'Error Captcha Equivocado',
-                ));
-            }
-            $data['flagactive'] = $request->get('flagactive', 1);
-            $data['company_id'] = 1;
-            $data['password'] = Hash::make($request->get('password'));
-            $obj = Customer::create($data);
-            Contact::create(array(
-                'customer_id' => $obj->id,
-                'name' => $request->get('name_contact', ''),
-                'phone' => $request->get('phone_contact', ''),
-                'cellphone' => $request->get('cellphone_contact', ''),
-                'email' => $request->get('email_contact', ''),
-                'flagactive' => 1,
-            ));
-            return $this->returnEstructura(1, 'Empresa registrada, ahora puede iniciar sesion', array());
-        }
-        return $this->returnEstructura(0, 'Error al guardar las caracteristicas', array(
-                    'email' => 'Error al guardar las caracteristicas',
-        ));
-    }
-
-   
+    
 
 }
