@@ -37,9 +37,9 @@ class LoginUserController extends Controller {
      * @return Response
      */
     public function loginUser(Request $request) { 
-//             $data = $request->all();
-//               dd($data);  
-              print_r($_GET);exit;
+             $data = $request->all();
+               dd($data);  
+              
               return viewc('home.login-user.login'); 
         
     }
