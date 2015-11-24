@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Home\RegisterRequest;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use App\Models\Contact;
 use Hash;
 
@@ -36,10 +37,16 @@ class LoginUserController extends Controller {
      * @return Response
      */
     public function loginUser() { 
-        return viewc('home.login-user.login');
+         if (!empty($request)) {
+             return viewc('home.login-user.login');
+         }else{
+              $data = $request->all();
+              dd($data);
+         }
+        
     }
 
-    public function postIndex(RegisterRequest $request) { 
+    public function postIndex(Request $request) { 
         if (!empty($request)) {
             $data = $request->all();
             if ($this->captchaCheck() == false) {
