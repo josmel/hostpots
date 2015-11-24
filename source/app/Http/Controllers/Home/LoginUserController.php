@@ -38,10 +38,10 @@ class LoginUserController extends Controller {
      */
     public function loginUser(Request $request) { 
              $data = $request->all();
-             if(!empty($data['mac'])){
+//             if(!empty($data['mac'])){
                dd($data);  
-             }
-              return viewc('home.login-user.login'); 
+//             }
+//              return viewc('home.login-user.login'); 
         
     }
     
