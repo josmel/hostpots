@@ -24,7 +24,8 @@ class FormCampaniaRequest extends Request {
 	{
 		return [
                     'name' => 'required',
-                    'description' => 'required',
+//                                        'imagen' => ['mimes:jpg,png,jpeg','required_without:fullimage'],
+//                    'imagen' => 'required',
 		];
 	}
         

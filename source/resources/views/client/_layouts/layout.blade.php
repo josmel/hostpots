@@ -17,6 +17,8 @@
         <meta property="og:site_name" content="empty">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ URL::asset('/') }}">
+        <script type="text/javascript" src="{{ asset('client/') }}/css/lib/jquery-1.10.1.min.js"></script>
+
         <!--<link href="{{ URL::asset('/') }}/img/logo.png" rel="icon">[if lte IE 9]>
         <link href="{{ asset('client/') }}/css/modules/all/ie.css" media="all" rel="stylesheet" type="text/css">
         <script src="{{ asset('client/') }}/js/dist/libs/selectivizr/selectivizr.js"></script>
@@ -37,12 +39,15 @@
                 <ul>
                     <li><i class="icon icon-perfil_off i-person"></i><span>{{Auth::customer()->user()->name_customer}}		</span></li>
                     @if(Auth::customer()->user()->type=='2')
-                     <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
+                    <li class="{{ Request::is('admclient/perfil') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/perfil') }}">
                             <div class="bg_icon"><i class="icon icon-perfil_off i-person"></i></div><span>Perfil</span></a></li>
-                   
-                    <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
 
+                    <li class="{{ Request::is('admclient/groups') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/groups') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Grupos</span></a></li>
+
+                    <!--<li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
+                    -->
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
                     @endif
@@ -65,13 +70,13 @@
             @yield('content')
         </div>
         <script>
-            window.alpha = {
-                module: 'index',
-                controller: '{{$controller}}',
-                action: '{{$action}}'
-            };
+window.alpha = {
+    module: 'index',
+    controller: '{{$controller}}',
+    action: '{{$action}}'
+};
         </script>
-        <script src="{{ asset('client/') }}/js/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <!--<script src="{{ asset('client/') }}/js/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>-->
         <script data-main="{{ asset('client/') }}/js/main" src="{{ asset('client/') }}/js/libs/requirejs/require.js"></script>
     </body>
 </html>

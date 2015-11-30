@@ -10,10 +10,12 @@ use App\Http\Requests\Client\FormSettingRequest;
 use App\Models\Customer;
 use App\Models\Day;
 use Illuminate\Http\Request;
-use App\Models\Equipment;
+use App\Models\Hostpots;
 use App\Models\Setting;
 use App\Models\EquipmentCampania;
 use App\Models\Campania;
+use App\Models\GroupsCampania;
+use App\Models\HotspotsCampania;
 use Auth;
 use Hash;
 
@@ -21,17 +23,39 @@ class EquipmentController extends Controller {
 
     const NAMEC = 'equipment';
 
-    public function getIndex() {
-        if (Auth::customer()->check()) {
-            $id = Auth::customer()->user()->id;
-            $table = new Customer();
-            if (!empty($id)) {
-                $table = Customer::find($id);
-            }
-            return viewc('client.' . self::NAMEC . '.index', compact('table'));
-        }
-        return redirect('login')->with('messageError', 'Inicie sesion');
+    public function getIndex($idGroup=null) {
+        
+            return viewc('client.' . self::NAMEC . '.index', compact('table','idGroup'));
     }
+//    
+    
+    
+    public function getConfiguracion($idEquipment = null) {
+        
+        
+        $typeCampania = Campania::where('flagactive', '=', '1')
+                        ->whereCustomerId(Auth::customer()->user()->id)->lists('name', 'id');
+//        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
+        $table = new GroupsCampania();
+            $datos = HotspotsCampania::whereHotspotsId($idEquipment)->get();
+        if (!empty($datos)) { 
+            if (!empty($datos->toArray())) {  
+                $table = HotspotsCampania::find($datos[0]->id);
+            }
+        }
+        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['table']), ['typeCampania' => $typeCampania]);
+    }
+
+    public function postConfiguracion(Request $request) {
+        $data = $request->all();
+        HotspotsCampania::whereHotspotsId($data['hotspots_id'])->forceDelete();
+        HotspotsCampania::create($data);
+         echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);exit;
+    }
+    
+    
+    
+    
 
     public function getForm($id) {
         $idProceso = explode('-', $id);
@@ -77,57 +101,28 @@ class EquipmentController extends Controller {
         return viewc('client.' . self::NAMEC . '.detalle-campania', ['equipment_id' => $equipment_id]);
     }
 
-    public function postIndex(FormCustomerRequest $request) {
-        if (!empty($request)) {
-            $data = $request->except('credit');
-//            $data['flagactive'] = $request->get('flagactive', 1);
-            $id = Auth::customer()->user()->id;
-            unset($data['password']);
-            $password = $request->get('password', null);
-            if (!empty($password)) {
-                $data['password'] = Hash::make($request->get('password'));
-            }
-            if ($id) {
-                $obj = Customer::find($id);
-                $obj->update($data);
-            }
-            return redirect('admclient/' . self::NAMEC)->with('messageSuccess', 'Perfil Guardado');
-        }
-        return redirect('admclient')->with('messageError', 'Error al guardar el perfil');
-    }
+ 
 
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['customer_id'] = Auth::customer()->user()->id;
-            $data['flagactive'] = $request->get('flagactive', 1);
+            $data['geocode'] =$data['groups_id'];
             if ($request->id) {
-                $obj = Equipment::find($request->id);
+                $obj = Hostpots::find($request->id);
                 $obj->update($data);
             } else {
-                $obj = Equipment::create($data);
+                $obj = Hostpots::create($data);
             }
             return array('msg' => 'ok', 'state' => 1, 'data' => null);
         }
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
-    public function getListDetalleCampania(Request $request) {
-        $idEquipments = $request->input('equipment_id', null);
-        $table = EquipmentCampania::
-                join('equipments', 'equipment_campania.equipment_id', '=', 'equipments.id')
-                ->join('campania', 'equipment_campania.campania_id', '=', 'campania.id')
-                ->select('equipment_campania.id', 'campania.name as nameCampania', 'equipments.name as nameEquipment')
-                ->Where('equipments.customer_id', '=', Auth::customer()->user()->id)
-                ->Where('equipments.id', '=', $idEquipments)
-        ;
-        $datatable = Datatables::of($table);
-        return $datatable->make(true);
-    }
 
-    public function getList() {
-        $table = Equipment::select(['id', 'name', 'phone', 'cellphone'])
-                ->whereCustomerId(Auth::customer()->user()->id);
+    public function getList(Request $request) {
+          $idGroup = $request->input('idGroup', 0);
+        $table = Hostpots::select(['id', 'name', 'mac', 'owner'])
+                ->whereGeocode($idGroup);
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
@@ -141,7 +136,7 @@ class EquipmentController extends Controller {
     public function getDelete($id) {
         $table = null;
         if (!empty($id)) {
-            $table = Equipment::whereId($id)->whereCustomerId(Auth::customer()->user()->id);
+            $table = Hostpots::whereId($id);
             $table->delete();
         }
         return response()->json(array('msg' => 'ok', 'state' => 1, 'data' => null));

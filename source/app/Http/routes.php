@@ -20,7 +20,8 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient'], function () {
         'profile-admin' => 'ProfileAdminController',
         'equipment' => 'EquipmentController',
         'campanias' => 'CampaniasController',
-        'user' => 'UserController'
+        'user' => 'UserController',
+        'groups'=>'GroupsController'
     ]);
 });
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

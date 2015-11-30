@@ -51,7 +51,10 @@
     <div><%= email %></div>
     </td>
     <td data-title="">
-    <div><a href="/admclient/user/form/<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
+    <div>
+     <a href="/admclient/user/groups/<%= id %>" title="Agregar Grupos" class=""><i class="icon icon-recibo"></i></a>
+                    
+                <a href="/admclient/user/form/<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
     </td>
     </tr>
 </script>
