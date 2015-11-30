@@ -49,9 +49,9 @@
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");  
-        name = edit.children().eq(0).text().trim();
+        name = edit.children().eq(2).text().trim();
         owner = edit.children().eq(1).text().trim();
-        mac = edit.children().eq(2).text().trim();
+        mac = edit.children().eq(0).text().trim();
         $('#formContact input[name=id]').val(id);
         $('#formContact input[name=name]').val(name);
         $('#formContact input[name=owner]').val(owner);

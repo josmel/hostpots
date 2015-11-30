@@ -25,7 +25,7 @@ class LoginUserController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('guest');
+//        $this->middleware('guest');
     }
 
     public function loginUser(Request $request) {
@@ -40,16 +40,16 @@ class LoginUserController extends Controller {
             dd($error);
         }
         $dateHostPots = Hostpots::whereName($data['uamport'])->get();
-        if (!empty($dateHostPots)) {
+        if (!empty($dateHostPots)) { 
             $uamip = explode(':', $data['uamip']);
             $obj = Hostpots::find($dateHostPots[0]->id);
             $obj->update(array('owner' => $uamip[0]));
             $ip = $uamip[0];
             if (!empty($dateHostPots->toArray())) {
                 $table = HotspotsCampania::whereHotspotsId($dateHostPots[0]->id)->get();
-                if ($table->toArray()) {
-                    $idCampania = $table->toArray()[0]['campania_id'];
-                } else {
+                if ($table->toArray()) { 
+                  $idCampania = $table->toArray()[0]['campania_id'];
+                } else{
                     $datos = GroupsCampania::whereGroupsId($dateHostPots[0]->geocode)->get();
                     $idCampania = $datos[0]->campania_id;
                 }

@@ -45,10 +45,10 @@
                         <input type="text" name="mac" placeholder="Mac" required>
                     </label>
                     <label>
-                        <input type="text" name="owner" placeholder="Ip" required data-parsley-type="digits">
+                        <input type="text" name="owner" placeholder="Ip" >
                     </label>
                     <label>
-                        <input type="text" name="name" placeholder="Identificador" required data-parsley-type="digits">
+                        <input type="text" name="name" placeholder="Identificador" required>
                     </label>
                     <button type="submit">+ Agregar Equipo</button>
                 </form>
