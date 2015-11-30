@@ -40,12 +40,11 @@ class LoginUserController extends Controller {
             dd($error);
         }
         $dateHostPots = Hostpots::whereName($data['uamport'])->get();
-        if (!empty($dateHostPots)) { 
-            $uamip = explode(':', $data['uamip']);
+            if (!empty($dateHostPots->toArray())) {
+                 $uamip = explode(':', $data['uamip']);
             $obj = Hostpots::find($dateHostPots[0]->id);
             $obj->update(array('owner' => $uamip[0]));
             $ip = $uamip[0];
-            if (!empty($dateHostPots->toArray())) {
                 $table = HotspotsCampania::whereHotspotsId($dateHostPots[0]->id)->get();
                 if ($table->toArray()) { 
                   $idCampania = $table->toArray()[0]['campania_id'];
@@ -55,13 +54,16 @@ class LoginUserController extends Controller {
                 }
                 $datosCampania = \App\Models\Campania::whereId($idCampania)->get();
                 $imagen=$datosCampania[0]->imagen;
-            }
+        } else {
+            $msg = array('msg' => 'no existe equipo asociado');
+            dd($msg);
         }
+
         $User = $this->getUser($data['mac']);
-        
-        $href='http://'.$ip.'?login?user='.$User['username'].'&password='.$User['value'].'&dst='.$datosCampania[0]->url;
-        
-        return viewc('home.login-user.login',compact('ip','href','imagen'));
+
+        $href = 'http://' . $ip . '?login?user=' . $User['username'] . '&password=' . $User['value'] . '&dst=' . $datosCampania[0]->url;
+
+        return viewc('home.login-user.login', compact('ip', 'href', 'imagen'));
     }
 
     public function getUser($mac) {
