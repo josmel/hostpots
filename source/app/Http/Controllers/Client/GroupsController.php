@@ -151,7 +151,7 @@ class GroupsController extends Controller {
         if (!empty($request)) {
             $data = $request->all();
             $data['customer_id'] = Auth::customer()->user()->id;
-//            $data['flagactive'] = $request->get('flagactive', 1);
+            $data['flagactive'] = $request->get('flagactive', 1);
             if ($request->id) { 
                 $obj = Groups::find($request->id);
                 $obj->update($data);
