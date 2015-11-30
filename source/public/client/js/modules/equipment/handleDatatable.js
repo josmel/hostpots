@@ -45,17 +45,17 @@
         return;
       },
       edit: function(e) {
-        var cellphone, edit, id, name, phone;
+        var owner, edit, id, name, mac;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");  
-        name = edit.children().eq(0).text().trim();
-        cellphone = edit.children().eq(1).text().trim();
-        phone = edit.children().eq(2).text().trim();
+        mac = edit.children().eq(0).text().trim();
+        owner = edit.children().eq(1).text().trim();
+        name = edit.children().eq(2).text().trim();
         $('#formContact input[name=id]').val(id);
         $('#formContact input[name=name]').val(name);
-        $('#formContact input[name=phone]').val(phone);
-        $('#formContact input[name=cellphone]').val(cellphone);
+        $('#formContact input[name=mac]').val(mac);
+        $('#formContact input[name=owner]').val(owner);
       },
       "delete": function(e) {
         var name, url;
@@ -66,7 +66,6 @@
           title: '¿Confirmar para eliminar?',
           text: 'Estas seguro de eliminar a ' + name,
           type: 'warning',
-          showCancelButton: true,
           confirmButtonColor: '#DD6B55',
           confirmButtonText: 'ELIMINAR!',
           cancelButtonText: 'CANCELAR',

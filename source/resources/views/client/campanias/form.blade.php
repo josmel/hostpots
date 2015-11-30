@@ -1,34 +1,46 @@
 @extends('client._layouts.layout')
 @section('content')
-<div id="wrapper">@if(session()->has('messageSuccess'))
-    <ul role="alert" class="alert alert-success alert-dismissible">
-        <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">&times;</span></button>
-        <li>{{session('messageSuccess')}}</li>
-    </ul>@endif
-    @if (count($errors) > 0)
-    <div class="alert alert-danger">Errores:<br>
-        <ul>@foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>@endforeach
-        </ul><br>
-    </div>@endif
-    <div class="container_perfl">
-        {!! Form::model($table,array('id'=>'form_perfil','data-parsley-validate')) !!}
-        <div class="texto_perfil">
-            <ul>
-                <li>
-                     {!! Form::label(null,'Campaña') !!}
-                    {!! Form::hidden('id',  $table->id ) !!}
-                </li>
-                <li><span>Nombre de la Campaña</span><br>{!! Form::text('name',old('name'),array('required','id'=>'name')) !!}</li>
-                <li class="input_form">{!! Form::button('Actualizar',array('type'=>'submit')) !!}</li>
-            </ul>
-        </div>
-        <div class="map_perfil"><span>Cuerpo de la Campaña</span><br><br>
-            <div class="form_control">
-                {!! Form::textarea('description', null , ['class' => 'form-control floating-label','placeholder'=>'','id'=>'wysihtml5-textarea'])!!}
+      <div id="wrapper"><br><br><br><br>
+          
+        <div class="content_soporte">
+             {!!Form::model($table,array('class'=>'formSoporte row','role'=>'form','files'=>'true','data-parsley-validate'))!!}
+                {!! Form::hidden('id',  $table->id ) !!}
+                 {!! Form::hidden('imagen',  $table->imagen, ['id'=>'image-rountine'] ) !!}
+          <!--<form data-parsley-validate class="formSoporte row">-->
+          
+            <div class="columna1">
+              <div class="form_control">
+                <label>(*) Nombre de Campaña</label>
+             {!! Form::text('name',old('name'),array('required','id'=>'name')) !!}
+              </div>
+              <div class="form_control">
+                <label>(*) Megas</label>
+                  {!! Form::text('megas',old('megas'),array('required','id'=>'megas')) !!}
+                <!--<input type="text" name="email" required data-parsley-type="email">-->
+              </div>
+                <div class="form_control">
+                <label>Imagen de Campaña</label>
+                  <!--{!! Form::text('imagen',old('imagen'),array('required','id'=>'imagen')) !!}-->
+                    <input type="file" id="uploadImgOne" data-hidden-id="#image-rountine" data-show-upload="false" data-allowed="jpg,png,gif" name="imagen" data-format="image"  class="js-uploadInput"/>
+                <!--<input type="text" name="email" required data-parsley-type="email">-->
+              </div>
             </div>
+            <div class="columna2">
+              <div class="form_control">
+                <label>Url de redirección</label>
+                {!! Form::text('url',old('url'),array('required','id'=>'url')) !!}
+              </div>
+                <div class="form_control">
+                <label>Expiracion</label>
+                {!! Form::text('expiracion',old('expiracion'),array('required','id'=>'expiracion')) !!}
+              </div>
+            </div>
+          {!! Form::button('Save', array( 'type'=>'submit')) !!}
+            <!--<button type="submit">Guardar</button>-->
+          {!!Form::close()!!}@if($errors->any())
+          <ul class="alert alert-danger">@foreach($errors->all() as $error)
+            <li>{{$error}}</li>@endforeach
+          </ul>@endif<br><br><br>
         </div>
-        {!! Form::close() !!}	
-    </div>
-</div>
-@stop
+      </div>
+  @stop

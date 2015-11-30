@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Datatables;
 use App\Http\Requests\Client\FormCustomerRequest;
-use App\Http\Requests\Client\FormContactRequest;
+use App\Http\Requests\Client\FormEquipmenteAdminRequest;
+use App\Http\Requests\Client\FormGroupsRequest;
 use App\Models\Customer;
-use App\Models\Equipment;
+use App\Models\Hostpots;
+use App\Models\Groups;
 use Illuminate\Http\Request;
+use DB;
 use Auth;
 use Hash;
 
@@ -35,6 +38,26 @@ class UserController extends Controller {
         }
         return viewc('client.' . self::NAMEC . '.form', compact('table', 'id'));
     }
+    
+    public function getEquipment($idGroup = null) {
+        $table = new Groups();
+        if (!empty($idGroup)) {
+            $table = Groups::find($idGroup);
+        }
+        return viewc('client.' . self::NAMEC . '.equipment', compact('table', 'idGroup'));
+    }
+    
+    public function getGroups($id = null) {
+          $table = new Groups();
+        if (!empty($id)) {
+            $table = Groups::whereCustomerId($id);
+        }
+        return viewc('client.' . self::NAMEC . '.groups', compact('table', 'id'));
+    }
+    
+    
+    
+    
 
     public function getInsert($id = null) {
         $table = new Customer();
@@ -60,7 +83,20 @@ class UserController extends Controller {
         }
         return redirect('admclient')->with('messageError', 'Error al guardar el perfil');
     }
-
+  public function postEquipmnt(FormEquipmenteAdminRequest $request) {
+        if (!empty($request)) {
+            $data = $request->all();
+            $data['flagactive'] = $request->get('flagactive', 1);
+            if ($request->id) {
+                $obj = Equipment::find($request->id);
+                $obj->update($data);
+            } else {
+                $obj = Equipment::create($data);
+            }
+            return array('msg' => 'ok', 'state' => 1, 'data' => null);
+        }
+        return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
+    }
     public function postForm(FormCustomerRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
@@ -114,11 +150,41 @@ class UserController extends Controller {
         }
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
+    public function postGroups(FormGroupsRequest $request) {
+        if (!empty($request)) {
+            $data = $request->all();
+            $data['customer_id'] = $request->get('customer_id', 1);
+            $data['flagactive'] = $request->get('flagactive', 1);
+            if ($request->id) {
+                $obj = Groups::find($request->id);
+                $obj->update($data);
+            } else {
+                $obj = Groups::create($data);
+            }
+            return array('msg' => 'ok', 'state' => 1, 'data' => null);
+        }
+        return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
+    }
 
-    public function getListEquipment(Request $request) {
+       public function getListGroups(Request $request) {
         $idCustomer = $request->input('idCustomer', null);
-        $table = Equipment::select(['id', 'name', 'phone', 'cellphone'])
+        $table = Groups::select(['id', 'name',     DB::raw("(if(flagactive='1','Activo',(if(flagactive='0','Inactivo','-')))) as flagactive")])
                 ->whereCustomerId($idCustomer);
+        $datatable = Datatables::of($table)
+                ->addColumn('action', function($table) {
+            return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
+                    
+                        <a href="#" data-url="/admclient/' . self::NAMEC . '/delete/' . $table->id . '" class="btn btn-danger action_delete" data-id="' . $table->id . '" >Eliminar</a>';
+        })
+        ;
+        
+        return $datatable->make(true);
+    }
+    public function getListEquipment(Request $request) { 
+        $idGroup = $request->input('idGroup', 0);
+       
+        $table = Hostpots::select(['id', 'name', 'mac', 'owner'])
+                ->whereGeocode($idGroup);
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
@@ -144,6 +210,14 @@ class UserController extends Controller {
         $table = null;
         if (!empty($id)) {
             $table = Equipment::whereId($id);
+            $table->delete();
+        }
+        return response()->json(array('msg' => 'ok', 'state' => 1, 'data' => null));
+    }
+     public function getDeleteGroup($id) {
+        $table = null;
+        if (!empty($id)) {
+            $table = Groups::whereId($id);
             $table->delete();
         }
         return response()->json(array('msg' => 'ok', 'state' => 1, 'data' => null));

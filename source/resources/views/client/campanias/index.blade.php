@@ -27,6 +27,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
+                            <th>Publicidad</th>
                             <th>Acción </th>
                         </tr>
                     </thead>
@@ -42,9 +43,11 @@
                 <td data-title="ID">
     <div><%= id %></div>
     </td>
-    
-    <td data-title="Nombre">
+    <td data-title="name">
     <div><%= name %></div>
+    </td>
+    <td data-title="Imagen">
+    <div><%= imagen %></div>
     </td>
     <td data-title="">
     <div><a href="/admclient/campanias/form/<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\CampaniasController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>

@@ -1,7 +1,11 @@
 <?php namespace App\Models;
 
 class Equipment extends BaseModel  {
-
-    protected $fillable = ['customer_id','phone','name', 'cellphone', 'flagactive', 'email'];
-     protected $table = 'equipments';
+  /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name','mac', 'flagactive','ip','groups_id'];
+    protected $table = 'hotspots';
 }
