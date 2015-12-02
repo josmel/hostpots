@@ -47,6 +47,8 @@ class GroupsController extends Controller {
         $datosGrupo = Groups::find($data['groups_id'])->lists('name');
         Radgroupreply::whereGroupname($datosGrupo[0])->forceDelete();
         foreach ($dataEquipos->toArray() as $v) {
+/*
+
             $valor1 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Advertise-URL', 'op' => '==', 'value' => $datosCampaniaFinal[0]['url']);
             Radgroupreply::create($valor1);
             $valor2 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Advertise-Interval', 'op' => '==', 'value' => $datosCampaniaFinal[0]['expiracion']);
@@ -56,7 +58,23 @@ class GroupsController extends Controller {
         }
         echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);exit;
 //        return redirect('/admclient/groups');
+    }  */
+
+
+            $valor1 = array('groupname' => $datosGrupo[0], 'MikroTik-Advertise-URL', 'op' => '==', 'value' => $datosCampaniaFinal[0]['url']);
+            Radgroupreply::create($valor1);
+            $valor2 = array('groupname' => $datosGrupo[0], 'MikroTik-Advertise-Interval', 'op' => '==', 'value' => $datosCampaniaFinal[0]['expiracion']);
+            Radgroupreply::create($valor2);
+            $valor3 = array('groupname' => $datosGrupo[0], 'MikroTik-Rate-Limit', 'op' => '==', 'value' => $datosCampaniaFinal[0]['megas']);
+            Radgroupreply::create($valor3);
+        }
+        echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);exit;
+//        return redirect('/admclient/groups');
     }
+
+
+
+
 
     public function getIndex() {
         if (Auth::customer()->check()) {
