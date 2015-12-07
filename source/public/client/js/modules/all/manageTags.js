@@ -86,8 +86,14 @@
                 });
             },
             addExerciseModal: function (obj) {
+                 var idParent;
+                idParent = obj.parents("tr").find(".more-exercise").data("id");
                 $.ajax({
                     url: "/admclient/get-hotspots",
+                     method: "GET",
+                    data: {
+                        groups_id: idParent
+                    },
                     success: function (json) {
                         var data, excer, html, opt, ref, tpl, val;
                         html = "";

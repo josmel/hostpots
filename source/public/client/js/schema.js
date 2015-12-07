@@ -107,7 +107,7 @@
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
                         },
                         getGroups: function () {
-                            return require(['modules/groups/handleDatatable']);
+                            return require(['modules/groups/handleDatatable','manageTags']);
                         }
                     },
                     allActions: function () {
