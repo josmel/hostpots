@@ -24,7 +24,8 @@ class FormCustomerRequest extends Request {
 	{
 		return [
                     'name_customer' => 'required',
-                    'email' => 'required|email|unique:customers,email,'.Auth::customer()->user()->id,
+//                    'email' => 'required|email|unique:customers,email,'.Auth::customer()->user()->id,
+                      'email' => 'required|email',
 //                    'ruc' => 'required',
 		];
 	}
