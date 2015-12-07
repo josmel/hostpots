@@ -18,7 +18,7 @@
                         border: medium none;
                         color: #fff;
                         cursor: pointer;
-                        padding: 10px;"type="submit">+ Agregar Usuario</button></a><br><br>
+                        padding: 10px;"type="submit">+ Agregar CLiente</button></a><br><br>
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">

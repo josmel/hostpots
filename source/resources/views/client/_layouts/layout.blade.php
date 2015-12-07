@@ -56,7 +56,7 @@
                     <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Perfil Admin</span></a></li>
                     <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
-                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Usuarios</span></a></li>
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Clientes</span></a></li>
                 </ul>@endif
                 @if(Auth::customer()->user()->type=='1')
                 <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
@@ -66,7 +66,7 @@
                         <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Administradores</span></a></li>
 
                 <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
-                        <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Usuarios</span></a></li>
+                        <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Clientes</span></a></li>
                 </ul>@endif
             </nav>
         </aside>
