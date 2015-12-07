@@ -49,6 +49,27 @@ class GroupsController extends Controller {
         $datosGrupo = Groups::find($data['groups_id'])->lists('name');
         Radgroupreply::whereGroupname($datosGrupo[0])->forceDelete();
         foreach ($dataEquipos->toArray() as $v) {
+            $valor1 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Advertise-URL', 'op' => '==', 'value' => $datosCampaniaFinal[0]['url']);
+            Radgroupreply::create($valor1);
+            $valor2 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Advertise-Interval', 'op' => '==', 'value' => $datosCampaniaFinal[0]['expiracion']);
+            Radgroupreply::create($valor2);
+            $valor3 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Rate-Limit', 'op' => '==', 'value' => $datosCampaniaFinal[0]['megas']);
+            Radgroupreply::create($valor3);
+        }
+        echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);
+        exit;
+    }
+
+    public function postConfiguracion2(Request $request) {
+        $data = $request->all();
+        GroupsCampania::whereGroupsId($data['groups_id'])->forceDelete();
+        GroupsCampania::create($data);
+        $dataEquipos = Hostpots::whereGeocode($data['groups_id'])->get();
+        $datosCampania = Campania::whereId($data['campania_id'])->get();
+        $datosCampaniaFinal = $datosCampania->toArray();
+        $datosGrupo = Groups::find($data['groups_id'])->lists('name');
+        Radgroupreply::whereGroupname($datosGrupo[0])->forceDelete();
+        foreach ($dataEquipos->toArray() as $v) {
             $valor1 = array('groupname' => $datosGrupo[0], 'MikroTik-Advertise-URL', 'op' => '==', 'value' => $datosCampaniaFinal[0]['url']);
             Radgroupreply::create($valor1);
             $valor2 = array('groupname' => $datosGrupo[0], 'MikroTik-Advertise-Interval', 'op' => '==', 'value' => $datosCampaniaFinal[0]['expiracion']);
