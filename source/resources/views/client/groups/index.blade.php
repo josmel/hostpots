@@ -56,11 +56,12 @@ $(document).ready(function () {
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
-                <table data-url="/admclient/groups/list" class="table table-hover">
+                <table id="categoryTable" data-url="/admclient/groups-data" data-nofilter="1" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
+                            <th>Equipos</th>
                             <th>Estado</th>
                             <th>Acción </th>
                         </tr>
@@ -81,6 +82,20 @@ $(document).ready(function () {
         </div>
     </div>
 </div>
+
+<script type="text/template" id="addTagsExercise">
+  <div style="width:600px;" class="ctn-addTags">
+    <h2>Agregar Equipo</h2>
+    <form>
+      <div class="form-ctn">
+        <div class="input-ctn">
+          <input type="hidden" value="<%= idroutine %>" class="idrout"/>
+          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</script>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
     <td data-title="ID">
@@ -89,12 +104,14 @@ $(document).ready(function () {
     <td data-title="Nombre">
     <div><%= name %></div>
     </td>
+ <td data-title="gof">
+    <div><%= hotspots %></div>
+    </td>
     <td data-title="FA">
     <div><%= flagactive %></div>
     </td>
     <td data-title="">
     <div>
-    <a href="/admclient/equipment/index/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
     <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>
     <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
     <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\GroupsController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
@@ -102,4 +119,6 @@ $(document).ready(function () {
     </tr>
 </script>
 @stop
+<!-- <a href="/admclient/equipment/index/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
+   -->
 

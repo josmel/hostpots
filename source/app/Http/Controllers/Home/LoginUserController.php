@@ -3,19 +3,12 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Home\RegisterRequest;
-use App\Models\Customer;
 use Illuminate\Http\Request;
-use App\Models\Contact;
 use App\Models\Radcheck;
 use App\Models\Radusergroup;
-use App\Models\Equipment;
 use App\Models\Hostpots;
-use App\Models\EquipmentCampania;
 use App\Models\HotspotsCampania;
 use App\Models\GroupsCampania;
-use App\Http\Requests\Home\FormSettingReques;
-use Hash;
 use Validator;
 
 class LoginUserController extends Controller {
@@ -41,20 +34,20 @@ class LoginUserController extends Controller {
             dd($error);
         }
         $dateHostPots = Hostpots::whereName($data['uamport'])->get();
-            if (!empty($dateHostPots->toArray())) {
-                 $uamip = explode(':', $data['uamip']);
+        if (!empty($dateHostPots->toArray())) {
+            $uamip = explode(':', $data['uamip']);
             $obj = Hostpots::find($dateHostPots[0]->id);
             $obj->update(array('owner' => $uamip[0]));
             $ip = $uamip[0];
-                $table = HotspotsCampania::whereHotspotsId($dateHostPots[0]->id)->get();
-                if ($table->toArray()) { 
-                  $idCampania = $table->toArray()[0]['campania_id'];
-                } else{
-                    $datos = GroupsCampania::whereGroupsId($dateHostPots[0]->geocode)->get();
-                    $idCampania = $datos[0]->campania_id;
-                }
-                $datosCampania = \App\Models\Campania::whereId($idCampania)->get();
-                $imagen=$datosCampania[0]->imagen;
+            $table = HotspotsCampania::whereHotspotsId($dateHostPots[0]->id)->get();
+            if ($table->toArray()) {
+                $idCampania = $table->toArray()[0]['campania_id'];
+            } else {
+                $datos = GroupsCampania::whereGroupsId($dateHostPots[0]->geocode)->get();
+                $idCampania = $datos[0]->campania_id;
+            }
+            $datosCampania = \App\Models\Campania::whereId($idCampania)->get();
+            $imagen = $datosCampania[0]->imagen;
         } else {
             $msg = array('msg' => 'no existe equipo asociado');
             dd($msg);
@@ -64,11 +57,11 @@ class LoginUserController extends Controller {
 
 // Usergroup
 
-        $Usergroup = $this->getUsergroup($data['mac'],$data['uamport']);
+        $Usergroup = $this->getUsergroup($data['mac'], $data['uamport']);
 
         //$href = 'http://' . $ip . '?login?user=' . $User['username'] . '&password=' . $User['value'] . '&dst=' . $datosCampania[0]->url;
-        
-	$href = 'http://' . $ip . '/login?user=' . $User['username'] . '&password=' . $User['value'] . '&dst=' . $datosCampania[0]->url;
+
+        $href = 'http://' . $ip . '/login?user=' . $User['username'] . '&password=' . $User['value'] . '&dst=' . $datosCampania[0]->url;
 
         return viewc('home.login-user.login', compact('ip', 'href', 'imagen'));
     }
@@ -89,9 +82,8 @@ class LoginUserController extends Controller {
         return $user;
     }
 
-
 // Funcion agregada para radusergroup
-    public function getUsergroup($mac,$uamport) {
+    public function getUsergroup($mac, $uamport) {
         $table = Radusergroup::whereUsername($mac)->get();
         if (count($table) == 1) {
             $user = $table[0]->toArray();
@@ -104,9 +96,5 @@ class LoginUserController extends Controller {
         }
         return $user;
     }
-
-
-
-
 
 }

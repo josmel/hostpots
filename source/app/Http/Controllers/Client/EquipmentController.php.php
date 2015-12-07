@@ -2,44 +2,38 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use Datatables;
-use App\Http\Requests\Client\FormCustomerRequest;
-use App\Http\Requests\Client\FormContactRequest;
-use App\Http\Requests\Client\FormSettingRequest;
-use App\Models\Customer;
-use App\Models\Day;
-use Illuminate\Http\Request;
-use App\Models\Hostpots;
-use App\Models\Setting;
-use App\Models\EquipmentCampania;
-use App\Models\Campania;
-use App\Models\GroupsCampania;
-use App\Models\HotspotsCampania;
-use Auth;
-use Hash;
+use App\Http\Controllers\Controller,
+    Datatables,
+    App\Http\Requests\Client\FormContactRequest,
+    App\Http\Requests\Client\FormSettingRequest,
+    App\Models\Day,
+    Illuminate\Http\Request,
+    App\Models\Hostpots,
+    App\Models\Setting,
+    App\Models\EquipmentCampania,
+    App\Models\Campania,
+    App\Models\GroupsCampania,
+    App\Models\HotspotsCampania,
+       DB,
+    Auth;
 
 class EquipmentController extends Controller {
 
     const NAMEC = 'equipment';
 
-    public function getIndex($idGroup=null) {
-        
-            return viewc('client.' . self::NAMEC . '.index', compact('table','idGroup'));
+    public function getIndex($idGroup = null) {
+        return viewc('client.' . self::NAMEC . '.index', compact('table', 'idGroup'));
     }
-//    
-    
-    
+
+
     public function getConfiguracion($idEquipment = null) {
-        
-        
         $typeCampania = Campania::where('flagactive', '=', '1')
                         ->whereCustomerId(Auth::customer()->user()->id)->lists('name', 'id');
 //        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
         $table = new GroupsCampania();
-            $datos = HotspotsCampania::whereHotspotsId($idEquipment)->get();
-        if (!empty($datos)) { 
-            if (!empty($datos->toArray())) {  
+        $datos = HotspotsCampania::whereHotspotsId($idEquipment)->get();
+        if (!empty($datos)) {
+            if (!empty($datos->toArray())) {
                 $table = HotspotsCampania::find($datos[0]->id);
             }
         }
@@ -50,12 +44,9 @@ class EquipmentController extends Controller {
         $data = $request->all();
         HotspotsCampania::whereHotspotsId($data['hotspots_id'])->forceDelete();
         HotspotsCampania::create($data);
-         echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);exit;
+        echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);
+        exit;
     }
-    
-    
-    
-    
 
     public function getForm($id) {
         $idProceso = explode('-', $id);
@@ -101,28 +92,24 @@ class EquipmentController extends Controller {
         return viewc('client.' . self::NAMEC . '.detalle-campania', ['equipment_id' => $equipment_id]);
     }
 
- 
-
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['geocode'] =$data['groups_id'];
+            $data['geocode'] = Auth::customer()->user()->id;
             if ($request->id) {
                 $obj = Hostpots::find($request->id);
                 $obj->update($data);
-            } else {
-                $obj = Hostpots::create($data);
             }
             return array('msg' => 'ok', 'state' => 1, 'data' => null);
         }
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
-
-    public function getList(Request $request) {
-          $idGroup = $request->input('idGroup', 0);
-        $table = Hostpots::select(['id', 'name', 'mac', 'owner'])
-                ->whereGeocode($idGroup);
+    public function getList() {
+//        $idGroup = $request->input('idGroup', 0);
+//        $table = Hostpots::select(['id', 'name', 'mac', 'owner','email_owner'])
+            $table = Hostpots::select(['id', DB::raw("(if(manager='1','Activo',(if(manager='0','Inactivo','-')))) as manager"),'email_owner','name'])
+                ->whereGeocode(Auth::customer()->user()->id);
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>

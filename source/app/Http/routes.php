@@ -15,19 +15,23 @@
 
 Route::group(['namespace' => 'Client', 'prefix' => 'admclient'], function () {
     Route::get('/', ['uses' => 'WelcomeController@index', 'as' => 'Welcomeclient']);
+    Route::get('/groups-data', 'GroupsController@groupsDataTable');
+       Route::get('/get-hotspots', 'GroupsController@listHotspots');
+         Route::get('/delete-hotspots-groups', 'GroupsController@deleteGroupsHotspots');
+             Route::get('/hotspots_groups', 'GroupsController@hotspotsGroups');
     Route::controllers([
         'perfil' => 'ProfileController',
         'profile-admin' => 'ProfileAdminController',
         'equipment' => 'EquipmentController',
         'campanias' => 'CampaniasController',
         'user' => 'UserController',
-        'groups'=>'GroupsController'
+        'groups' => 'GroupsController'
     ]);
 });
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'WelcomeController@index');
-     Route::get('login-user', 'LoginUserController@loginUser');
+    Route::get('login-user', 'LoginUserController@loginUser');
     Route::get('d0c', ['middleware' => 'auth.basic.once', function() {
             return view('home.doc.api');
         }]);

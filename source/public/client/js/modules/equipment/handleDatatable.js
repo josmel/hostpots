@@ -45,17 +45,17 @@
         return;
       },
       edit: function(e) {
-        var owner, edit, id, name, mac;
+        var email_owner, edit, id;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");  
-        mac = edit.children().eq(0).text().trim();
-        owner = edit.children().eq(1).text().trim();
-        name = edit.children().eq(2).text().trim();
+//        mac = edit.children().eq(0).text().trim();
+        email_owner = edit.children().eq(1).text().trim();
+//        name = edit.children().eq(2).text().trim();
         $('#formContact input[name=id]').val(id);
-        $('#formContact input[name=name]').val(name);
-        $('#formContact input[name=mac]').val(mac);
-        $('#formContact input[name=owner]').val(owner);
+        $('#formContact input[name=email_owner]').val(email_owner);
+//        $('#formContact input[name=mac]').val(mac);
+//        $('#formContact input[name=owner]').val(owner);
       },
       "delete": function(e) {
         var name, url;
