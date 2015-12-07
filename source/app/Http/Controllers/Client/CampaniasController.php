@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use Datatables;
-use App\Http\Requests\Client\FormCustomerRequest;
-use App\Http\Requests\Client\FormContactRequest;
-use App\Models\Customer;
-use App\Models\Contact;
-use Config;
-use Auth;
-use Hash;
-use App\Http\Requests\Client\FormCampaniaRequest;
-use App\Models\Campania;
-use DB;
+use App\Http\Controllers\Controller,
+ Datatables,
+ App\Models\Customer,
+  Illuminate\Http\Request,
+ Config,
+ Auth,
+ App\Http\Requests\Client\FormCampaniaRequest,
+ App\Models\Campania,
+ DB;
 
 class CampaniasController extends Controller {
 
@@ -83,12 +80,13 @@ class CampaniasController extends Controller {
         return $datatable->make(true);
     }
     
-    public function getList() {
-        $table = Campania::select(['id', 'name', 'url','expiracion','megas','imagen',
+   public function getList(Request $request) {
+       $idCustomer = $request->input('idCustomer', Auth::customer()->user()->id);
+        $table = Campania::select(['id', 'name', 'url', 'expiracion', 'megas', 'imagen',
                     DB::raw("(if(flagactive='1','Activo',(if(flagactive='0','Inactivo','-')))) as flagactive")])
-               ->whereCustomerId(Auth::customer()->user()->id);
+                ->whereCustomerId($idCustomer);
         $datatable = Datatables::of($table)
-                 ->editColumn('imagen', '<a target="_blank" href="{{$imagen}}"><img src="{{$imagen}}" heigth=64" width="64" /></a>')
+                ->editColumn('imagen', '<a target="_blank" href="{{$imagen}}"><img src="{{$imagen}}" heigth=64" width="64" /></a>')
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
                         <a href="#" data-url="/admclient/' . self::NAMEC . '/delete/' . $table->id . '" class="btn btn-danger action_delete" data-id="' . $table->id . '" >Eliminar</a>';
@@ -97,10 +95,13 @@ class CampaniasController extends Controller {
         return $datatable->make(true);
     }
 
-    public function getDelete($id) {
+    public function getDelete($id,$CustomerId=null) {
+        if($CustomerId==null){
+            $CustomerId=Auth::customer()->user()->id;
+        }
         $table = null;
         if (!empty($id)) {
-            $table = Campania::whereId($id)->whereCustomerId(Auth::customer()->user()->id);
+            $table = Campania::whereId($id)->whereCustomerId($CustomerId);
             $table->delete();
         }
         return response()->json(array('msg' => 'ok', 'state' => 1, 'data' => null));

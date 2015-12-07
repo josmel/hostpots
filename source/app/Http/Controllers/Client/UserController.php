@@ -7,11 +7,13 @@ use Datatables;
 use App\Http\Requests\Client\FormCustomerRequest;
 use App\Http\Requests\Client\FormEquipmenteAdminRequest;
 use App\Http\Requests\Client\FormGroupsRequest;
+ use App\Http\Requests\Client\FormCampaniaRequest;
 use App\Models\Customer;
+use App\Models\Campania;
 use App\Models\Hostpots;
 use App\Models\Groups;
+use Config;
 use Illuminate\Http\Request;
-use DB;
 use Auth;
 use Hash;
 
@@ -46,7 +48,47 @@ class UserController extends Controller {
         }
         return viewc('client.' . self::NAMEC . '.equipment', compact('table', 'idUser'));
     }
+        public function getCampania($idUser = null) {
+        $table = new Customer();
+        if (!empty($table)) {
+            $table = Customer::find($table);
+        }
+        return viewc('client.' . self::NAMEC . '.campania', compact('table', 'idUser'));
+    }
+ public function getFormcampania($id = null) {
+   $value=  explode("-", $id);
+   $Customer_id=$value[0];
+        $table = new Campania();
+        if (!empty($value[1])) {
+            $table = Campania::find($value[1]);
+            $table->imagen = !empty($table->imagen) ? "{$table->imagen}" : null;
+            
+        }
 
+        return viewc('client.' . self::NAMEC . '.formcampania', compact('table','Customer_id'));
+    }
+    
+      public function postFormcampania(FormCampaniaRequest $request) {
+        if (!empty($request)) {
+            $data = $request->all();
+            if ($request->hasfile('imagen')) {
+                $imageFile = $request->file('imagen');
+                $destinationPath = Config::get('app.DINAMIC_PATH') . '/campania';
+                $fileName = date('Ymdhis') . rand(1, 1000) . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move($destinationPath, $fileName);
+                $data['imagen'] = '/dinamic/campania/' . $fileName;
+            }
+            $data['flagactive'] = $request->get('flagactive', 1);
+            if ($request->id) {
+                $obj = Campania::find($request->id);
+                $obj->update($data);
+            } else {
+                $obj = Campania::create($data);
+            }
+            return redirect('admclient/' . self::NAMEC.'/campania/'.$data['customer_id'])->with('messageSuccess', 'Caracteristicas Guardado');
+        }
+        return redirect('admclient')->with('messageError', 'Error al guardar la region');
+    }
     public function getGroups($id = null) {
         $table = new Groups();
         if (!empty($id)) {

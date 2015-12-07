@@ -97,6 +97,9 @@
                         getEquipment: function () {
                             return require(['modules/user/handleDatatableEquipment']);
                         },
+                        getCampania: function () {
+                            return require(['modules/campanias/handleDatatable']);
+                        },
                         getIndex: function () {
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
                         },
@@ -108,6 +111,9 @@
                         },
                         getGroups: function () {
                             return require(['modules/groups/handleDatatable','manageTags']);
+                        },
+                        getFormcampania: function () {
+                            return require(['modules/campanias/index', 'generateUploads']);
                         }
                     },
                     allActions: function () {
