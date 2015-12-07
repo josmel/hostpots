@@ -13,21 +13,21 @@
     </div>@endif
     <div class="container_perfl">
         <div class="agregar_persona">
-            <a href="/admclient/user/insert" >
+            <a href="/admclient/user/formcampania/{{$idUser}}" >
                 <button style="background: #48c0f7 none repeat scroll 0 0;
                         border: medium none;
                         color: #fff;
                         cursor: pointer;
-                        padding: 10px;"type="submit">+ Agregar Usuario</button></a><br><br>
+                        padding: 10px;"type="submit">+ Agregar Campaña</button></a><br><br>
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
-                <table data-url="/admclient/user/list" class="table table-hover">
+                <table data-url="/admclient/campanias/list?idCustomer={{$idUser}}" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th>Email</th>
+                            <th>Publicidad</th>
                             <th>Acción </th>
                         </tr>
                     </thead>
@@ -43,19 +43,14 @@
                 <td data-title="ID">
     <div><%= id %></div>
     </td>
-    
-    <td data-title="Nombre">
-    <div><%= name_customer %></div>
+    <td data-title="name">
+    <div><%= name %></div>
     </td>
-    <td data-title="Email">
-    <div><%= email %></div>
+    <td data-title="Imagen">
+    <div><%= imagen %></div>
     </td>
     <td data-title="">
-    <div>
-    <a href="/admclient/user/campania/<%= id %>" title="Agregar Campañas" class=""><i class="icon icon-servicios_activos_off i_activos"></i></a>
-     <a href="/admclient/user/groups/<%= id %>" title="Agregar Grupos" class=""><i class="icon icon-recibo"></i></a>
-      <a href="/admclient/user/equipment/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
-                <a href="/admclient/user/form/<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
+    <div><a href="/admclient/user/formcampania/{{$idUser}}-<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\CampaniasController@getDelete') }}/<%= id %>/{{$idUser}}" class="del_contact"><i class="icon icon-basura"></i></a></div>
     </td>
     </tr>
 </script>
