@@ -92,6 +92,15 @@
                     allActions: function () {
                     }
                 },
+                  'Admin': {
+                    actions: {
+                        getIndex: function () {
+                            return require(['modules/user/index', 'modules/user/handleDatatable']);
+                        }
+                    },
+                    allActions: function () {
+                    }
+                },
                 'User': {
                     actions: {
                         getEquipment: function () {

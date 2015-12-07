@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Client', 'prefix' => 'admclient'], function () {
         'equipment' => 'EquipmentController',
         'campanias' => 'CampaniasController',
         'user' => 'UserController',
+        'admin' => 'AdminController',
         'groups' => 'GroupsController'
     ]);
 });
