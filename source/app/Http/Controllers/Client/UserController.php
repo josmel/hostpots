@@ -39,12 +39,12 @@ class UserController extends Controller {
         return viewc('client.' . self::NAMEC . '.form', compact('table', 'id'));
     }
     
-    public function getEquipment($idGroup = null) {
-        $table = new Groups();
-        if (!empty($idGroup)) {
-            $table = Groups::find($idGroup);
+    public function getEquipment($idUser = null) {
+        $table = new Customer();
+        if (!empty($table)) {
+            $table = Customer::find($table);
         }
-        return viewc('client.' . self::NAMEC . '.equipment', compact('table', 'idGroup'));
+        return viewc('client.' . self::NAMEC . '.equipment', compact('table', 'idUser'));
     }
     
     public function getGroups($id = null) {

@@ -24,12 +24,13 @@
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
-                <table data-url="/admclient/equipment/list?idGroup={{ $idGroup}}" class="table table-hover">
+                <table data-url="/admclient/equipment/list?user={{ $idUser}}" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Mac</th>
                             <th>Ip</th>
                             <th>Identificador</th>
+                              <th>Descripcion</th>
                             <th>Acción </th>
                         </tr>
                     </thead>
@@ -40,7 +41,7 @@
                 <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
-                    <input type="hidden" name="groups_id" value="{{ $idGroup}}">
+                    <input type="hidden" name="customer_id" value="{{ $idUser}}">
                     <label>
                         <input type="text" name="mac" placeholder="Mac" required>
                     </label>
@@ -49,6 +50,9 @@
                     </label>
                     <label>
                         <input type="text" name="name" placeholder="Identificador" required>
+                    </label>
+                    <label>
+                        <input type="text" name="email_owner" placeholder="Descripcion" required>
                     </label>
                     <button type="submit">+ Agregar Equipo</button>
                 </form>
@@ -65,8 +69,11 @@
     <td data-title="Ip">
     <div><%= owner %></div>
     </td>
-        <td data-title="Identificador">
-    <div><%= name %></div>
+   <td data-title="Identificador">
+    <div><%= name %> </div>
+    </td>
+    <td data-title="Descripcion">
+    <div><%= email_owner %> </div>
     </td>
         <td data-title="">
             <div>

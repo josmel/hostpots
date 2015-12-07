@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller,
     App\Models\Campania,
     App\Models\GroupsCampania,
     App\Models\HotspotsCampania,
-       DB,
+    DB,
     Auth;
 
 class EquipmentController extends Controller {
@@ -24,7 +24,6 @@ class EquipmentController extends Controller {
     public function getIndex($idGroup = null) {
         return viewc('client.' . self::NAMEC . '.index', compact('table', 'idGroup'));
     }
-
 
     public function getConfiguracion($idEquipment = null) {
         $typeCampania = Campania::where('flagactive', '=', '1')
@@ -95,21 +94,28 @@ class EquipmentController extends Controller {
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['geocode'] = Auth::customer()->user()->id;
+            $data['geocode'] = $request->input('customer_id', Auth::customer()->user()->id);
             if ($request->id) {
                 $obj = Hostpots::find($request->id);
                 $obj->update($data);
+            } else {
+                if ($request->input('customer_id')) {
+                    $data['manager'] = "1";
+                    $obj = Hostpots::create($data);
+                } else {
+                    return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
+                }
             }
             return array('msg' => 'ok', 'state' => 1, 'data' => null);
         }
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
-    public function getList() {
-//        $idGroup = $request->input('idGroup', 0);
+    public function getList(Request $request) {
+        $idUser = $request->input('user', Auth::customer()->user()->id);
 //        $table = Hostpots::select(['id', 'name', 'mac', 'owner','email_owner'])
-            $table = Hostpots::select(['id', DB::raw("(if(manager='1','Activo',(if(manager='0','Inactivo','-')))) as manager"),'email_owner','name'])
-                ->whereGeocode(Auth::customer()->user()->id);
+        $table = Hostpots::select(['id', 'mac', 'owner', DB::raw("(if(manager='1','Activo',(if(manager='0','Inactivo','-')))) as manager"), 'email_owner', 'name'])
+                ->whereGeocode($idUser);
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
@@ -125,6 +131,7 @@ class EquipmentController extends Controller {
         if (!empty($id)) {
             $table = Hostpots::whereId($id);
             $table->delete();
+            \App\Models\HotspotsGroups::whereHotspotsId($id)->delete();
         }
         return response()->json(array('msg' => 'ok', 'state' => 1, 'data' => null));
     }
