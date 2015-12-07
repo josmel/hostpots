@@ -27,7 +27,7 @@
         <link href="{{ asset('client/') }}/js/libs/datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" media="all" rel="stylesheet" type="text/css">
         <link href="{{Request::root()}}/client/css/trumbowyg.min.css" media="all" rel="stylesheet" type="text/css">
         <link href="{{ asset('client/') }}/css/all.css" media="all" rel="stylesheet" type="text/css">
-                <script data-main="{{ asset('client/') }}/js/main" src="{{ asset('client/') }}/js/libs/DataTables/media/js/jquery.dataTables.js"></script>
+        <script data-main="{{ asset('client/') }}/js/main" src="{{ asset('client/') }}/js/libs/DataTables/media/js/jquery.dataTables.js"></script>
     </head>
     <body class="l-site">
         @if(Auth::customer()->user())
@@ -48,16 +48,25 @@
 
                     <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
-                    
+
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
                     @endif
-                    
                     @if(Auth::customer()->user()->type=='3')
                     <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Perfil Admin</span></a></li>
-                            <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
+                    <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Usuarios</span></a></li>
+                </ul>@endif
+                @if(Auth::customer()->user()->type=='1')
+                <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
+                        <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Perfil Admin</span></a></li>
+
+                <li class="{{ Request::is('admclient/admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/admin') }}">
+                        <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Administradores</span></a></li>
+
+                <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
+                        <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Usuarios</span></a></li>
                 </ul>@endif
             </nav>
         </aside>
