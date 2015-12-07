@@ -72,7 +72,7 @@ $(document).ready(function () {
             <div class="agregar_persona">
                 <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
+                    <input type="hidden" name="id" value="" required>
                     <!--<input type="hidden" name="groups_id" value="{{$idGroup}}">-->
 <!--                    <label>
                         <input type="text" name="mac" placeholder="Mac" required>
@@ -91,10 +91,10 @@ $(document).ready(function () {
 </div>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
-                 <td data-title="ID">
+                 <td data-title="Id">
     <div><%= id %></div>
     </td>
-    <td data-title="Mac">
+    <td data-title="Descripcion">
     <div><%= email_owner %></div>
     </td>
 
