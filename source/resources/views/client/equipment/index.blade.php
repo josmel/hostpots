@@ -56,12 +56,13 @@ $(document).ready(function () {
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
-                <table data-url="/admclient/equipment/list?idGroup={{$idGroup}}" class="table table-hover">
+                <table data-url="/admclient/equipment/list" class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Mac</th>
-                            <th>Ip</th>
-                            <th>Identificador</th>
+                             <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <!--<th>Identificador</th>-->
                             <th>Acción </th>
                         </tr>
                     </thead>
@@ -72,17 +73,17 @@ $(document).ready(function () {
                 <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
-                    <input type="hidden" name="groups_id" value="{{$idGroup}}">
-                    <label>
+                    <!--<input type="hidden" name="groups_id" value="{{$idGroup}}">-->
+<!--                    <label>
                         <input type="text" name="mac" placeholder="Mac" required>
                     </label>
                     <label>
                         <input type="text" name="owner" placeholder="Ip" >
-                    </label>
+                    </label>-->
                     <label>
-                        <input type="text" name="name" placeholder="Identificador" required>
+                        <input type="text" name="email_owner" placeholder="Nombre" required>
                     </label>
-                    <button type="submit">+ Agregar Equipo</button>
+                    <button type="submit">Editar Equipo</button>
                 </form>
             </div>
         </div>
@@ -90,27 +91,29 @@ $(document).ready(function () {
 </div>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
+                 <td data-title="ID">
+    <div><%= id %></div>
+    </td>
     <td data-title="Mac">
-    <div><%= mac %></div>
+    <div><%= email_owner %></div>
     </td>
 
-    <td data-title="Ip">
-    <div><%= owner %></div>
+   <td data-title="Estado">
+    <div><%= manager %></div>
     </td>
-        <td data-title="Identificador">
-    <div><%= name %></div>
-    </td>
+
     <td data-title="">
     <div>
       <a title="Configurar campaña individual" class="fancybox fancybox.iframe" href="/admclient/equipment/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>
 
- <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
-    <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\EquipmentController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
+ <a title="Editar Equipo" href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
+</div>
     </td>
     </tr>
 </script>
 @stop
-
+<!--  <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\EquipmentController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a>
+   --> 
 
                
 <!--              <a href="/admclient/equipment/detalle-campania/<%= id %>" title="Configurar Campaña" class=""><i class="icon icon-recibo"></i></a>-->

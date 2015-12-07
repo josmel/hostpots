@@ -3,7 +3,7 @@
     var catchDom, dom, events, functions, st, suscribeEvents;
     console.log("show Table perfil");
     st = {
-      table: 'table',
+      table: '.table',
       rowTpl: '.row4Table',
       formContact: '#formContact'
     };

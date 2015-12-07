@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller,
     App\Models\Campania,
     App\Models\GroupsCampania,
     App\Models\HotspotsCampania,
+       DB,
     Auth;
 
 class EquipmentController extends Controller {
@@ -94,24 +95,21 @@ class EquipmentController extends Controller {
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['geocode'] = $data['groups_id'];
+            $data['geocode'] = Auth::customer()->user()->id;
             if ($request->id) {
                 $obj = Hostpots::find($request->id);
                 $obj->update($data);
-            } else {
-               $data= GroupsCampania::whereGroupsId($data['geocode'] )->get();
-               dd($data->toArray());
-                $obj = Hostpots::create($data);
             }
             return array('msg' => 'ok', 'state' => 1, 'data' => null);
         }
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
-    public function getList(Request $request) {
-        $idGroup = $request->input('idGroup', 0);
-        $table = Hostpots::select(['id', 'name', 'mac', 'owner'])
-                ->whereGeocode($idGroup);
+    public function getList() {
+//        $idGroup = $request->input('idGroup', 0);
+//        $table = Hostpots::select(['id', 'name', 'mac', 'owner','email_owner'])
+            $table = Hostpots::select(['id', DB::raw("(if(manager='1','Activo',(if(manager='0','Inactivo','-')))) as manager"),'email_owner','name'])
+                ->whereGeocode(Auth::customer()->user()->id);
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>

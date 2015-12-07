@@ -27,6 +27,7 @@
         <link href="{{ asset('client/') }}/js/libs/datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" media="all" rel="stylesheet" type="text/css">
         <link href="{{Request::root()}}/client/css/trumbowyg.min.css" media="all" rel="stylesheet" type="text/css">
         <link href="{{ asset('client/') }}/css/all.css" media="all" rel="stylesheet" type="text/css">
+                <script data-main="{{ asset('client/') }}/js/main" src="{{ asset('client/') }}/js/libs/DataTables/media/js/jquery.dataTables.js"></script>
     </head>
     <body class="l-site">
         @if(Auth::customer()->user())
@@ -45,9 +46,9 @@
                     <li class="{{ Request::is('admclient/groups') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/groups') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Grupos</span></a></li>
 
-                    <!--<li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
+                    <li class="{{ Request::is('admclient/equipment') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/equipment') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Mis Equípos</span></a></li>
-                    -->
+                    
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
                     @endif
