@@ -25,9 +25,12 @@ class GroupsController extends Controller {
 
     const NAMEC = 'groups';
 
-    public function getConfiguracion($idGroups = null) {
+    public function getConfiguracion($idGroups = null,$idCustomer=null) {
+         if($idCustomer==null){
+            $idCustomer=Auth::customer()->user()->id;
+        }
         $typeCampania = Campania::where('flagactive', '=', '1')
-                        ->whereCustomerId(Auth::customer()->user()->id)->lists('name', 'id');
+                        ->whereCustomerId($idCustomer)->lists('name', 'id');
 //        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
         $table = new GroupsCampania();
         $datos = GroupsCampania::whereGroupsId($idGroups)->get();

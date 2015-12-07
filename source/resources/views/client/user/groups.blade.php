@@ -112,8 +112,8 @@ $(document).ready(function () {
     </td>
     <td data-title="">
     <div>
-                    <a href="/admclient/user/equipment/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-recibo"></i></a>
-                    <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
+          <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>/{{$id}}" ><i class="icon icon-recibo"></i></a>
+      <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
                     <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDeleteGroup') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a>
                 </div>
             </td>
