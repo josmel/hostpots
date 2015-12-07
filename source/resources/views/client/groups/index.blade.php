@@ -104,7 +104,7 @@ $(document).ready(function () {
     <td data-title="Nombre">
     <div><%= name %></div>
     </td>
- <td data-title="gof">
+ <td data-title="Equipos">
     <div><%= hotspots %></div>
     </td>
     <td data-title="FA">

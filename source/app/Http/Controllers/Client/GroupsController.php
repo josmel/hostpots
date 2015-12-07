@@ -218,10 +218,12 @@ class GroupsController extends Controller {
         return response()->json($return);
     }
 
-    public function listHotspots() {
+    public function listHotspots(Request $request) {
         try {
+           $idGroup= $request->input('groups_id');
+          $dataGroup= Groups::find($idGroup);
             $exercise = new Hostpots();
-            $data = $exercise->listHotspots(Auth::customer()->user()->id);
+            $data = $exercise->listHotspots($dataGroup->customer_id);
             $return = array('state' => 1, 'msg' => 'ok', 'data' => $data);
         } catch (Exception $exc) {
             $return = array('state' => 0, 'msg' => $exc->getMessage());
@@ -229,9 +231,10 @@ class GroupsController extends Controller {
         return response()->json($return);
     }
 
-    public function groupsDataTable() {
+    public function groupsDataTable(Request $request) {
+        $idCustomer = $request->input('idCustomer', Auth::customer()->user()->id);
         $Groups = new Groups();
-        $groups = $Groups->getGroupsDataTable(Auth::customer()->user()->id);
+        $groups = $Groups->getGroupsDataTable($idCustomer);
         foreach ($groups as $value) {
             $dd = DB::select("select group_concat(H.name, concat('*',H.id)) as hotspots from hotspots_groups as HG "
                             . "inner join hotspots as H ON H.id=HG.hotspots_id inner join groups as G ON G.id=HG.groups_id "
