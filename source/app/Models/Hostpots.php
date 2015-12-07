@@ -16,7 +16,7 @@ class Hostpots extends Model {
     protected $table = 'hotspots';
     public $timestamps = false;
 
-    public function listHotspots($idUser) {
+    public function listHotspots($idUser,$name) {
         $HotsPotsGroups = DB::select("select DISTINCT H.id from hotspots as H "
                         . "inner join hotspots_groups as HG ON H.id=HG.hotspots_id "
                         . "where H.geocode=$idUser");
@@ -24,9 +24,9 @@ class Hostpots extends Model {
             foreach ($HotsPotsGroups as $value) {
                 $idHotspots[] = $value->id;
             }
-            $Hostpots = Hostpots::whereNotIn('id', $idHotspots)->whereGeocode($idUser)->lists('name', 'id');
+            $Hostpots = Hostpots::whereNotIn('id', $idHotspots)->whereGeocode($idUser)->lists($name, 'id');
         } else {
-            $Hostpots = Hostpots::whereGeocode($idUser)->lists('name', 'id');
+            $Hostpots = Hostpots::whereGeocode($idUser)->lists($name, 'id');
         }
         return $Hostpots;
     }

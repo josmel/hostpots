@@ -224,9 +224,13 @@ class GroupsController extends Controller {
     public function listHotspots(Request $request) {
         try {
            $idGroup= $request->input('groups_id');
-          $dataGroup= Groups::find($idGroup);
+           $dataGroup= Groups::find($idGroup);
             $exercise = new Hostpots();
-            $data = $exercise->listHotspots($dataGroup->customer_id);
+            if($dataGroup->customer_id==Auth::customer()->user()->id){
+                $data = $exercise->listHotspots($dataGroup->customer_id,'email_owner');
+            }else{
+               $data = $exercise->listHotspots($dataGroup->customer_id,'name');  
+            }
             $return = array('state' => 1, 'msg' => 'ok', 'data' => $data);
         } catch (Exception $exc) {
             $return = array('state' => 0, 'msg' => $exc->getMessage());
@@ -236,10 +240,15 @@ class GroupsController extends Controller {
 
     public function groupsDataTable(Request $request) {
         $idCustomer = $request->input('idCustomer', Auth::customer()->user()->id);
+        if($idCustomer==Auth::customer()->user()->id){
+                $name='email_owner';
+            }else{
+                 $name='name';  
+            }
         $Groups = new Groups();
         $groups = $Groups->getGroupsDataTable($idCustomer);
         foreach ($groups as $value) {
-            $dd = DB::select("select group_concat(H.name, concat('*',H.id)) as hotspots from hotspots_groups as HG "
+            $dd = DB::select("select group_concat(H.$name, concat('*',H.id)) as hotspots from hotspots_groups as HG "
                             . "inner join hotspots as H ON H.id=HG.hotspots_id inner join groups as G ON G.id=HG.groups_id "
                             . "where  HG.flagactive=1 and G.flagactive=1 and HG.groups_id=G.id and HG.groups_id=$value->id "
                             . "group by G.id ");
