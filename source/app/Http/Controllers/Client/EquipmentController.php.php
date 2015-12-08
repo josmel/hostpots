@@ -25,9 +25,9 @@ class EquipmentController extends Controller {
         return viewc('client.' . self::NAMEC . '.index', compact('table', 'idGroup'));
     }
 
-    public function getConfiguracion($idEquipment = null,$idCustomer=null) {
-        if($idCustomer==null){
-            $idCustomer=Auth::customer()->user()->id;
+    public function getConfiguracion($idEquipment = null, $idCustomer = null) {
+        if ($idCustomer == null) {
+            $idCustomer = Auth::customer()->user()->id;
         }
         $typeCampania = Campania::where('flagactive', '=', '1')
                         ->whereCustomerId($idCustomer)->lists('name', 'id');
@@ -114,11 +114,17 @@ class EquipmentController extends Controller {
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
+    
+    
     public function getList(Request $request) {
+           
         $idUser = $request->input('user', Auth::customer()->user()->id);
-//        $table = Hostpots::select(['id', 'name', 'mac', 'owner','email_owner'])
-        $table = Hostpots::select(['id', 'mac', 'owner', DB::raw("(if(manager='1','Activo',(if(manager='0','Inactivo','-')))) as manager"), 'email_owner', 'name'])
-                ->whereGeocode($idUser);
+        
+         $table = Hostpots::leftJoin('customers', 'hotspots.geocode', '=', 'customers.id')
+                ->select(['hotspots.id', 'hotspots.mac', 'customers.name_customer as cliente', 'hotspots.owner', DB::raw("(if(hotspots.manager='1','Activo',(if(hotspots.manager='0','Inactivo','-')))) as manager"), 'hotspots.email_owner', 'hotspots.name']);
+        if ($idUser!=0) {
+            $table = $table->whereGeocode($idUser);
+        }
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>

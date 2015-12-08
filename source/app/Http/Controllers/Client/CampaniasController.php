@@ -82,9 +82,13 @@ class CampaniasController extends Controller {
     
    public function getList(Request $request) {
        $idCustomer = $request->input('idCustomer', Auth::customer()->user()->id);
-        $table = Campania::select(['id', 'name', 'url', 'expiracion', 'megas', 'imagen',
-                    DB::raw("(if(flagactive='1','Activo',(if(flagactive='0','Inactivo','-')))) as flagactive")])
-                ->whereCustomerId($idCustomer);
+        $table = Campania::leftJoin('customers', 'campania.customer_id', '=', 'customers.id')
+                ->select(['campania.id', 'customers.name_customer as cliente', 'campania.name', 'campania.url', 'campania.expiracion', 'campania.megas', 'campania.imagen',
+                    DB::raw("(if(campania.flagactive='1','Activo',(if(campania.flagactive='0','Inactivo','-')))) as flagactive")]);
+        if ($idCustomer!=0) {
+               $table = $table->whereCustomerId($idCustomer);
+        }
+         
         $datatable = Datatables::of($table)
                 ->editColumn('imagen', '<a target="_blank" href="{{$imagen}}"><img src="{{$imagen}}" heigth=64" width="64" /></a>')
                 ->addColumn('action', function($table) {

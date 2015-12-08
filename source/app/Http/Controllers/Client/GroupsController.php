@@ -280,10 +280,13 @@ class GroupsController extends Controller {
     }
 
     public function getListGroups(Request $request) {
+        
         $idCustomer = $request->input('idCustomer', null);
-        $table = Groups::select(['id', 'name', 'datecreate',
-                    DB::raw("(if(flagactive='1','Activo',(if(flagactive='0','Inactivo','-')))) as flagactive")])
-                ->whereCustomerId($idCustomer);
+         $table = Groups::leftJoin('customers', 'groups.customer_id', '=', 'customers.id')
+                ->select(['groups.id', 'groups.name', 'groups.datecreate', 'customers.name_customer as cliente',DB::raw("(if(groups.flagactive='1','Activo',(if(groups.flagactive='0','Inactivo','-')))) as flagactive")]);
+        if ($idCustomer!=null) {
+            $table = $table->whereCustomerId($idCustomer);
+        }
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>

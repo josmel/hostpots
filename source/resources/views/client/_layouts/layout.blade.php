@@ -52,22 +52,26 @@
                     <li class="{{ Request::is('admclient/campanias') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/campanias') }}">
                             <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Mis Campañas</span></a></li>
                     @endif
-                    @if(Auth::customer()->user()->type=='3')
+                    
+                    @if(Auth::customer()->user()->type=='3'||Auth::customer()->user()->type=='1')
                     <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Perfil Admin</span></a></li>
                     <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
                             <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Clientes</span></a></li>
-                </ul>@endif
-                @if(Auth::customer()->user()->type=='1')
-                <li class="{{ Request::is('admclient/profile-admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/profile-admin') }}">
-                        <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Perfil Admin</span></a></li>
+                              <li class="{{ Request::is('admclient/user/groups-list') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user/groups-list') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Grupos</span></a></li>
 
-                <li class="{{ Request::is('admclient/admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/admin') }}">
-                        <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Administradores</span></a></li>
+                    <li class="{{ Request::is('admclient/user/equipment-list') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user/equipment-list') }}">
+                            <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Equípos</span></a></li>
 
-                <li class="{{ Request::is('admclient/user') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user') }}">
-                        <div class="bg_icon"><i class="icon icon-soporte_off i-soporte"></i></div><span>Clientes</span></a></li>
-                </ul>@endif
+                    <li class="{{ Request::is('admclient/user/campania-list') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/user/campania-list') }}">
+                            <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Campañas</span></a></li>
+                    @endif
+                    @if(Auth::customer()->user()->type=='1')
+                    <li class="{{ Request::is('admclient/admin') ? 'activo' : '' }}"><a href="{{ URL::asset('admclient/admin') }}">
+                            <div class="bg_icon"><i class="icon icon-servicios_activos_off i-activos"></i></div><span>Administradores</span></a></li>
+                    @endif
+                </ul>
             </nav>
         </aside>
         <div class="l-page">
