@@ -32,6 +32,15 @@ class UserController extends Controller {
         }
         return redirect('login')->with('messageError', 'Inicie sesion');
     }
+  public function getEquipmentList() {
+        return viewc('client.' . self::NAMEC . '.equipment-list');
+    }
+     public function getGroupsList() {
+        return viewc('client.' . self::NAMEC . '.groups-list');
+    }
+     public function getCampaniaList() {
+        return viewc('client.' . self::NAMEC . '.campania-list');
+    }
 
     public function getForm($id = null) {
         $table = new Customer();

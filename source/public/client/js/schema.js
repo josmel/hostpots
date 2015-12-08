@@ -106,6 +106,15 @@
                         getEquipment: function () {
                             return require(['modules/user/handleDatatableEquipment']);
                         },
+                        getEquipmentList: function () {
+                            return require(['modules/user/handleDatatableEquipment']);
+                        },
+                        getGroupsList: function () {
+                               return require(['modules/groups/handleDatatable']);
+                        },
+                        getCampaniaList: function () {
+                            return require(['modules/campanias/handleDatatable']);
+                        },
                         getCampania: function () {
                             return require(['modules/campanias/handleDatatable']);
                         },
