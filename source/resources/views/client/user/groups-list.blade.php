@@ -37,6 +37,14 @@
                 </table>
             </div>
             <div class="agregar_persona">
+                 <form data-parsley-validate method="post" action="{{ url('/admclient/user/groups') }}" id="formContact">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="">
+                <label>
+                    <input type="text" name="name" placeholder="Nombre" required>
+                </label>
+                <button type="submit">+ Agregar Grupo</button>
+            </form>
         </div>
         </div>
     </div>
