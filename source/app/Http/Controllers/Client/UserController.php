@@ -7,7 +7,7 @@ use Datatables;
 use App\Http\Requests\Client\FormCustomerRequest;
 use App\Http\Requests\Client\FormEquipmenteAdminRequest;
 use App\Http\Requests\Client\FormGroupsRequest;
- use App\Http\Requests\Client\FormCampaniaRequest;
+use App\Http\Requests\Client\FormCampaniaRequest;
 use App\Models\Customer;
 use App\Models\Campania;
 use App\Models\Hostpots;
@@ -32,13 +32,16 @@ class UserController extends Controller {
         }
         return redirect('login')->with('messageError', 'Inicie sesion');
     }
-  public function getEquipmentList() {
+
+    public function getEquipmentList() {
         return viewc('client.' . self::NAMEC . '.equipment-list');
     }
-     public function getGroupsList() {
+
+    public function getGroupsList() {
         return viewc('client.' . self::NAMEC . '.groups-list');
     }
-     public function getCampaniaList() {
+
+    public function getCampaniaList() {
         return viewc('client.' . self::NAMEC . '.campania-list');
     }
 
@@ -57,27 +60,28 @@ class UserController extends Controller {
         }
         return viewc('client.' . self::NAMEC . '.equipment', compact('table', 'idUser'));
     }
-        public function getCampania($idUser = null) {
+
+    public function getCampania($idUser = null) {
         $table = new Customer();
         if (!empty($table)) {
             $table = Customer::find($table);
         }
         return viewc('client.' . self::NAMEC . '.campania', compact('table', 'idUser'));
     }
- public function getFormcampania($id = null) {
-   $value=  explode("-", $id);
-   $Customer_id=$value[0];
+
+    public function getFormcampania($id = null) {
+        $value = explode("-", $id);
+        $Customer_id = $value[0];
         $table = new Campania();
         if (!empty($value[1])) {
             $table = Campania::find($value[1]);
             $table->imagen = !empty($table->imagen) ? "{$table->imagen}" : null;
-            
         }
 
-        return viewc('client.' . self::NAMEC . '.formcampania', compact('table','Customer_id'));
+        return viewc('client.' . self::NAMEC . '.formcampania', compact('table', 'Customer_id'));
     }
-    
-      public function postFormcampania(FormCampaniaRequest $request) {
+
+    public function postFormcampania(FormCampaniaRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
             if ($request->hasfile('imagen')) {
@@ -92,12 +96,19 @@ class UserController extends Controller {
                 $obj = Campania::find($request->id);
                 $obj->update($data);
             } else {
+                if (empty($data['customer_id'])) {
+                    $data['customer_id'] = null;
+                }
                 $obj = Campania::create($data);
             }
-            return redirect('admclient/' . self::NAMEC.'/campania/'.$data['customer_id'])->with('messageSuccess', 'Caracteristicas Guardado');
+            if (empty($data['customer_id'])) {
+                return redirect('admclient/' . self::NAMEC . '/campania-list')->with('messageSuccess', 'Caracteristicas Guardado');
+            }
+            return redirect('admclient/' . self::NAMEC . '/campania/' . $data['customer_id'])->with('messageSuccess', 'Caracteristicas Guardado');
         }
         return redirect('admclient')->with('messageError', 'Error al guardar la region');
     }
+
     public function getGroups($id = null) {
         $table = new Groups();
         if (!empty($id)) {
@@ -129,21 +140,6 @@ class UserController extends Controller {
             return redirect('admclient/' . self::NAMEC)->with('messageSuccess', 'Perfil Guardado');
         }
         return redirect('admclient')->with('messageError', 'Error al guardar el perfil');
-    }
-
-    public function postEquipmnt(FormEquipmenteAdminRequest $request) {
-        if (!empty($request)) {
-            $data = $request->all();
-            $data['flagactive'] = $request->get('flagactive', 1);
-            if ($request->id) {
-                $obj = Equipment::find($request->id);
-                $obj->update($data);
-            } else {
-                $obj = Equipment::create($data);
-            }
-            return array('msg' => 'ok', 'state' => 1, 'data' => null);
-        }
-        return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
     public function postForm(FormCustomerRequest $request) {

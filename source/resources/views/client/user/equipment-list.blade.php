@@ -40,6 +40,23 @@
                 </table>
             </div>
             <div class="agregar_persona">
+                  <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="">
+                    <label>
+                        <input type="text" name="mac" placeholder="Mac" required>
+                    </label>
+                    <label>
+                        <input type="text" name="owner" placeholder="Ip" >
+                    </label>
+                    <label>
+                        <input type="text" name="name" placeholder="Identificador" required>
+                    </label>
+                    <label>
+                        <input type="text" name="email_owner" placeholder="Descripcion" required>
+                    </label>
+                    <button type="submit">+ Agregar Equipo</button>
+                </form>
             </div>
         </div>
     </div>

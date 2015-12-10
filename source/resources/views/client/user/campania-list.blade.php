@@ -12,15 +12,13 @@
         </ul><br>
     </div>@endif
     <div class="container_perfl">
-        <div class="texto_perfil">
-            <ul>
-                <li style="
-                    color: #48c0f7;
-                    font-size: 1.53em;
-                    ">
-                    CAMPAÑAS
-                </li>
-            </ul>
+         <div class="agregar_persona">
+            <a href="/admclient/user/formcampania" >
+                <button style="background: #48c0f7 none repeat scroll 0 0;
+                        border: medium none;
+                        color: #fff;
+                        cursor: pointer;
+                        padding: 10px;"type="submit">+ Agregar Campaña</button></a><br><br>
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">

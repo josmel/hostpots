@@ -36,7 +36,7 @@
                 {!! Form::text('expiracion',old('expiracion'),array('required','id'=>'expiracion')) !!}
               </div>
             </div>
-          {!! Form::button('Save', array( 'type'=>'submit')) !!}
+          {!! Form::button('Guardar', array( 'type'=>'submit')) !!}
             <!--<button type="submit">Guardar</button>-->
           {!!Form::close()!!}@if($errors->any())
           <ul class="alert alert-danger">@foreach($errors->all() as $error)
