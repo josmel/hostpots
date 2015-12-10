@@ -97,12 +97,13 @@ class EquipmentController extends Controller {
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['geocode'] = $request->input('customer_id', Auth::customer()->user()->id);
+            $data['geocode'] = $request->input('customer_id', null);
             if ($request->id) {
                 $obj = Hostpots::find($request->id);
                 $obj->update($data);
             } else {
-                if ($request->input('customer_id')) {
+//                if ($request->input('customer_id')) {
+                if (Auth::customer()->user()->type != 2) {
                     $data['manager'] = "1";
                     $obj = Hostpots::create($data);
                 } else {
@@ -114,17 +115,16 @@ class EquipmentController extends Controller {
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
-    
-    
     public function getList(Request $request) {
-           
+
         $idUser = $request->input('user', Auth::customer()->user()->id);
-        
-         $table = Hostpots::leftJoin('customers', 'hotspots.geocode', '=', 'customers.id')
+
+        $table = Hostpots::leftJoin('customers', 'hotspots.geocode', '=', 'customers.id')
                 ->select(['hotspots.id', 'hotspots.mac', 'customers.name_customer as cliente', 'hotspots.owner', DB::raw("(if(hotspots.manager='1','Activo',(if(hotspots.manager='0','Inactivo','-')))) as manager"), 'hotspots.email_owner', 'hotspots.name']);
-        if ($idUser!=0) {
+        if ($idUser != 0) {
             $table = $table->whereGeocode($idUser);
         }
+        $table->orderBy('hotspots.id', 'desc');
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>

@@ -88,7 +88,7 @@ class CampaniasController extends Controller {
         if ($idCustomer!=0) {
                $table = $table->whereCustomerId($idCustomer);
         }
-         
+           $table->orderBy('campania.id', 'desc');
         $datatable = Datatables::of($table)
                 ->editColumn('imagen', '<a target="_blank" href="{{$imagen}}"><img src="{{$imagen}}" heigth=64" width="64" /></a>')
                 ->addColumn('action', function($table) {
