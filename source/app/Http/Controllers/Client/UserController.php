@@ -199,7 +199,7 @@ class UserController extends Controller {
     public function postGroups(FormGroupsRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['customer_id'] = $request->get('customer_id', 1);
+            $data['customer_id'] = $request->get('customer_id', null);
             $data['flagactive'] = $request->get('flagactive', 1);
             if ($request->id) {
                 $obj = Groups::find($request->id);

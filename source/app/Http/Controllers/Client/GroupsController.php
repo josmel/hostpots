@@ -287,6 +287,7 @@ class GroupsController extends Controller {
         if ($idCustomer!=null) {
             $table = $table->whereCustomerId($idCustomer);
         }
+            $table->orderBy('groups.id', 'desc');
         $datatable = Datatables::of($table)
                 ->addColumn('action', function($table) {
             return '<a href="' . $table->id . '" class="btn btn-warning">Editar</a>
