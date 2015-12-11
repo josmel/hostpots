@@ -46,6 +46,7 @@ $(document).ready(function () {
     <div class="container_perfl">
 <div class="texto_perfil">
             <ul>
+                  <span class="more-exercise" data-exercises=",0"> + </span>
                 <li style="
                     color: #48c0f7;
                     font-size: 1.53em;
@@ -92,6 +93,19 @@ $(document).ready(function () {
         </div>
     </div>
 </div>
+<script type="text/template" id="addTagsExercise">
+  <div style="width:100%" class="ctn-addTags">
+    <h2>Agregar Equipos Libres</h2>
+    <form>
+      <div class="form-ctn">
+        <div class="input-ctn">
+          <input type="hidden" value="{{$idUser}}" class="idCustomer"/>
+          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</script>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
     <td data-title="Mac">
