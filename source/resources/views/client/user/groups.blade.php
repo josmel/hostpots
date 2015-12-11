@@ -45,6 +45,7 @@ $(document).ready(function () {
     </div>@endif
     <div class="container_perfl">
         <div class="texto_perfil">
+            <span class="more-groups" data-groups=",0"> + </span>
             <ul>
                 <li style="
                     color: #48c0f7;
@@ -83,8 +84,21 @@ $(document).ready(function () {
         </div>
     </div>
 </div>
+<script type="text/template" id="addTagsGroups">
+  <div style="width:100%" class="ctn-addTags">
+    <h2>Agregar Grupos Libres</h2>
+    <form>
+      <div class="form-ctn">
+        <div class="input-ctn">
+          <input type="hidden" value="{{$id}}" class="idCustomer"/>
+          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</script>
 <script type="text/template" id="addTagsExercise">
-  <div style="width:600px;" class="ctn-addTags">
+  <div style="width:100%" class="ctn-addTags">
     <h2>Agregar Equipo</h2>
     <form>
       <div class="form-ctn">

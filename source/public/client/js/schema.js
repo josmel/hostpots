@@ -29,7 +29,10 @@
             'datepicker': 'libs/datepicker/bootstrap-material-datetimepicker',
             'generateDatatable': 'modules/all/generateDatatable',
             'generateUploads': 'modules/all/generateUploads',
-            'manageTags': 'modules/all/manageTags'
+            'manageTags': 'modules/all/manageTags',
+                'manageTags2': 'modules/all/manageTags2',
+                    'manageTags3': 'modules/all/manageTags3',
+                                        'manageTags4': 'modules/all/manageTags4'
         }
     });
 
@@ -104,7 +107,7 @@
                 'User': {
                     actions: {
                         getEquipment: function () {
-                            return require(['modules/user/handleDatatableEquipment']);
+                            return require(['modules/user/handleDatatableEquipment','manageTags4']);
                         },
                         getEquipmentList: function () {
                             return require(['modules/user/handleDatatableEquipment']);
@@ -116,7 +119,7 @@
                             return require(['modules/campanias/handleDatatable']);
                         },
                         getCampania: function () {
-                            return require(['modules/campanias/handleDatatable']);
+                            return require(['modules/campanias/handleDatatable','manageTags2']);
                         },
                         getIndex: function () {
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
@@ -128,7 +131,7 @@
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
                         },
                         getGroups: function () {
-                            return require(['modules/groups/handleDatatable','manageTags']);
+                            return require(['modules/groups/handleDatatable','manageTags','manageTags3']);
                         },
                         getFormcampania: function () {
                             return require(['modules/campanias/index', 'generateUploads']);

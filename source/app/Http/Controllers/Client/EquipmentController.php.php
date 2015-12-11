@@ -50,6 +50,32 @@ class EquipmentController extends Controller {
         exit;
     }
 
+    public function getEquipmentsFree() {
+        try {
+            $dataEquipment = Hostpots::whereNull('geocode')->lists('mac', 'id');
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataEquipment);
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
+
+    public function getInsertFree(Request $request) {
+        $customer_id = $request->input('customer_id');
+        $hotspots_id = json_decode($request->input('hotspots_id'), true);
+        try {
+            $data['geocode'] = $customer_id;
+            foreach ($hotspots_id as $id) {
+                $objGroup = Hostpots::find($id);
+                $objGroup->update($data);
+            }
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => array());
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
+
     public function getForm($id) {
         $idProceso = explode('-', $id);
         $equipment_id = $idProceso[0];

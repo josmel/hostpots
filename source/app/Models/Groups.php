@@ -15,8 +15,8 @@ class Groups extends Model {
         $data = $this->select(['groups.id', 'groups.name', DB::raw("(if(flagactive='1','Activo',(if(flagactive='0','Inactivo','-')))) as flagactive"), 'groups.customer_id'
                         ])
                         ->where('groups.customer_id', '=', $idUser)
-                        ->where('groups.flagactive', '=', '1')->get()
-        ;
+                        ->where('groups.flagactive', '=', '1')->
+                        orderBy('groups.id', 'desc')->get();
         return $data;
     }
 

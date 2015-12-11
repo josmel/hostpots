@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Datatables;
 use App\Http\Requests\Client\FormCustomerRequest;
-use App\Http\Requests\Client\FormEquipmenteAdminRequest;
 use App\Http\Requests\Client\FormGroupsRequest;
 use App\Http\Requests\Client\FormCampaniaRequest;
 use App\Models\Customer;

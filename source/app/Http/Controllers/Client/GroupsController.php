@@ -186,7 +186,30 @@ class GroupsController extends Controller {
         }
         return response()->json($return);
     }
-
+ public function getGroupsFree() {
+        try {
+           $dataCampania= Groups::whereNull('customer_id')->lists('name', 'id');
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataCampania);
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
+           public function getInsertFree(Request $request) {
+        $customer_id = $request->input('customer_id');
+        $group_id = json_decode($request->input('group_id'), true);
+        try {
+            $data['customer_id'] = $customer_id;
+            foreach ($group_id as $id) {
+               $objGroup = Groups::find($id);
+                $objGroup->update($data);
+            }
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => array());
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
     public function postGroups(FormGroupsRequest $request) {
         if (!empty($request)) {
             $data = $request->all();

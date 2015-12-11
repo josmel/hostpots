@@ -64,7 +64,30 @@ class CampaniasController extends Controller {
         return redirect('admclient')->with('messageError', 'Error al guardar la region');
     }
 
-    
+     public function getCampaniasFree() {
+        try {
+           $dataCampania= Campania::whereNull('customer_id')->lists('name', 'id');
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataCampania);
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
+       public function getInsertFree(Request $request) {
+        $customer_id = $request->input('customer_id');
+        $campania_id = json_decode($request->input('campania_id'), true);
+        try {
+            $data['customer_id'] = $customer_id;
+            foreach ($campania_id as $id) {
+               $objCampania = Campania::find($id);
+                $objCampania->update($data);
+            }
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => array());
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
     public function getLidddst(Request $request) {
         $table = Promotion::select('image', 'title', 'description', 'begin_date', 'end_date', 'id');
         $datatable = Datatables::of($table)
