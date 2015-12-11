@@ -29,7 +29,24 @@ $(document).ready(function () {
     .fancybox-custom .fancybox-skin {
         box-shadow: 0 0 50px #222;
     }
-
+ 
+span.more-groups {
+    background: red none repeat scroll 0 0;
+    color: white;
+    font-size: 21px;
+    padding: 3px 15px;
+      background-clip: padding-box;
+    background-color: red;
+    background-size: 100% 19px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    float: left;
+    line-height: 13px;
+    margin: 3px 5px 3px 0;
+    max-width: 100%;
+    padding: 3px 20px 3px 5px;
+    position: relative;
+}
 
 </style>
 <div id="wrapper">@if(session()->has('messageSuccess'))
