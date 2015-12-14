@@ -45,15 +45,17 @@
         return;
       },
       edit: function(e) {
-        var email_owner, edit, id;
+        var email_owner, edit, id,geocode;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");  
 //        mac = edit.children().eq(0).text().trim();
         email_owner = edit.children().eq(1).text().trim();
+          geocode = edit.attr("data-geocode");  
 //        name = edit.children().eq(2).text().trim();
         $('#formContact input[name=id]').val(id);
         $('#formContact input[name=email_owner]').val(email_owner);
+          $('#formContact input[name=customer_id]').val(geocode);
 //        $('#formContact input[name=mac]').val(mac);
 //        $('#formContact input[name=owner]').val(owner);
       },

@@ -306,7 +306,7 @@ class GroupsController extends Controller {
         
         $idCustomer = $request->input('idCustomer', null);
          $table = Groups::leftJoin('customers', 'groups.customer_id', '=', 'customers.id')
-                ->select(['groups.id', 'groups.name', 'groups.datecreate', 'customers.name_customer as cliente',DB::raw("(if(groups.flagactive='1','Activo',(if(groups.flagactive='0','Inactivo','-')))) as flagactive")]);
+                ->select(['groups.id','groups.customer_id', 'groups.name', 'groups.datecreate', 'customers.name_customer as cliente',DB::raw("(if(groups.flagactive='1','Activo',(if(groups.flagactive='0','Inactivo','-')))) as flagactive")]);
         if ($idCustomer!=null) {
             $table = $table->whereCustomerId($idCustomer);
         }
