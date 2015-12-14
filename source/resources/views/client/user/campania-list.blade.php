@@ -29,6 +29,7 @@
                             <th>Nombre</th>
                             <th>Publicidad</th>
                             <th>Cliente </th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -51,6 +52,10 @@
     </td>
     <td data-title="Customer">
     <div><%= cliente %></div>
+    </td>
+  <td data-title="">
+    <div><a href="/admclient/user/formcampania/" class=""><i class="icon icon-lapiz"></i></a>
+    <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\CampaniasController@getDelete') }}/<%= id %>/" class="del_contact"><i class="icon icon-basura"></i></a></div>
     </td>
     </tr>
 </script>

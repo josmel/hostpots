@@ -113,7 +113,7 @@
                             return require(['modules/user/handleDatatableEquipment']);
                         },
                         getGroupsList: function () {
-                               return require(['modules/groups/handleDatatable']);
+                               return require(['modules/groups/handleDatatableList']);
                         },
                         getCampaniaList: function () {
                             return require(['modules/campanias/handleDatatable']);

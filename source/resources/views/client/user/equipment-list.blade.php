@@ -13,7 +13,7 @@
         </ul><br>
     </div>@endif
     <div class="container_perfl">
-<div class="texto_perfil">
+        <div class="texto_perfil">
             <ul>
                 <li style="
                     color: #48c0f7;
@@ -28,21 +28,23 @@
                 <table data-url="/admclient/equipment/list?user=0" class="table table-hover">
                     <thead>
                         <tr>
-                             <th>Id</th>
                             <th>Mac</th>
                             <th>Ip</th>
                             <th>Identificador</th>
-                              <th>Descripcion</th>
-                              <th>Cliente</th>
+                            <th>Descripcion</th>
+                            <th>Cliente</th>
+                            <th>Estado</th>
+                            <th>Acción </th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
             <div class="agregar_persona">
-                  <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
+                <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
+                      <input type="hidden" name="customer_id" value="">
                     <label>
                         <input type="text" name="mac" placeholder="Mac" required>
                     </label>
@@ -53,7 +55,7 @@
                         <input type="text" name="name" placeholder="Identificador" required>
                     </label>
                     <label>
-                        <input type="text" name="email_owner" placeholder="Descripcion" required>
+                        <input type="text" name="email_owner" placeholder="Descripción" required>
                     </label>
                     <button type="submit">+ Agregar Equipo</button>
                 </form>
@@ -62,10 +64,7 @@
     </div>
 </div>
 <script type="text/template" class="row4Table">
-    <tr data-id="<%= id %>">
-                <td data-title="ID">
-    <div><%= id %></div>
-    </td>
+    <tr data-geocode="<%= geocode %>" data-id="<%= id %>">
     <td data-title="Mac">
     <div><%= mac %></div>
     </td>
@@ -73,14 +72,24 @@
     <td data-title="Ip">
     <div><%= owner %></div>
     </td>
-   <td data-title="Identificador">
+    <td data-title="Identificador">
     <div><%= name %> </div>
     </td>
     <td data-title="Descripcion">
     <div><%= email_owner %> </div>
     </td>
-         <td data-title="Identificador">
+    <td data-title="Identificador">
     <div><%= cliente %> </div>
+    </td>
+    <td data-title="Estado">
+    <div><%= manager %> </div>
+    </td>
+    <td data-title="">
+    <div>
+    <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
+    <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\EquipmentController@getDelete') }}/<%= id %>" class="del_contact">
+    <i class="icon icon-basura"></i></a>
+    </div>
     </td>
     </tr>
 </script>

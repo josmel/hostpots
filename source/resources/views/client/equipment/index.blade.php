@@ -73,6 +73,7 @@ $(document).ready(function () {
                 <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="" required>
+                     <input type="hidden" name="customer_id" value="" required>
                     <!--<input type="hidden" name="groups_id" value="{{$idGroup}}">-->
 <!--                    <label>
                         <input type="text" name="mac" placeholder="Mac" required>
@@ -90,7 +91,7 @@ $(document).ready(function () {
     </div>
 </div>
 <script type="text/template" class="row4Table">
-    <tr data-id="<%= id %>">
+    <tr data-geocode="<%= geocode %>" data-id="<%= id %>">
                  <td data-title="Id">
     <div><%= id %></div>
     </td>
@@ -101,7 +102,6 @@ $(document).ready(function () {
    <td data-title="Estado">
     <div><%= manager %></div>
     </td>
-
     <td data-title="">
     <div>
       <a title="Configurar campaña individual" class="fancybox fancybox.iframe" href="/admclient/equipment/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>

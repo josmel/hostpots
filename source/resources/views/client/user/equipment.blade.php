@@ -64,6 +64,7 @@ $(document).ready(function () {
                             <th>Ip</th>
                             <th>Identificador</th>
                               <th>Descripcion</th>
+                              <th>Estado</th>
                             <th>Acción </th>
                         </tr>
                     </thead>
@@ -74,7 +75,7 @@ $(document).ready(function () {
                 <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
-                    <input type="hidden" name="customer_id" value="{{ $idUser}}">
+                    <input type="hidden" name="customer_id"  required>
                     <label>
                         <input type="text" name="mac" placeholder="Mac" required>
                     </label>
@@ -107,7 +108,7 @@ $(document).ready(function () {
   </div>
 </script>
 <script type="text/template" class="row4Table">
-    <tr data-id="<%= id %>">
+    <tr data-geocode="<%= geocode %>" data-id="<%= id %>">
     <td data-title="Mac">
     <div><%= mac %></div>
     </td>
@@ -120,6 +121,9 @@ $(document).ready(function () {
     </td>
     <td data-title="Descripcion">
     <div><%= email_owner %> </div>
+    </td>
+   <td data-title="Estado">
+    <div><%= manager %> </div>
     </td>
         <td data-title="">
             <div>

@@ -3,7 +3,7 @@
     var catchDom, dom, events, functions, st, suscribeEvents;
     console.log("show Table perfil");
     st = {
-      table: 'table',
+      table: '.table',
       rowTpl: '.row4Table',
       formContact: '#formContact'
     };
@@ -45,21 +45,15 @@
         return;
       },
       edit: function(e) {
-        var mac, edit, id, name, owner,email_owner,geocode;
+        var  edit, id, name,customer_id;
         e.preventDefault();
         edit = $(this).parent().parent().parent();
         id = edit.attr("data-id");  
-        geocode = edit.attr("data-geocode");  
-        name = edit.children().eq(2).text().trim();
-        email_owner = edit.children().eq(3).text().trim();
-        owner = edit.children().eq(1).text().trim();
-        mac = edit.children().eq(0).text().trim();
+        customer_id = edit.attr("data-customer");  
+        name = edit.children().eq(1).text().trim();
         $('#formContact input[name=id]').val(id);
-         $('#formContact input[name=customer_id]').val(geocode);
+         $('#formContact input[name=customer_id]').val(customer_id);
         $('#formContact input[name=name]').val(name);
-        $('#formContact input[name=owner]').val(owner);
-        $('#formContact input[name=mac]').val(mac);
-            $('#formContact input[name=email_owner]').val(email_owner);
       },
       "delete": function(e) {
         var name, url;

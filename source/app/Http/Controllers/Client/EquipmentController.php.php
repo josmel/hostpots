@@ -146,7 +146,7 @@ class EquipmentController extends Controller {
         $idUser = $request->input('user', Auth::customer()->user()->id);
 
         $table = Hostpots::leftJoin('customers', 'hotspots.geocode', '=', 'customers.id')
-                ->select(['hotspots.id', 'hotspots.mac', 'customers.name_customer as cliente', 'hotspots.owner', DB::raw("(if(hotspots.manager='1','Activo',(if(hotspots.manager='0','Inactivo','-')))) as manager"), 'hotspots.email_owner', 'hotspots.name']);
+                ->select(['hotspots.id','hotspots.geocode', 'hotspots.mac', 'customers.name_customer as cliente', 'hotspots.owner', DB::raw("(if(hotspots.manager='1','Activo',(if(hotspots.manager='0','Inactivo','-')))) as manager"), 'hotspots.email_owner', 'hotspots.name']);
         if ($idUser != 0) {
             $table = $table->whereGeocode($idUser);
         }
