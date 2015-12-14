@@ -22,6 +22,10 @@ class LoginUserController extends Controller {
 //        $this->middleware('guest');
     }
 
+    public function UserNavigation(Request $request) {
+        $data = $request->all();
+        dd($data);
+    }
     public function loginUser(Request $request) {
         $data = $request->all();
         $validator = Validator::make($data, [
