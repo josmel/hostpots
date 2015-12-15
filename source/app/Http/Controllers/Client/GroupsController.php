@@ -26,12 +26,20 @@ class GroupsController extends Controller {
     const NAMEC = 'groups';
 
     public function getConfiguracion($idGroups = null, $idCustomer = null) {
-        if ($idCustomer == null) {
-            $idCustomer = Auth::customer()->user()->id;
+
+        $dataGroups = Groups::find($idGroups);
+        if ($dataGroups->customer_id == 0) {
+            $typeCampania = Campania::where('flagactive', '=', '1')
+                            ->whereCustomerId(null)->lists('name', 'id');
+        } else {
+            if ($idCustomer == null) {
+                $idCustomer = Auth::customer()->user()->id;
+            }
+            $typeCampania = Campania::where('flagactive', '=', '1')
+                            ->whereCustomerId($idCustomer)->lists('name', 'id');
+//        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;   
         }
-        $typeCampania = Campania::where('flagactive', '=', '1')
-                        ->whereCustomerId($idCustomer)->lists('name', 'id');
-//        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
+
         $table = new GroupsCampania();
         $datos = GroupsCampania::whereGroupsId($idGroups)->get();
         if (!empty($datos)) {
@@ -46,17 +54,19 @@ class GroupsController extends Controller {
         $data = $request->all();
         GroupsCampania::whereGroupsId($data['groups_id'])->forceDelete();
         GroupsCampania::create($data);
-        $dataEquipos = Hostpots::whereGeocode($data['groups_id'])->get();
-        $datosCampania = Campania::whereId($data['campania_id'])->get();
-        $datosCampaniaFinal = $datosCampania->toArray();
-        $datosGrupo = Groups::find($data['groups_id'])->lists('name');
-        Radgroupreply::whereGroupname($datosGrupo[0])->forceDelete();
-        foreach ($dataEquipos->toArray() as $v) {
-            $valor1 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Advertise-URL', 'op' => '==', 'value' => $datosCampaniaFinal[0]['url']);
+//        $dataEquipos = Hostpots::whereGeocode($data['groups_id'])->get();
+        $dataEquipos = DB::select("select  H.* from hotspots as H "
+                        . "inner join hotspots_groups as HG ON H.id=HG.hotspots_id where HG.groups_id=".$data['groups_id']);
+        $datosCampania = Campania::find($data['campania_id']);
+        $datosGrupo = Groups::find($data['groups_id']);
+        //esta por verse///
+        Radgroupreply::whereGroupname($datosGrupo->name)->forceDelete();
+        foreach ($dataEquipos as $v) {
+            $valor1 = array('groupname' => $datosGrupo->name, 'attribute' => $v->name . '-Advertise-URL', 'op' => '==', 'value' => $datosCampania->url);
             Radgroupreply::create($valor1);
-            $valor2 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Advertise-Interval', 'op' => '==', 'value' => $datosCampaniaFinal[0]['expiracion']);
+            $valor2 = array('groupname' => $datosGrupo->name, 'attribute' => $v->name . '-Advertise-Interval', 'op' => '==', 'value' => $datosCampania->expiracion);
             Radgroupreply::create($valor2);
-            $valor3 = array('groupname' => $datosGrupo[0], 'attribute' => $v['name'] . '-Rate-Limit', 'op' => '==', 'value' => $datosCampaniaFinal[0]['megas']);
+            $valor3 = array('groupname' => $datosGrupo->name, 'attribute' => $v->name . '-Rate-Limit', 'op' => '==', 'value' => $datosCampania->megas);
             Radgroupreply::create($valor3);
         }
         echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);
