@@ -26,11 +26,19 @@ class EquipmentController extends Controller {
     }
 
     public function getConfiguracion($idEquipment = null, $idCustomer = null) {
-        if ($idCustomer == null) {
+        
+       $dataHotspots= Hostpots::find($idEquipment);
+        if ($dataHotspots->customer_id == 0) {
+            $typeCampania = Campania::where('flagactive', '=', '1')
+                            ->whereCustomerId(null)->lists('name', 'id');
+        } else{
+          if ($idCustomer == null) {
             $idCustomer = Auth::customer()->user()->id;
         }
         $typeCampania = Campania::where('flagactive', '=', '1')
-                        ->whereCustomerId($idCustomer)->lists('name', 'id');
+                        ->whereCustomerId($idCustomer)->lists('name', 'id');  
+        }
+        
 //        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
         $table = new GroupsCampania();
         $datos = HotspotsCampania::whereHotspotsId($idEquipment)->get();
