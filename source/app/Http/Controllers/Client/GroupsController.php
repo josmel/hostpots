@@ -252,7 +252,7 @@ class GroupsController extends Controller {
             if($dataGroup->customer_id==Auth::customer()->user()->id){
                 $data = $exercise->listHotspots($dataGroup->customer_id,'email_owner');
             }else{
-               $data = $exercise->listHotspots($dataGroup->customer_id,'name');  
+               $data = $exercise->listHotspots($dataGroup->customer_id,'mac');  
             }
             $return = array('state' => 1, 'msg' => 'ok', 'data' => $data);
         } catch (Exception $exc) {
