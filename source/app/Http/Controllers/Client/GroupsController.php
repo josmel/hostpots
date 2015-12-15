@@ -266,7 +266,7 @@ class GroupsController extends Controller {
         if($idCustomer==Auth::customer()->user()->id){
                 $name='email_owner';
             }else{
-                 $name='name';  
+                 $name='mac';  
             }
         $Groups = new Groups();
         $groups = $Groups->getGroupsDataTable($idCustomer);
