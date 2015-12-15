@@ -28,7 +28,8 @@ class EquipmentController extends Controller {
     public function getConfiguracion($idEquipment = null, $idCustomer = null) {
         
        $dataHotspots= Hostpots::find($idEquipment);
-        if ($dataHotspots->customer_id == 0) {
+        if ($dataHotspots->geocode == 0) {
+           
             $typeCampania = Campania::where('flagactive', '=', '1')
                             ->whereCustomerId(null)->lists('name', 'id');
         } else{
