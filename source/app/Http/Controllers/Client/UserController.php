@@ -195,10 +195,30 @@ class UserController extends Controller {
         return array('msg' => 'Error al guardar el modelo', 'state' => 0, 'data' => null);
     }
 
+    public function getInsertFreeAll(Request $request) {
+        $groupsId = $request->input('groups_id');
+        $dataGroup = Groups::find($groupsId);
+        $datoUpdate['geocode'] = $dataGroup->customer_id;
+        $hotspots_ids = json_decode($request->input('hotspots_id'), true);
+        try {
+            $data['groups_id'] = $groupsId;
+            foreach ($hotspots_ids as $id) {
+                $dataHostPot = Hostpots::find($id);
+                $dataHostPot->update($datoUpdate);
+                $data['hotspots_id'] = $id;
+                \App\Models\HotspotsGroups::updateOrCreate($data, ['flagactive' => 1]);
+            }
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => array());
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
+
     public function postGroups(FormGroupsRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['customer_id'] = $request->get('customer_id', null);
+            $data['customer_id'] = $request->get('customer_id', 0);
             $data['flagactive'] = $request->get('flagactive', 1);
             if ($request->id) {
                 $obj = Groups::find($request->id);

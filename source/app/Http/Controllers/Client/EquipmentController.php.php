@@ -50,14 +50,43 @@ class EquipmentController extends Controller {
         exit;
     }
 
-    public function getEquipmentsFree() {
-        try {
-            $dataEquipment = Hostpots::whereNull('geocode')->lists('mac', 'id');
-            $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataEquipment);
-        } catch (Exception $exc) {
-            $return = array('state' => 0, 'msg' => $exc->getMessage());
+    public function getEquipmentsFree(Request $request) {
+        $groups_id = $request->input('groups_id');
+        if (isset($groups_id) && !empty($groups_id)) {
+            $dataGroup = \App\Models\Groups::find($groups_id);
+            if ($dataGroup->customer_id != 0) {
+                $newHostPots = new Hostpots();
+                $data = $newHostPots->listHotspots($dataGroup->customer_id, 'name');
+                foreach ($data as $value => $e) {
+                    $dataInt[] = $value;
+                }
+            }
         }
-        return response()->json($return);
+        $HotsPotsGroups = DB::select("select DISTINCT H.id from hotspots as H "
+                        . "inner join hotspots_groups as HG ON H.id=HG.hotspots_id ");
+        if (isset($dataInt) && count($dataInt) > 0) {
+            if ($HotsPotsGroups) {
+                foreach ($HotsPotsGroups as $value) {
+                    $idHotspots[] = $value->id;
+                }
+                $Hostpots = Hostpots::whereNotIn('id', $idHotspots)->
+                                whereIn('id', $dataInt)
+                                ->orWhere('geocode', 0)->lists('mac', 'id');
+            } else {
+                $Hostpots = Hostpots::whereIn('id', $dataInt)->whereIn('id', $dataInt)
+                                ->orWhere('geocode', 0)->lists('mac', 'id');
+            }
+        } else {
+            if ($HotsPotsGroups) {
+                foreach ($HotsPotsGroups as $value) {
+                    $idHotspots[] = $value->id;
+                }
+                $Hostpots = Hostpots::whereNotIn('id', $idHotspots)->whereGeocode(0)->lists('mac', 'id');
+            } else {
+                $Hostpots = Hostpots::whereGeocode(0)->lists('mac', 'id');
+            }
+        }
+        return response()->json(array('state' => 1, 'msg' => 'ok', 'data' => $Hostpots));
     }
 
     public function getInsertFree(Request $request) {
@@ -123,7 +152,11 @@ class EquipmentController extends Controller {
     public function postContact(FormContactRequest $request) {
         if (!empty($request)) {
             $data = $request->all();
-            $data['geocode'] = $request->input('customer_id', null);
+            if (empty($data['customer_id'])) {
+                $data['geocode'] = '0';
+            } else {
+                $data['geocode'] = $request->input('customer_id');
+            }
             if ($request->id) {
                 $obj = Hostpots::find($request->id);
                 $obj->update($data);
@@ -146,7 +179,7 @@ class EquipmentController extends Controller {
         $idUser = $request->input('user', Auth::customer()->user()->id);
 
         $table = Hostpots::leftJoin('customers', 'hotspots.geocode', '=', 'customers.id')
-                ->select(['hotspots.id','hotspots.geocode', 'hotspots.mac', 'customers.name_customer as cliente', 'hotspots.owner', DB::raw("(if(hotspots.manager='1','Activo',(if(hotspots.manager='0','Inactivo','-')))) as manager"), 'hotspots.email_owner', 'hotspots.name']);
+                ->select(['hotspots.id', 'hotspots.geocode', 'hotspots.mac', 'customers.name_customer as cliente', 'hotspots.owner', DB::raw("(if(hotspots.manager='1','Activo',(if(hotspots.manager='0','Inactivo','-')))) as manager"), 'hotspots.email_owner', 'hotspots.name']);
         if ($idUser != 0) {
             $table = $table->whereGeocode($idUser);
         }

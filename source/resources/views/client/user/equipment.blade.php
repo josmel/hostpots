@@ -75,7 +75,7 @@ $(document).ready(function () {
                 <form data-parsley-validate method="post" action="{{ url('/admclient/equipment/contact') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
-                    <input type="hidden" name="customer_id"  required>
+                    <input type="hidden" name="customer_id"   value="{{ $idUser}}" required>
                     <label>
                         <input type="text" name="mac" placeholder="Mac" required>
                     </label>
