@@ -30,9 +30,10 @@
             'generateDatatable': 'modules/all/generateDatatable',
             'generateUploads': 'modules/all/generateUploads',
             'manageTags': 'modules/all/manageTags',
-                'manageTags2': 'modules/all/manageTags2',
-                    'manageTags3': 'modules/all/manageTags3',
-                                        'manageTags4': 'modules/all/manageTags4'
+            'manageTags2': 'modules/all/manageTags2',
+            'manageTags3': 'modules/all/manageTags3',
+            'manageTags4': 'modules/all/manageTags4',
+            'manageTags5': 'modules/all/manageTags5'
         }
     });
 
@@ -89,13 +90,13 @@
                 'Groups': {
                     actions: {
                         getIndex: function () {
-                            return require(['modules/groups/handleDatatable','manageTags']);
+                            return require(['modules/groups/handleDatatable', 'manageTags']);
                         }
                     },
                     allActions: function () {
                     }
                 },
-                  'Admin': {
+                'Admin': {
                     actions: {
                         getIndex: function () {
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
@@ -107,19 +108,19 @@
                 'User': {
                     actions: {
                         getEquipment: function () {
-                            return require(['modules/user/handleDatatableEquipment','manageTags4']);
+                            return require(['modules/user/handleDatatableEquipment', 'manageTags4']);
                         },
                         getEquipmentList: function () {
                             return require(['modules/user/handleDatatableEquipment']);
                         },
                         getGroupsList: function () {
-                               return require(['modules/groups/handleDatatableList']);
+                            return require(['modules/groups/handleDatatableList', 'manageTags5']);
                         },
                         getCampaniaList: function () {
                             return require(['modules/campanias/handleDatatable']);
                         },
                         getCampania: function () {
-                            return require(['modules/campanias/handleDatatable','manageTags2']);
+                            return require(['modules/campanias/handleDatatable', 'manageTags2']);
                         },
                         getIndex: function () {
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
@@ -131,7 +132,7 @@
                             return require(['modules/user/index', 'modules/user/handleDatatable']);
                         },
                         getGroups: function () {
-                            return require(['modules/groups/handleDatatable','manageTags','manageTags3']);
+                            return require(['modules/groups/handleDatatable', 'manageTags', 'manageTags3']);
                         },
                         getFormcampania: function () {
                             return require(['modules/campanias/index', 'generateUploads']);

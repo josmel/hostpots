@@ -20,6 +20,15 @@ class Groups extends Model {
         return $data;
     }
 
+    public function getGroupsDataTableAll() {
+        
+         $table = Groups::leftJoin('customers', 'groups.customer_id', '=', 'customers.id')
+                ->select(['groups.id','groups.customer_id', 'groups.name', 'groups.datecreate', 'customers.name_customer as cliente',DB::raw("(if(groups.flagactive='1','Activo',(if(groups.flagactive='0','Inactivo','-')))) as flagactive")])
+                        ->where('groups.flagactive', '=', '1')
+                        ->orderBy('groups.id', 'desc')->get();
+        return  $table ;
+    }
+
     /* public function getGroupsDataTable($idUser) {
       $data = $this->select(['groups.id', 'groups.name', 'groups.flagactive', 'groups.customer_id',
       DB::raw("(select group_concat(H.name, concat('*',H.id)) from hotspots_groups as HG "

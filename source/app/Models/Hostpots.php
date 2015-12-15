@@ -24,9 +24,9 @@ class Hostpots extends Model {
             foreach ($HotsPotsGroups as $value) {
                 $idHotspots[] = $value->id;
             }
-            $Hostpots = Hostpots::whereNotIn('id', $idHotspots)->whereGeocode($idUser)->lists($name, 'id');
+            $Hostpots = Hostpots::whereNotIn('id', $idHotspots)->whereGeocode($idUser)->lists($name, 'id','geocode');
         } else {
-            $Hostpots = Hostpots::whereGeocode($idUser)->lists($name, 'id');
+            $Hostpots = Hostpots::whereGeocode($idUser)->lists($name, 'id','geocode');
         }
         return $Hostpots;
     }

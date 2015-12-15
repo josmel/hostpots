@@ -18,7 +18,7 @@
                         border: medium none;
                         color: #fff;
                         cursor: pointer;
-                        padding: 10px;"type="submit">+ Agregar CLiente</button></a><br><br>
+                        padding: 10px;"type="submit">+ Agregar Cliente</button></a><br><br>
         </div>
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
@@ -55,7 +55,8 @@
     <a href="/admclient/user/campania/<%= id %>" title="Agregar Campañas" class=""><i class="icon icon-servicios_activos_off i_activos"></i></a>
      <a href="/admclient/user/groups/<%= id %>" title="Agregar Grupos" class=""><i class="icon icon-recibo"></i></a>
       <a href="/admclient/user/equipment/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
-                <a href="/admclient/user/form/<%= id %>" class=""><i class="icon icon-lapiz"></i></a><a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
+      <a href="/admclient/user/form/<%= id %>"  title="Editar Cliente"  class=""><i class="icon icon-lapiz"></i></a>
+      <a href="#" data-nom="<%= name %>" title="Eliminar Cliente"  data-url="{{ action('Client\UserController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
     </td>
     </tr>
 </script>

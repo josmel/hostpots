@@ -188,7 +188,7 @@ class GroupsController extends Controller {
     }
  public function getGroupsFree() {
         try {
-           $dataCampania= Groups::whereNull('customer_id')->lists('name', 'id');
+           $dataCampania= Groups::whereCustomerId(0)->lists('name', 'id');
             $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataCampania);
         } catch (Exception $exc) {
             $return = array('state' => 0, 'msg' => $exc->getMessage());
@@ -303,6 +303,41 @@ class GroupsController extends Controller {
     }
 
     public function getListGroups(Request $request) {
+        $Groups = new Groups();
+        $groups = $Groups->getGroupsDataTableAll();
+        foreach ($groups as $value) {
+            $dd = DB::select("select group_concat(H.mac, concat('*',H.id)) as hotspots from hotspots_groups as HG "
+                            . " left join hotspots as H ON H.id=HG.hotspots_id left join groups as G ON G.id=HG.groups_id "
+                            . "where  HG.flagactive=1 and G.flagactive=1 and HG.groups_id=G.id and HG.groups_id=$value->id "
+                            . "group by G.id ");
+            if (isset($dd[0]->hotspots)) {
+                $value->hotspots = $dd[0]->hotspots;
+            } else {
+                $value->hotspots = null;
+            }
+        }
+        return Datatables::of($groups)
+                        ->editColumn('hotspots', function ($groups) {
+                            $str = "";
+                            if ($groups->hotspots == null) {
+                                $cad = "No asignado";
+                            } else {
+                                $data = explode(",", $groups->hotspots);
+                                $cad = "";
+                                foreach ($data as $row) {
+                                    $row = explode('*', $row);
+                                    $cad = $cad . '<span class="tag-exercise" data-id=' . $row[1] . '>' . $row[0] . '<i class="icon icon-remove"></i></span>';
+                                    $str = $str . $row[1] . ",";
+                                }
+                                $str = substr($str, 0, strlen($str) - 1);
+                            }
+                            return $cad . "<span class='more-exercise' data-id='" . $groups->id . "' data-exercises ='" . $str . ",0'> + </span>";
+                        })
+//                        ->addColumn('action', '<a href="/admpanel/routine/{{$id}}" class="btn btn-raised btn-info" data-id="1">Editar</a>   <a href="#" class="js-delete btn btn-raised btn-danger" data-id="{{$id}}" >Eliminar</a>')
+                        ->make(true);
+    }
+
+    public function getListGroupsTwo(Request $request) {
         
         $idCustomer = $request->input('idCustomer', null);
          $table = Groups::leftJoin('customers', 'groups.customer_id', '=', 'customers.id')

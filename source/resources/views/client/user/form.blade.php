@@ -24,6 +24,8 @@
                 <li class="input_form"><span>Email</span><br>{!! Form::text('email',old('email'),array('required','data-parsley-type'=>'email')) !!}</li>
                 <li class="input_form mt13"><span>RUC</span><br>{!! Form::text('ruc',old('ruc'),array('required','data-parsley-maxlength'=>'11')) !!}</li>
                 <li class="input_form"><span>Contraseña (Dejar en blanco, para mantener la misma contraseña)</span><br>{!! Form::password('password') !!}</li>
+                <li class="input_form mt13"><span>Teléfono</span><br>{!! Form::text('phone',old('phone'),array('data-parsley-maxlength'=>'9')) !!}</li>
+                <li class="input_form mt13"><span>Pesona de Contacto</span><br>{!! Form::text('contacto',old('contacto'),array('data-parsley-maxlength'=>'100')) !!}</li>
                 <li>
                     <div></div>
                 </li>
