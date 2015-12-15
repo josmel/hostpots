@@ -2,28 +2,32 @@
 @section('content')
 <script type="text/javascript" src="{{ asset('client/') }}/css/source/jquery.fancybox.js?v=2.1.5"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('client/') }}/css/source/jquery.fancybox.css?v=2.1.5" media="screen" />
-<script type='text/javascript'>try{jQuery.noConflict();}catch(e){};</script>
+<script type='text/javascript'>try {
+    jQuery.noConflict();
+} catch (e) {
+}
+;</script>
 <script type="text/javascript">
-var $= jQuery.noConflict();
-$(document).ready(function () {
+    var $ = jQuery.noConflict();
+    $(document).ready(function () {
 
-    /*
-     *  Simple image gallery. Uses default settings
-     */
+        /*
+         *  Simple image gallery. Uses default settings
+         */
 
-    $('.fancybox').fancybox();
+        $('.fancybox').fancybox();
 
 
-    $("#fancybox-manual-b").click(function () {
-        $.fancybox.open({
-            href: '.html',
-            type: 'iframe',
-            padding: 5
+        $("#fancybox-manual-b").click(function () {
+            $.fancybox.open({
+                href: '.html',
+                type: 'iframe',
+                padding: 5
+            });
         });
+
+
     });
-
-
-});
 </script>
 <style type="text/css">
     .fancybox-custom .fancybox-skin {
@@ -72,7 +76,7 @@ $(document).ready(function () {
             <div class="agregar_persona">
                 <form data-parsley-validate method="post" action="{{ url('/admclient/groups/groups') }}" id="formContact">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <input type="hidden" name="id" value="">
+                    <input type="hidden" name="id" value="">
                     <label>
                         <input type="text" name="name" placeholder="Nombre" required>
                     </label>
@@ -84,17 +88,17 @@ $(document).ready(function () {
 </div>
 
 <script type="text/template" id="addTagsExercise">
-  <div style="width:600px;" class="ctn-addTags">
+    <div style="width:600px;" class="ctn-addTags">
     <h2>Agregar Equipo</h2>
     <form>
-      <div class="form-ctn">
-        <div class="input-ctn">
-          <input type="hidden" value="<%= idroutine %>" class="idrout"/>
-          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
-        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
-      </div>
+    <div class="form-ctn">
+    <div class="input-ctn">
+    <input type="hidden" value="<%= idroutine %>" class="idrout"/>
+    <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+    </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+    </div>
     </form>
-  </div>
+    </div>
 </script>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
@@ -112,13 +116,15 @@ $(document).ready(function () {
     </td>
     <td data-title="">
     <div>
-    <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>
-    <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
+    <% if (hotspots . charAt(0) != 'N') { %>
+   <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>
+    <% } %> 
+   <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
     <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\GroupsController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
     </td>
     </tr>
 </script>
 @stop
 <!-- <a href="/admclient/equipment/index/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
-   -->
+-->
 

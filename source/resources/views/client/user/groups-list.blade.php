@@ -87,17 +87,17 @@
     </div>
 </div>
 <script type="text/template" id="addTagsExercise">
-  <div style="width:600px;" class="ctn-addTags">
+    <div style="width:600px;" class="ctn-addTags">
     <h2>Agregar Equipo</h2>
     <form>
-      <div class="form-ctn">
-        <div class="input-ctn">
-          <input type="hidden" value="<%= idroutine %>" class="idrout"/>
-          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
-        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
-      </div>
+    <div class="form-ctn">
+    <div class="input-ctn">
+    <input type="hidden" value="<%= idroutine %>" class="idrout"/>
+    <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+    </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+    </div>
     </form>
-  </div>
+    </div>
 </script>
 <script type="text/template" class="row4Table">
     <tr data-customer="<%= customer_id %>" data-id="<%= id %>">
@@ -107,7 +107,7 @@
     <td data-title="Nombre">
     <div><%= name %></div>
     </td>
- <td data-title="Equipos">
+    <td data-title="Equipos">
     <div><%= hotspots %></div>
     </td>
     <td data-title="FA">
@@ -118,6 +118,9 @@
     </td>
     <td data-title="">
     <div>
+    <% if (hotspots . charAt(0) != 'N') { %>
+    <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>/<%= customer_id %>" ><i class="icon icon-recibo"></i></a>
+    <% } %>
     <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
     <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDeleteGroup') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a>
     </div>

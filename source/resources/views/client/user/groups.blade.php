@@ -2,51 +2,55 @@
 @section('content')
 <script type="text/javascript" src="{{ asset('client/') }}/css/source/jquery.fancybox.js?v=2.1.5"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('client/') }}/css/source/jquery.fancybox.css?v=2.1.5" media="screen" />
-<script type='text/javascript'>try{jQuery.noConflict();}catch(e){};</script>
+<script type='text/javascript'>try {
+    jQuery.noConflict();
+} catch (e) {
+}
+;</script>
 <script type="text/javascript">
-var $= jQuery.noConflict();
-$(document).ready(function () {
+    var $ = jQuery.noConflict();
+    $(document).ready(function () {
 
-    /*
-     *  Simple image gallery. Uses default settings
-     */
+        /*
+         *  Simple image gallery. Uses default settings
+         */
 
-    $('.fancybox').fancybox();
+        $('.fancybox').fancybox();
 
 
-    $("#fancybox-manual-b").click(function () {
-        $.fancybox.open({
-            href: '.html',
-            type: 'iframe',
-            padding: 5
+        $("#fancybox-manual-b").click(function () {
+            $.fancybox.open({
+                href: '.html',
+                type: 'iframe',
+                padding: 5
+            });
         });
+
+
     });
-
-
-});
 </script>
 <style type="text/css">
     .fancybox-custom .fancybox-skin {
         box-shadow: 0 0 50px #222;
     }
- 
-span.more-groups {
-    background: red none repeat scroll 0 0;
-    color: white;
-    font-size: 21px;
-    padding: 3px 15px;
-      background-clip: padding-box;
-    background-color: red;
-    background-size: 100% 19px;
-    border-radius: 3px;
-    box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-    float: left;
-    line-height: 13px;
-    margin: 3px 5px 3px 0;
-    max-width: 100%;
-    padding: 3px 20px 3px 5px;
-    position: relative;
-}
+
+    span.more-groups {
+        background: red none repeat scroll 0 0;
+        color: white;
+        font-size: 21px;
+        padding: 3px 15px;
+        background-clip: padding-box;
+        background-color: red;
+        background-size: 100% 19px;
+        border-radius: 3px;
+        box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+        float: left;
+        line-height: 13px;
+        margin: 3px 5px 3px 0;
+        max-width: 100%;
+        padding: 3px 20px 3px 5px;
+        position: relative;
+    }
 
 </style>
 <div id="wrapper">@if(session()->has('messageSuccess'))
@@ -75,11 +79,11 @@ span.more-groups {
         <div class="personas_perfil">
             <div class="table-responsive-vertical">
                 <table data-url="/admclient/groups-data?idCustomer={{$id}}" class="table table-hover">
-                <thead>
+                    <thead>
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                                <th>Equipos</th>
+                            <th>Equipos</th>
                             <th>Estado</th>
                             <th>Acción </th>
                         </tr>
@@ -88,44 +92,44 @@ span.more-groups {
                 </table>
             </div>
             <div class="agregar_persona">
-            <form data-parsley-validate method="post" action="{{ url('/admclient/user/groups') }}" id="formContact">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="customer_id" value="{{$id}}">
-                <input type="hidden" name="id" value="">
-                <label>
-                    <input type="text" name="name" placeholder="Nombre" required>
-                </label>
-                <button type="submit">+ Agregar Grupo</button>
-            </form>
-        </div>
+                <form data-parsley-validate method="post" action="{{ url('/admclient/user/groups') }}" id="formContact">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="customer_id" value="{{$id}}">
+                    <input type="hidden" name="id" value="">
+                    <label>
+                        <input type="text" name="name" placeholder="Nombre" required>
+                    </label>
+                    <button type="submit">+ Agregar Grupo</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 <script type="text/template" id="addTagsGroups">
-  <div style="width:100%" class="ctn-addTags">
+    <div style="width:100%" class="ctn-addTags">
     <h2>Agregar Grupos Libres</h2>
     <form>
-      <div class="form-ctn">
-        <div class="input-ctn">
-          <input type="hidden" value="{{$id}}" class="idCustomer"/>
-          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
-        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
-      </div>
+    <div class="form-ctn">
+    <div class="input-ctn">
+    <input type="hidden" value="{{$id}}" class="idCustomer"/>
+    <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+    </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+    </div>
     </form>
-  </div>
+    </div>
 </script>
 <script type="text/template" id="addTagsExercise">
-  <div style="width:100%" class="ctn-addTags">
+    <div style="width:100%" class="ctn-addTags">
     <h2>Agregar Equipo</h2>
     <form>
-      <div class="form-ctn">
-        <div class="input-ctn">
-          <input type="hidden" value="<%= idroutine %>" class="idrout"/>
-          <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
-        </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
-      </div>
+    <div class="form-ctn">
+    <div class="input-ctn">
+    <input type="hidden" value="<%= idroutine %>" class="idrout"/>
+    <select name="tags" multiple="multiple" style="width:250px" class="multiselect-custom"><%= options %></select>
+    </div><a href="javascript:;" class="btn btn-raised btn-info btn- btn-save">Agregar</a><a href="javascript:;" class="btn btn-raised btn-danger btn-cancel">Cancelar</a>
+    </div>
     </form>
-  </div>
+    </div>
 </script>
 <script type="text/template" class="row4Table">
     <tr data-id="<%= id %>">
@@ -135,7 +139,7 @@ span.more-groups {
     <td data-title="Nombre">
     <div><%= name %></div>
     </td>
- <td data-title="Equipos">
+    <td data-title="Equipos">
     <div><%= hotspots %></div>
     </td>
     <td data-title="FA">
@@ -143,12 +147,14 @@ span.more-groups {
     </td>
     <td data-title="">
     <div>
-          <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>/{{$id}}" ><i class="icon icon-recibo"></i></a>
-      <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
-                    <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDeleteGroup') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a>
-                </div>
-            </td>
-        </tr>
+    <% if (hotspots . charAt(0) != 'N') { %>
+    <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>/{{$id}}" ><i class="icon icon-recibo"></i></a>
+    <% } %>        
+    <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
+    <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\UserController@getDeleteGroup') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a>
+    </div>
+    </td>
+    </tr>
 </script>
 @stop
 
