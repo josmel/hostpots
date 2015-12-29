@@ -41,7 +41,6 @@ class CampaniasController extends Controller {
     }
 
     public function postForm(FormCampaniaRequest $request) {
-
         if (!empty($request)) {
             $data = $request->all();
             if ($request->file('imagen')) {          

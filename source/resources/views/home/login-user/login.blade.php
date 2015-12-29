@@ -3,11 +3,15 @@
     <head>
         <style>
             div.container {
-                width: 96%;
+                width: 100%;
                 max-width: 450px;
                 margin: 0 auto;
             }
             img {
+                width: 100%;
+                height: auto;
+            }
+            video {
                 width: 100%;
                 height: auto;
             }
@@ -37,8 +41,13 @@
         </style>
     </head>
     <body>
-        <div class="container"><img  src="{{$imagen}}"/>
-            <div ><a href="{{ $href}}">NAVEGAR  >></a></div>
+        <div class="container">
+            @if ($value === 'img')
+            <img src="{{$imagen}}" >
+                @else
+                <video src="{{$imagen}}" controls></video>
+                @endif
+                <div ><a href="{{ $href}}">NAVEGAR  >></a></div>
         </div>
     </body>
 </html>

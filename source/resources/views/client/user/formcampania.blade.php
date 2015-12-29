@@ -1,5 +1,7 @@
 @extends('client._layouts.layout')
 @section('content')
+
+<link href="http://plugins.krajee.com/assets/bb478bee/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
       <div id="wrapper"><br><br><br><br>
           
         <div class="content_soporte">
@@ -19,12 +21,12 @@
                   {!! Form::text('megas',old('megas'),array('required','id'=>'megas')) !!}
                 <!--<input type="text" name="email" required data-parsley-type="email">-->
               </div>
-                <div class="form_control">
+<!--                <div class="form_control">
                 <label>Imagen de Campaña</label>
-                  <!--{!! Form::text('imagen',old('imagen'),array('required','id'=>'imagen')) !!}-->
+                  {!! Form::text('imagen',old('imagen'),array('required','id'=>'imagen')) !!}
                     <input type="file" id="uploadImgOne" data-hidden-id="#image-rountine" data-show-upload="false" data-allowed="jpg,png,gif" name="imagen" data-format="image"  class="js-uploadInput"/>
-                <!--<input type="text" name="email" required data-parsley-type="email">-->
-              </div>
+                <input type="text" name="email" required data-parsley-type="email">
+              </div>-->
             </div>
             <div class="columna2">
               <div class="form_control">
@@ -35,6 +37,10 @@
                 <label>Expiracion</label>
                 {!! Form::text('expiracion',old('expiracion'),array('required','id'=>'expiracion')) !!}
               </div>
+            </div>
+           <div class="form_control">
+                <label class="control-label">Select File</label>
+                <input id="input-1" type="file" class="file" name="imagen">
             </div>
           {!! Form::button('Guardar', array( 'type'=>'submit')) !!}
             <!--<button type="submit">Guardar</button>-->
