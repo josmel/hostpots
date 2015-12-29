@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Datatables;
 use App\Http\Requests\Client\FormCustomerRequest;
-use App\Http\Requests\Client\FormContactRequest;
 use App\Models\Customer;
-use App\Models\Contact;
 use Auth;
 use Hash;
 

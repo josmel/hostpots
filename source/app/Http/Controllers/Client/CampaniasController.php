@@ -44,7 +44,7 @@ class CampaniasController extends Controller {
 
         if (!empty($request)) {
             $data = $request->all();
-            if ($request->hasfile('imagen')) {
+            if ($request->file('imagen')) {          
                 $imageFile = $request->file('imagen');
                 $destinationPath = Config::get('app.DINAMIC_PATH') . '/campania';
                 $fileName = date('Ymdhis') . rand(1, 1000) . '.' . $imageFile->getClientOriginalExtension();

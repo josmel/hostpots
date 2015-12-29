@@ -20,8 +20,9 @@
               </div>
                 <div class="form_control">
                 <label>Imagen de Campaña</label>
+                <input type="file" class="form-control" name="imagen" >
                   <!--{!! Form::text('imagen',old('imagen'),array('required','id'=>'imagen')) !!}-->
-                    <input type="file" id="uploadImgOne" data-hidden-id="#image-rountine" data-show-upload="false" data-allowed="jpg,png,gif" name="imagen" data-format="image"  class="js-uploadInput"/>
+                    <!--<input type="file" id="uploadImgOne" data-hidden-id="#image-rountine" data-show-upload="false" data-allowed="jpg,png,gif" name="imagen" data-format="image"  class="js-uploadInput"/>-->
                 <!--<input type="text" name="email" required data-parsley-type="email">-->
               </div>
             </div>
