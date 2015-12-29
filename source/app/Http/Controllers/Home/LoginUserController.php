@@ -81,7 +81,7 @@ class LoginUserController extends Controller {
 
         $href = 'http://' . $ip . '/login?user=' . $User['username'] . '&password=' . $User['value'] . '&dst=' . $datosCampania[0]->url;
 
-        return viewc('home.login-user.login', compact('ip', 'href', 'imagen','value'));
+        return viewc('home.login-user.login', compact('ip', 'href', 'imagen', 'value'));
     }
 
     public function getUser($mac) {
@@ -109,7 +109,7 @@ class LoginUserController extends Controller {
             $attributes['username'] = $mac;
             $attributes['groupname'] = $uamport;
             $dataUser = Radusergroup::create($attributes);
-            $obj = Radusergroup::find($dataUser->username);
+            $obj = Radusergroup::whereUsername($dataUser->username)->get();
             $user = $obj->toArray();
         }
         return $user;
