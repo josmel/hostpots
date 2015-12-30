@@ -21,10 +21,11 @@
         </div>
     </div>
       <div class="form-control">
+             <legend>Repetir</legend>
         <div class="show_frecuencia">
             <div class="columna1">
                 <div class="box_helper">
-                    <p>Si eliges Repetir, tu campaña se quedará agendado y se repetirá automáticamente en las fechas y horas que escojas.</p>
+                    <p>Si eliges Repetir, tu campaña se quedará agendado y se repetirá automáticamente en las fechas que escojas.</p>
                 </div>
             </div><br><br>
             <div class="content_day">
