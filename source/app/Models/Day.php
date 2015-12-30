@@ -8,6 +8,6 @@ class Day extends BaseModel
      * @var array
      */
     protected $fillable = ['name','flagactive'];
-    protected $table = 'day';
+    protected $table = 'days';
 
 }

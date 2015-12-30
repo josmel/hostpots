@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Datatables;
 use App\Http\Requests\Client\FormCustomerRequest;
 use App\Http\Requests\Client\FormEquipmenteAdminRequest;
-use App\Http\Requests\Client\RequestDelete;
 use App\Http\Requests\Client\HGroupsRequest;
 use App\Http\Requests\Client\FormGroupsRequest;
 use App\Models\Customer;
@@ -15,8 +14,10 @@ use App\Models\Campania;
 use App\Models\Groups;
 use Illuminate\Http\Request;
 use App\Models\GroupsCampania;
+use App\Models\SettingGroups;
 use App\Models\Radgroupreply;
 use App\Models\Hostpots;
+use App\Models\Day;
 use Auth;
 use DB;
 use Hash;
@@ -45,18 +46,31 @@ class GroupsController extends Controller {
         if (!empty($datos)) {
             if (!empty($datos->toArray())) {
                 $table = GroupsCampania::find($datos[0]->id);
+                $Setting = SettingGroups::whereGroupCampaniaId($datos[0]->id)->lists('day_id');
+                $table->day_id = $Setting;
             }
         }
-        return viewc('client.' . self::NAMEC . '.configuracion', compact('idGroups', ['table']), ['typeCampania' => $typeCampania]);
+        $day = Day::all();
+        return viewc('client.' . self::NAMEC . '.configuracion', compact('idGroups', ['table', 'day']), ['typeCampania' => $typeCampania]);
     }
 
     public function postConfiguracion(Request $request) {
         $data = $request->all();
         GroupsCampania::whereGroupsId($data['groups_id'])->forceDelete();
-        GroupsCampania::create($data);
+        $obj = GroupsCampania::create($data);
+        SettingGroups::whereGroupCampaniaId($obj->id)->forceDelete();
+        if (isset($data['day_id'])) {
+            foreach ($data['day_id'] as $value) {
+                SettingGroups::create(array(
+                    'group_campania_id' => $obj->id,
+                    'day_id' => $value,
+                    'flagactive' => 1,
+                ));
+            }
+        }
 //        $dataEquipos = Hostpots::whereGeocode($data['groups_id'])->get();
         $dataEquipos = DB::select("select  H.* from hotspots as H "
-                        . "inner join hotspots_groups as HG ON H.id=HG.hotspots_id where HG.groups_id=".$data['groups_id']);
+                        . "inner join hotspots_groups as HG ON H.id=HG.hotspots_id where HG.groups_id=" . $data['groups_id']);
         $datosCampania = Campania::find($data['campania_id']);
         $datosGrupo = Groups::find($data['groups_id']);
         //esta por verse///

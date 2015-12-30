@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller,
     Datatables,
     App\Http\Requests\Client\FormContactRequest,
-    App\Http\Requests\Client\FormSettingRequest,
     App\Models\Day,
     Illuminate\Http\Request,
     App\Models\Hostpots,
-    App\Models\Setting,
-    App\Models\EquipmentCampania,
     App\Models\Campania,
+    App\Models\SettingHotspots,
     App\Models\GroupsCampania,
     App\Models\HotspotsCampania,
     DB,
@@ -26,35 +24,46 @@ class EquipmentController extends Controller {
     }
 
     public function getConfiguracion($idEquipment = null, $idCustomer = null) {
-        
-       $dataHotspots= Hostpots::find($idEquipment);
+        $dataHotspots = Hostpots::find($idEquipment);
         if ($dataHotspots->geocode == 0) {
-           
             $typeCampania = Campania::where('flagactive', '=', '1')
                             ->whereCustomerId(null)->lists('name', 'id');
-        } else{
-          if ($idCustomer == null) {
-            $idCustomer = Auth::customer()->user()->id;
+        } else {
+            if ($idCustomer == null) {
+                $idCustomer = Auth::customer()->user()->id;
+            }
+            $typeCampania = Campania::where('flagactive', '=', '1')
+                            ->whereCustomerId($idCustomer)->lists('name', 'id');
         }
-        $typeCampania = Campania::where('flagactive', '=', '1')
-                        ->whereCustomerId($idCustomer)->lists('name', 'id');  
-        }
-        
 //        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
         $table = new GroupsCampania();
         $datos = HotspotsCampania::whereHotspotsId($idEquipment)->get();
         if (!empty($datos)) {
             if (!empty($datos->toArray())) {
                 $table = HotspotsCampania::find($datos[0]->id);
+                $Setting = SettingHotspots::whereHotspotsCampaniaId($datos[0]->id)->lists('day_id');
+                $table->day_id = $Setting;
             }
         }
-        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['table']), ['typeCampania' => $typeCampania]);
+        $day = Day::all();
+        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['table', 'day']), ['typeCampania' => $typeCampania]);
     }
 
     public function postConfiguracion(Request $request) {
         $data = $request->all();
         HotspotsCampania::whereHotspotsId($data['hotspots_id'])->forceDelete();
-        HotspotsCampania::create($data);
+        $obj = HotspotsCampania::create($data);
+        SettingHotspots::whereHotspotsCampaniaId($obj->id)->forceDelete();
+        if (isset($data['day_id'])) {
+            foreach ($data['day_id'] as $value) {
+                SettingHotspots::create(array(
+                    'hotspots_campania_id' => $obj->id,
+                    'day_id' => $value,
+                    'flagactive' => 1,
+                ));
+            }
+        }
+
         echo nl2br("\r\n\r\n\r\n\r\nCONFIGURACION GUARDADA CORRECTAMENTE", false);
         exit;
     }
@@ -112,46 +121,6 @@ class EquipmentController extends Controller {
             $return = array('state' => 0, 'msg' => $exc->getMessage());
         }
         return response()->json($return);
-    }
-
-    public function getForm($id) {
-        $idProceso = explode('-', $id);
-        $equipment_id = $idProceso[0];
-        $typeCampania = Campania::where('flagactive', '=', '1')
-                        ->whereCustomerId(Auth::customer()->user()->id)->lists('name', 'id');
-        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
-        $table = new EquipmentCampania();
-        if (isset($idProceso[1])) {
-            $table = EquipmentCampania::find($idProceso[1]);
-            $Setting = Setting::whereEquipmentCampaniaId($idProceso[1])->lists('day_id');
-            $table->day_id = $Setting;
-        }
-        $day = Day::all();
-        return viewc('client.' . self::NAMEC . '.form', compact('equipment_id', ['table', 'day']), ['typeCampania' => $typeCampania]);
-    }
-
-    public function postForm(FormSettingRequest $request) {
-        if (!empty($request)) {
-            $data = $request->all();
-            if ($request->id) {
-                $obj = EquipmentCampania::find($request->id);
-                $obj->update($data);
-                Setting::whereEquipmentCampaniaId($obj->id)->forceDelete();
-                $idEquipmentCampania = $request->id;
-            } else {
-                $obj = EquipmentCampania::create($data);
-                $idEquipmentCampania = $obj->id;
-            }
-            foreach ($data['day_id'] as $value) {
-                Setting::create(array(
-                    'equipment_campania_id' => $idEquipmentCampania,
-                    'day_id' => $value,
-                    'flagactive' => 1,
-                ));
-            }
-            return redirect('admclient/' . self::NAMEC . '/detalle-campania/' . $data['equipment_id'])->with('messageSuccess', 'Campaña configurada correctamente');
-        }
-        return redirect('admclient/' . self::NAMEC . '/form/' . $data['equipment_id'])->with('messageError', 'Error al configurar campaña');
     }
 
     public function getDetalleCampania($equipment_id = null) {
