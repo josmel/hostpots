@@ -46,7 +46,7 @@ class EquipmentController extends Controller {
             }
         }
         $day = Day::all();
-        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['table', 'day']), ['typeCampania' => $typeCampania]);
+        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['table', 'day','idCustomer']), ['typeCampania' => $typeCampania]);
     }
 
     public function postConfiguracion(Request $request) {

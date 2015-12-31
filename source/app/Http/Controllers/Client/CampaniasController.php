@@ -62,16 +62,19 @@ class CampaniasController extends Controller {
         }
         return redirect('admclient')->with('messageError', 'Error al guardar la region');
     }
-public function getCampaniasFree() {
+public function getCampaniasForUser($idCustomer = null) {
         try {
-           $dataCampania= Campania::whereNull('customer_id')->get()->toArray();
+             if ($idCustomer == null) {
+                $idCustomer = Auth::customer()->user()->id;
+            }
+           $dataCampania= Campania::whereCustomerId($idCustomer)->get()->toArray();
             $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataCampania);
         } catch (Exception $exc) {
             $return = array('state' => 0, 'msg' => $exc->getMessage());
         }
         return response()->json($return);
     }
-     public function getCampaniasFreffe() {
+     public function getCampaniasFree() {
         try {
            $dataCampania= Campania::whereNull('customer_id')->lists('name', 'id');
             $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataCampania);

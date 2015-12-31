@@ -1,50 +1,258 @@
-@extends('home._layouts.iframe')
-@section('css')
-<link href="{{ URL::asset('/') }}css/all.css" media="all" rel="stylesheet" type="text/css"/>
-<style>#reserva .programa .content_day{padding-top:25px;text-align:center;border:1px solid #ccc;padding-bottom:25px}#reserva .programa input{padding:5px 0;text-align:left;margin-left:5px;padding-left:22px;color:#999}#paso2 .container,#paso3 .container{max-width:820px;margin:0 auto;position:relative;padding-top:35px;}#paso2 .container form,#paso3 .container form{position:relative;width:49%;margin-right:20px;display:inline-block;vertical-align:top;}
-    .box_helper {
-        background-color:rgba(72, 192, 247, 0.780392);
-        color:#FFFFFF;
-        padding:10px;
-        position:relative;
-    }</style>
-@stop
+@extends('client._layouts.layout')
 @section('content')
-<div class="text-center join_unete main_unete">
-    {!! Form::open(array('data-mcs-theme'=>'dark','class'=>'form-ctn-joinus mCustomScrollbar form_unete', 'role'=>'form','data-parsley-validate')) !!}
-    <div class="form-control">
-        <h4>MIS CAMPAÑAS</h4>
-        <div class="form-select">
-            {!! Form::hidden('hotspots_id',  $idEquipment ) !!}
-            {!! Form::hidden('id',  $table->id ) !!}
-            {!! Form::select('campania_id', $typeCampania, $table->campania_id, ['class'=>'combo_personal', 'data-parsley-required'=>'data-parsley-required', 'name' =>'campania_id','required' => 'required']) !!}        </li>
+
+<style>
+
+
+/* Header/footer boxes */
+
+.wideBox {
+  clear: both;
+  text-align: center;
+  margin: 70px;
+  padding: 10px;
+  background: #ebedf2;
+  border: 1px solid #333;
+}
+
+.wideBox h1 {
+  font-weight: bold;
+  margin: 20px;
+  color: #666;
+  font-size: 1.5em;
+}
+.img{
+     width: 100%;
+                height: 100%;
+}
+/* Slots for final card positions */
+
+#cardSlots {
+  margin: 50px auto 0 auto;
+  background: #ddf;
+}
+
+/* The initial pile of unsorted cards */
+
+#cardPile {
+  margin: 0 auto;
+  background: #ffd;
+}
+
+#cardSlots, #cardPile {
+  width: 910px;
+  height: 120px;
+  padding: 20px;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+/* Individual cards and slots */
+
+#cardSlots div, #cardPile div {
+  float: left;
+  width: 80px;
+  height: 78px;
+/*  padding: 10px;
+  padding-top: 40px;*/
+  padding-bottom: 0;
+  border: 2px solid #333;
+/*  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;*/
+  /*border-radius: 10px;*/
+  margin: 0 0 0 10px;
+  background: #fff;
+}
+
+#cardSlots div:first-child, #cardPile div:first-child {
+  margin-left: 0;
+}
+
+#cardSlots div.hovered {
+  background: #aaa;
+}
+
+#cardSlots div {
+  border-style: dashed;
+}
+
+#cardPile div {
+  background: #666;
+  /*color: #fff;*/
+  /*font-size: 50px;*/
+  text-shadow: 0 0 3px #000;
+}
+
+#cardPile div.ui-draggable-dragging {
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+}
+
+
+
+/* "You did it!" message */
+#successMessage {
+  position: absolute;
+  left: 580px;
+  top: 250px;
+  width: 0;
+  height: 0;
+  z-index: 100;
+  background: #dfd;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  padding: 20px;
+}
+
+
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript">
+
+var correctCards = 0;
+$( init );
+
+function init() {
+
+  // Hide the success message
+  $('#successMessage').hide();
+  $('#successMessage').css( {
+    left: '580px',
+    top: '250px',
+    width: 0,
+    height: 0
+  } );
+
+  // Reset the game
+  correctCards = 0;
+  $('#cardPile').html( '' );
+  $('#cardSlots').html( '' );
+
+  // Create the pile of shuffled cards
+   var datosTextLink = $.ajax({
+        url: '/admclient/campanias/campanias-for-user',
+        type: 'get',
+        dataType: 'json',
+        async: false
+    }).responseText;
+    datosTextLink = JSON.parse(datosTextLink);
+    var myArr = Array.prototype.slice.call(datosTextLink.data);
+  var numbers = myArr;
+//  numbers.sort( function() { return Math.random() - .5 } );
+
+  for ( var i=0; i<numbers.length; i++ ) {
+    $('<div><img class="img" src=' + numbers[i]['imagen'] + '/>' + numbers[i]['name'] + '</div>').data( 'number', numbers[i]['id'] ).attr( 'id', numbers[i]['id'] ).appendTo( '#cardPile' ).draggable( {
+      containment: '#content',
+      stack: '#cardPile div',
+      cursor: 'move',
+      revert: false
+    } );
+  }
+
+  // Create the card slots
+  var words = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  for ( var i=1; i<=7; i++ ) {
+    $('<div>' + words[i-1] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );
+  }
+
+}
+
+function handleCardDrop( event, ui ) {
+  var slotNumber = $(this).data( 'number' );
+  var cardNumber = ui.draggable.data( 'number' );
+
+  // If the card was dropped to the correct slot,
+  // change the card colour, position it directly
+  // on top of the slot, and prevent it being dragged
+  // again
+
+//  if ( slotNumber == cardNumber ) {
+    ui.draggable.addClass( 'correct' );
+    ui.draggable.draggable( 'disable' );
+    $(this).droppable( 'disable' );
+    ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+    ui.draggable.draggable( 'option', 'revert', false );
+    correctCards++;
+//  } 
+  
+  // If all the cards have been placed correctly then display a message
+  // and reset the cards for another go
+
+  if ( correctCards == 7 ) {
+    $('#successMessage').show();
+    $('#successMessage').animate( {
+      left: '380px',
+      top: '200px',
+      width: '400px',
+      height: '100px',
+      opacity: 1
+    } );
+  }
+
+}
+
+</script>
+
+
+<div id="wrapper">@if(session()->has('messageSuccess'))
+    <ul role="alert" class="alert alert-success alert-dismissible">
+        <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">&times;</span></button>
+        <li>{{session('messageSuccess')}}</li>
+    </ul>@endif
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">Errores:<br>
+        <ul>@foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>@endforeach
+        </ul><br>
+    </div>@endif
+  
+<div class="container_perfl">
+       <div class="texto_perfil">
+            <ul>
+                <li style="
+                    color: #48c0f7;
+                    font-size: 1.53em;
+                    ">
+                    MIS CAMPAÑAS
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="form-control">
-           <legend>Repetir</legend>
-        <div class="show_frecuencia">
-            <div class="columna1">
-                <div class="box_helper">
-                    <p>Si eliges Repetir, tu campaña se quedará agendado y se repetirá automáticamente en las fechas que escojas.</p>
-                </div>
-            </div><br><br>
-            <div class="content_day">
-                <?php // dd($table->day_id);  ?>
-                @foreach($day as $item) 
-                    <?php $checked = in_array($item->id, (array)$table->day_id); ?>
-                <div class="form-check">
-                    <label>{{ $item->name }}</label>
-                    {!! Form::checkbox('day_id[]',$item->id, $checked)!!}
-                </div>
-                @endforeach
-            </div>
+  <div id="cardPile"> </div>
+  <br><br><br><br><br>
+  <div class="texto_perfil">
+            <ul>
+                <li style="
+                    color: #48c0f7;
+                    font-size: 1.53em;
+                    ">
+                  SELECCIONAR  DIAS
+                </li>
+            </ul>
         </div>
-    </div>
-    <br/>
-    <div class="form-control">
-        <input type="submit" value="Guardar" class="btn btn--skyblue btn--big"/>
-    </div>
+  <div id="cardSlots"> </div>
+
+  <div id="successMessage">
+    <h2>Semana Configurada!</h2>
+    <button onclick="init()">Play Again</button>
+  </div>
+  </div>
 </div>
+
+
 @stop
-<script src="{{ URL::asset('/') }}js/vendor/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script data-main="{{ URL::asset('/') }}js/main" src="{{ URL::asset('/') }}js/vendor/requirejs/require.js"></script>
