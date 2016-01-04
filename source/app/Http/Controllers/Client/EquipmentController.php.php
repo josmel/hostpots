@@ -23,8 +23,33 @@ class EquipmentController extends Controller {
         return viewc('client.' . self::NAMEC . '.index', compact('table', 'idGroup'));
     }
 
+    public function getUno() {
+        return viewc('client.' . self::NAMEC . '.uno');
+    }
+
+    public function getDos() {
+        return viewc('client.' . self::NAMEC . '.dos');
+    }
+
+    public function getCampaniasForUser($idCustomer = null) {
+        try {
+            if ($idCustomer == null) {
+                $idCustomer = Auth::customer()->user()->id;
+            }
+            $dataCampania = Campania::whereCustomerId($idCustomer)->get()->toArray();
+            $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataCampania);
+        } catch (Exception $exc) {
+            $return = array('state' => 0, 'msg' => $exc->getMessage());
+        }
+        return response()->json($return);
+    }
+
     public function getConfiguracion($idEquipment = null, $idCustomer = null) {
         $dataHotspots = Hostpots::find($idEquipment);
+        if ($idCustomer == null) {
+            $idCustomer = Auth::customer()->user()->id;
+        }
+        $dataCampania = Campania::whereCustomerId($idCustomer)->get()->toArray();
         if ($dataHotspots->geocode == 0) {
             $typeCampania = Campania::where('flagactive', '=', '1')
                             ->whereCustomerId(null)->lists('name', 'id');
@@ -35,18 +60,26 @@ class EquipmentController extends Controller {
             $typeCampania = Campania::where('flagactive', '=', '1')
                             ->whereCustomerId($idCustomer)->lists('name', 'id');
         }
-//        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;
-        $table = new GroupsCampania();
-        $datos = HotspotsCampania::whereHotspotsId($idEquipment)->get();
-        if (!empty($datos)) {
-            if (!empty($datos->toArray())) {
-                $table = HotspotsCampania::find($datos[0]->id);
-                $Setting = SettingHotspots::whereHotspotsCampaniaId($datos[0]->id)->lists('day_id');
-                $table->day_id = $Setting;
-            }
+        $datos = HotspotsCampania::join('campania as c', 'c.id', '=', 'hotspots_campania.campania_id')->
+                        select('hotspots_campania.day_id')->
+                        where('hotspots_campania.hotspots_id', '=', $idEquipment)->get()->toArray();
+        foreach ($datos as $value) {
+            $dd[] = $value['day_id'];
         }
         $day = Day::all();
-        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['table', 'day','idCustomer']), ['typeCampania' => $typeCampania]);
+        foreach ($day as $d) {
+            $checked = in_array($d->id, $dd);
+            if ($checked) {
+                $datos = HotspotsCampania::join('campania as c', 'c.id', '=', 'hotspots_campania.campania_id')->
+                                select('c.*', 'hotspots_campania.*')->
+                                where('hotspots_campania.hotspots_id', '=', $idEquipment)->
+                                where('hotspots_campania.day_id', '=', $d->id)->first();
+                $d->campania_id = $datos->campania_id;
+                $d->campania_name = $datos->name;
+                $d->campania_imagen = $datos->imagen;
+            }
+        }
+        return viewc('client.' . self::NAMEC . '.configuracion', compact('idEquipment', ['datos', 'dataCampania', 'day', 'idCustomer']), ['typeCampania' => $typeCampania]);
     }
 
     public function postConfiguracion(Request $request) {
