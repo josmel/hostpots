@@ -117,7 +117,7 @@ $(document).ready(function () {
     </td>
     <td data-title="">
     <div>
-      <a title="Configurar campaña individual" class="fancybox fancybox.iframe" href="/admclient/equipment/configuracion/<%= id %>/<%= geocode %>" ><i class="icon icon-recibo"></i></a>
+      <a title="Configurar campaña individual"  href="/admclient/equipment/configuracion/<%= id %>/<%= geocode %>" ><i class="icon icon-recibo"></i></a>
     <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
     <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\EquipmentController@getDelete') }}/<%= id %>" class="del_contact">
     <i class="icon icon-basura"></i></a>

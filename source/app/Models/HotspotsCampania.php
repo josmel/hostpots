@@ -7,7 +7,7 @@ class HotspotsCampania extends Model
      *
      * @var array
      */
-    protected $fillable = ['hotspots_id','campania_id'];
+    protected $fillable = ['hotspots_id','campania_id','day_id'];
     protected $table = 'hotspots_campania';
        public $timestamps = false;
 

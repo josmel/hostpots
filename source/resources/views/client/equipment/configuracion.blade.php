@@ -82,6 +82,19 @@
                 accept: "#items .item",
                 activeClass: "ui-state-highlight",
                 drop: function (event, ui) {
+                    var dataCampania = $.ajax({
+                        url: '/admclient/equipment/hotspots-setting',
+                        type: 'get',
+                        data: {hotspots_id: <?=$idEquipment ?>,
+                            campania_id: ui.draggable.context.id,
+                            day_id: $(this).context.id
+                        },
+                        dataType: 'json',
+                        async: false
+                    }).responseText;
+                    dataCampania = JSON.parse(dataCampania);
+                    var numbers = Array.prototype.slice.call(dataCampania.data);
+
                     // clone item to retain in original "list"
                     var $item = ui.draggable.clone();
 
@@ -112,13 +125,12 @@
         <div id="contenedor">
             @foreach ($day as $key=>$d)
             <div id="{{ $d->id}}" class="bloque" >
-                <?php if (isset($d->campania_id)) {
-                    ?>
-                    <div id="<?= $d->campania_id ?>" class="item ui-draggable" data-src="<?= $d->campania_imagen ?>" style="background-image: url('<?= $d->campania_imagen ?>');">
-                        <span><?= $d->campania_name ?></span>  </div>
-                <?php } else { ?>
-                    <p>{{ $d->name}}</p>
-                <?php } ?>
+                @if (isset($d->campania_id))
+                <div id="{{ $d->campania_id }}" class="item ui-draggable" data-src="{{$d->campania_imagen }}" style="background-image: url('{{$d->campania_imagen }}');">
+                    <span>{{ $d->campania_name }}</span>  </div>
+                @else
+                <p>{{ $d->name}}</p>
+                @endif
             </div>
             @endforeach
         </div>

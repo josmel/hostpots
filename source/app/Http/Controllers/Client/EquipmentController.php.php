@@ -31,6 +31,15 @@ class EquipmentController extends Controller {
         return viewc('client.' . self::NAMEC . '.dos');
     }
 
+    public function getHotspotsSetting(Request $request) {
+        $data = $request->all();
+        HotspotsCampania::whereHotspotsId($data['hotspots_id'])->
+                whereDayId($data['day_id'])->forceDelete();
+        $dataConfig = HotspotsCampania::create($data);
+        $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataConfig);
+        return response()->json($return);
+    }
+
     public function getCampaniasForUser($idCustomer = null) {
         try {
             if ($idCustomer == null) {
@@ -64,11 +73,11 @@ class EquipmentController extends Controller {
                         select('hotspots_campania.day_id')->
                         where('hotspots_campania.hotspots_id', '=', $idEquipment)->get()->toArray();
         foreach ($datos as $value) {
-            $dd[] = $value['day_id'];
+            $days[] = $value['day_id'];
         }
         $day = Day::all();
         foreach ($day as $d) {
-            $checked = in_array($d->id, $dd);
+           $checked= isset($days)?in_array($d->id, $days):false;
             if ($checked) {
                 $datos = HotspotsCampania::join('campania as c', 'c.id', '=', 'hotspots_campania.campania_id')->
                                 select('c.*', 'hotspots_campania.*')->
