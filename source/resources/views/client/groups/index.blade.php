@@ -117,7 +117,7 @@
     <td data-title="">
     <div>
     <% if (hotspots . charAt(0) != 'N') { %>
-   <a title="Configuracion de Campaña" class="fancybox fancybox.iframe" href="/admclient/groups/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>
+   <a title="Configuracion de Campaña"  href="/admclient/groups/configuracion/<%= id %>" ><i class="icon icon-recibo"></i></a>
     <% } %> 
    <a href="#" class="edit_contact"><i class="icon icon-lapiz"></i></a>
     <a href="#" data-nom="<%= name %>" data-url="{{ action('Client\GroupsController@getDelete') }}/<%= id %>" class="del_contact"><i class="icon icon-basura"></i></a></div>
@@ -125,6 +125,6 @@
     </tr>
 </script>
 @stop
-<!-- <a href="/admclient/equipment/index/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
+<!-- class="fancybox fancybox.iframe"<a href="/admclient/equipment/index/<%= id %>" title="Agregar Equipos" class=""><i class="icon icon-soporte_off i-soporte"></i></a>
 -->
 

@@ -7,7 +7,7 @@ class GroupsCampania extends Model
      *
      * @var array
      */
-    protected $fillable = ['groups_id','campania_id'];
+    protected $fillable = ['groups_id','campania_id','day_id'];
     protected $table = 'group_campania';
        public $timestamps = false;
 

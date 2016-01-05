@@ -1,52 +1,141 @@
-@extends('home._layouts.iframe')
-@section('css')
-<link href="{{ URL::asset('/') }}css/all.css" media="all" rel="stylesheet" type="text/css"/>
-<style>#reserva .programa .content_day{padding-top:25px;text-align:center;border:1px solid #ccc;padding-bottom:25px}#reserva .programa input{padding:5px 0;text-align:left;margin-left:5px;padding-left:22px;color:#999}#paso2 .container,#paso3 .container{max-width:820px;margin:0 auto;position:relative;padding-top:35px;}#paso2 .container form,#paso3 .container form{position:relative;width:49%;margin-right:20px;display:inline-block;vertical-align:top;}
-    .box_helper {
-        background-color:rgba(72, 192, 247, 0.780392);
-        color:#FFFFFF;
-        padding:10px;
-        position:relative;
-    }</style>
-@stop
+@extends('client._layouts.layout')
 @section('content')
-<div class="text-center join_unete main_unete">
-    {!! Form::open(array('data-mcs-theme'=>'dark','class'=>'form-ctn-joinus mCustomScrollbar form_unete', 'role'=>'form','data-parsley-validate')) !!}
-    <div class="form-control">
-        <h4>MIS CAMPAÑAS</h4>
-        <div class="form-select">
-             {!! Form::hidden('groups_id',  $idGroups ) !!}
-            {!! Form::hidden('id',  $table->id ) !!}
-                {!! Form::select('campania_id', $typeCampania, $table->campania_id, ['class'=>'combo_personal', 'data-parsley-required'=>'data-parsley-required', 'name' =>'campania_id']) !!}        </li>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<style>
+    @media all and (max-width: 800px){
+        #contenedor .bloque{
+            display: block !important;  /* Cuando el ancho sea inferior a 800px el elemento será un bloque */
+            width: auto !important;
+        }
+    }
+    @media all and (max-width: 800px){
+        #items .item{
+            display: block !important;  /* Cuando el ancho sea inferior a 800px el elemento será un bloque */
+            width: auto !important;
+        }
+    }
+    #contenedor .bloque{
+        background: #778899 ;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        display: inline-block;  /* Es esencial para que se muestren los bloques en línea */
+        height:110px;
+        width: 110px;
+        color: white;
+        size: 0.7em;
+        margin:20px;
+    }
+
+    #contenedor .bloque p{
+
+        color: white;
+        font-size: 1.3em;
+        margin:35px;
+    }
+
+
+    #items .item{
+        background: #778899 ;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        display: inline-block;  /* Es esencial para que se muestren los bloques en línea */
+        height:110px;
+        width: 110px;
+        color: white;
+        size: 0.7em;
+        margin:20px;
+    }
+    #items .item p{
+        color: #FF4500;
+        font-size: 0.8em;
+        margin:35px;
+    }
+    #contenedor .item {
+
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 100%;
+        height: 100%; }
+
+</style>
+<script>
+    //<![CDATA[
+    $(window).load(function () {
+        //all occurs within .ready
+        (function ($, undefined) {
+            // set up background images
+            $('.item').each(function (i, o) {
+                $(o).css('background-image', 'url(' + $(o).data('src') + ')');
+            });
+
+            $('.item').draggable({
+                cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+                //revert: "invalid", // when not dropped, the item will revert back to its initial position
+                revert: true, // bounce back when dropped
+                helper: "clone", // create "copy" with original properties, but not a true clone
+                cursor: "move"
+                , revertDuration: 0 // immediate snap
+            });
+
+            $('.bloque').droppable({
+                accept: "#items .item",
+                activeClass: "ui-state-highlight",
+                drop: function (event, ui) {
+                    var dataCampania = $.ajax({
+                        url: '/admclient/groups/groups-setting',
+                        type: 'get',
+                        data: {groups_id: <?=$idGroups?>,
+                            campania_id: ui.draggable.context.id,
+                            day_id: $(this).context.id
+                        },
+                        dataType: 'json',
+                        async: false
+                    }).responseText;
+                    dataCampania = JSON.parse(dataCampania);
+                    var numbers = Array.prototype.slice.call(dataCampania.data);
+
+                    // clone item to retain in original "list"
+                    var $item = ui.draggable.clone();
+
+                    $(this).addClass('has-drop').html($item);
+
+                }
+            });
+        })(jQuery);
+    });//]]>
+</script>
+<div id="wrapper">
+    <div class="container_perfl">
+        <div class="texto_perfil">
+            <ul>
+                <li class="input_form">{!! Form::button('CAMPAÑAS',array('type'=>'submit')) !!}</li>
+            </ul>
         </div>
-    </div>
-      <div class="form-control">
-             <legend>Repetir</legend>
-        <div class="show_frecuencia">
-            <div class="columna1">
-                <div class="box_helper">
-                    <p>Si eliges Repetir, tu campaña se quedará agendado y se repetirá automáticamente en las fechas que escojas.</p>
-                </div>
-            </div><br><br>
-            <div class="content_day">
-                <?php // dd($table->day_id);  ?>
-                @foreach($day as $item) 
-                    <?php $checked = in_array($item->id, (array)$table->day_id); ?>
-                <div class="form-check">
-                    <label>{{ $item->name }}</label>
-                    {!! Form::checkbox('day_id[]',$item->id, $checked)!!}
-                </div>
-                @endforeach
+        <div id="items">
+            @foreach ($dataCampania as $campania)
+            <div id="{{ $campania['id']}}" class="item" data-src="{{ $campania['imagen'] }}">  <span>{{ $campania['name'] }}</span> </div>
+            @endforeach
+        </div>
+        <div class="texto_perfil">
+            <ul>
+                <li class="input_form">{!! Form::button('DIAS',array('type'=>'submit')) !!}</li>
+            </ul>
+        </div>
+        <div id="contenedor">
+            @foreach ($day as $key=>$d)
+            <div id="{{ $d->id}}" class="bloque" >
+                @if (isset($d->campania_id))
+                <div id="{{ $d->campania_id }}" class="item ui-draggable" data-src="{{$d->campania_imagen }}" style="background-image: url('{{$d->campania_imagen }}');">
+                    <span>{{ $d->campania_name }}</span>  </div>
+                @else
+                <p>{{ $d->name}}</p>
+                @endif
             </div>
+            @endforeach
         </div>
-    </div>
-    <br/>
-    <div class="form-control">
-        <input type="submit" value="Guardar" class="btn btn--skyblue btn--big"/>
-    </div>
+    </div>     
 </div>
 @stop
-@section('alpha')
-@stop
-<script src="{{ URL::asset('/') }}js/vendor/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script data-main="{{ URL::asset('/') }}js/main" src="{{ URL::asset('/') }}js/vendor/requirejs/require.js"></script>
+
+

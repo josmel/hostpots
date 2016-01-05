@@ -40,18 +40,51 @@ class GroupsController extends Controller {
                             ->whereCustomerId($idCustomer)->lists('name', 'id');
 //        $typeCampania = [null => 'Por favor seleccione una opción'] + $typeCampania;   
         }
-
-        $table = new GroupsCampania();
-        $datos = GroupsCampania::whereGroupsId($idGroups)->get();
-        if (!empty($datos)) {
-            if (!empty($datos->toArray())) {
-                $table = GroupsCampania::find($datos[0]->id);
-                $Setting = SettingGroups::whereGroupCampaniaId($datos[0]->id)->lists('day_id');
-                $table->day_id = $Setting;
-            }
+        $dataCampania = Campania::whereCustomerId($idCustomer)->get()->toArray();
+        $datos = GroupsCampania::join('campania as c', 'c.id', '=', 'group_campania.campania_id')->
+                        select('group_campania.day_id')->
+                        where('group_campania.groups_id', '=', $idGroups)->get()->toArray();
+        foreach ($datos as $value) {
+            $days[] = $value['day_id'];
         }
         $day = Day::all();
-        return viewc('client.' . self::NAMEC . '.configuracion', compact('idGroups', ['table', 'day']), ['typeCampania' => $typeCampania]);
+        foreach ($day as $d) {
+            $checked = isset($days) ? in_array($d->id, $days) : false;
+            if ($checked) {
+                $datos = GroupsCampania::join('campania as c', 'c.id', '=', 'group_campania.campania_id')->
+                                select('c.*', 'group_campania.*')->
+                                where('group_campania.groups_id', '=', $idGroups)->
+                                where('group_campania.day_id', '=', $d->id)->first();
+                $d->campania_id = $datos->campania_id;
+                $d->campania_name = $datos->name;
+                $d->campania_imagen = $datos->imagen;
+            }
+        }
+        return viewc('client.' . self::NAMEC . '.configuracion', compact('idGroups', ['table', 'dataCampania', 'day']), ['typeCampania' => $typeCampania]);
+    }
+
+    public function getGroupsSetting(Request $request) {
+        $data = $request->all();
+        GroupsCampania::whereGroupsId($data['groups_id'])->
+                whereDayId($data['day_id'])->forceDelete();
+        $dataConfig = GroupsCampania::create($data);
+        
+        $dataEquipos = DB::select("select  H.* from hotspots as H "
+                        . "inner join hotspots_groups as HG ON H.id=HG.hotspots_id where HG.groups_id=" . $data['groups_id']);
+        $datosCampania = Campania::find($data['campania_id']);
+        $datosGrupo = Groups::find($data['groups_id']);
+        //esta por verse///
+//        Radgroupreply::whereGroupname($datosGrupo->name)->forceDelete();
+        foreach ($dataEquipos as $v) {
+            $valor1 = array('groupname' => $datosGrupo->name, 'attribute' => $v->name . '-Advertise-URL', 'op' => '==', 'value' => $datosCampania->url);
+            Radgroupreply::create($valor1);
+            $valor2 = array('groupname' => $datosGrupo->name, 'attribute' => $v->name . '-Advertise-Interval', 'op' => '==', 'value' => $datosCampania->expiracion);
+            Radgroupreply::create($valor2);
+            $valor3 = array('groupname' => $datosGrupo->name, 'attribute' => $v->name . '-Rate-Limit', 'op' => '==', 'value' => $datosCampania->megas);
+            Radgroupreply::create($valor3);
+        }
+        $return = array('state' => 1, 'msg' => 'ok', 'data' => $dataConfig);
+        return response()->json($return);
     }
 
     public function postConfiguracion(Request $request) {
