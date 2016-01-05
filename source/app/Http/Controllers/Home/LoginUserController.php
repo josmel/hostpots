@@ -55,11 +55,11 @@ class LoginUserController extends Controller {
             $obj = Hostpots::find($dateHostPots[0]->id);
             $obj->update(array('owner' => $uamip[0]));
             $ip = $uamip[0];
-            $table = HotspotsCampania::whereHotspotsId($dateHostPots[0]->id)->get();
+            $table = HotspotsCampania::whereHotspotsId($dateHostPots[0]->id)->whereDayId(date("N"))->get();
             if ($table->toArray()) {
                 $idCampania = $table->toArray()[0]['campania_id'];
             } else {
-                $datos = GroupsCampania::whereGroupsId($dateHostPots[0]->geocode)->get();
+                $datos = GroupsCampania::whereGroupsId($dateHostPots[0]->geocode)->whereDayId(date("N"))->get();
                 $idCampania = $datos[0]->campania_id;
             }
             $datosCampania = \App\Models\Campania::whereId($idCampania)->get();
