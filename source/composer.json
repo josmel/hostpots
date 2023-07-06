@@ -13,7 +13,7 @@
                 "sboo/multiauth" : "4.0.*",
                 "mattbrown/laracurl": "2.0.0",
                 "doctrine/couchdb": "@dev",
-		"rap2hpoutre/laravel-log-viewer": "^0.4.3"
+		"rap2hpoutre/laravel-log-viewer": "^0.13.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
